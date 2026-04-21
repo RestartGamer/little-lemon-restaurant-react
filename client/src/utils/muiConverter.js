@@ -1,0 +1,1 @@
+export const convert = (px) => px / 8;
