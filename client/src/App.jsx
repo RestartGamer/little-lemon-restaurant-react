@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CssBaseline } from "@mui/material"
-import { Navbar } from "./components"
+import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection } from "./sections"
 import './App.css'
 
@@ -52,8 +52,10 @@ const themeSettings = {
     custom: {
       textSpecial: "#FECE14",
       normalBorder: "#000000",
-      specialBorder: "#FFF87D",
+      borderSpecial: "#FFF87D",
+      borderSpecial2: "#FECE14",
       heroTitleBg: "#494949",
+      buttonSpecial: "#C7C7C7"
     },
   }
 
@@ -69,7 +71,8 @@ function App() {
       <CssBaseline />
       <Navbar />
       <HeroSection />
-
+      <InfoBanner />
+      <SelectionMenu />
 
     </ThemeProvider>
   )
