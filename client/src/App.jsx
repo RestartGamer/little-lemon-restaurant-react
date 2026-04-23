@@ -52,7 +52,8 @@ const themeSettings = {
     custom: {
       textSpecial: "#FECE14",
       normalBorder: "#000000",
-      specialBorder: "#FFF87D"
+      specialBorder: "#FFF87D",
+      heroTitleBg: "#494949",
     },
   }
 
