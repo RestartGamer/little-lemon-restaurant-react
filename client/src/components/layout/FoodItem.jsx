@@ -5,6 +5,7 @@ import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
 
 const imageAspect = 113 / 73;
+const routePath = "/details";
 
 function TitleBox({ title, description }) {
     return (
@@ -31,7 +32,7 @@ function TitleBox({ title, description }) {
     )
 }
 
-function DetailsBox({ price }) {
+function DetailsBox({ src, title, description, price, highlights }) {
     return (
         <Stack sx={{
             alignItems: "center",
@@ -40,30 +41,34 @@ function DetailsBox({ price }) {
         }}>
             <Typography variant="bodyLarge" sx={{
                 color: "text.primary",
-                
+
             }}>
                 {price}
             </Typography>
-            <Box sx={{
-                border: "1px solid",
-                borderColor: "custom.borderNormal",
-                borderRadius: "3px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
+            <ButtonBase
+                component={RouteLink}
+                to={routePath}
+                state={{src, title, description, price, highlights}}
+                sx={{
+                    border: "1px solid",
+                    borderColor: "custom.borderNormal",
+                    borderRadius: "3px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
                 <Typography variant="bodyLarge" sx={{
                     fontWeight: 600,
                     color: "text.primary",
                 }}>
                     More Details
                 </Typography>
-            </Box>
+            </ButtonBase>
         </Stack>
     )
 }
 
-export function FoodItem({ id, src, title, description, price }) {
+export function FoodItem({ id, src, title, description, price, highlights=[] }) {
 
     return (
         <Stack direction="row" sx={{
@@ -78,9 +83,9 @@ export function FoodItem({ id, src, title, description, price }) {
                 width: "25.68%",
                 aspectRatio: imageAspect,
                 objectFit: "cover",
-            }}/>
+            }} />
             <TitleBox title={title} description={description} />
-            <DetailsBox price={price} />
+            <DetailsBox src={src} title={title} description={description} price={price} highlights={highlights} />
         </Stack>
     )
 }

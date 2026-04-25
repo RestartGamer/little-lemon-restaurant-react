@@ -3,6 +3,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
+import { Routes, Route } from "react-router-dom"
+import { Home, Details } from "./pages"
 import './App.css'
 
 const sharedTypography = {
@@ -31,7 +33,8 @@ const sharedTypography = {
     fontSize: "14px"
   },
   bodyMedium: {
-
+    fontWeight: 400, //Regular 
+    fontSize: "12px"
   },
   bodySmall: {
 
@@ -54,6 +57,7 @@ const themeSettings = {
       borderNormal: "#000000",
       borderSpecial: "#FFF87D",
       borderSpecial2: "#FECE14",
+      borderGrey: "#A2A2A2",
       heroTitleBg: "#494949",
       buttonSpecial: "#C7C7C7",
       backgroundSpecial: "#FECE14",
@@ -71,13 +75,10 @@ function App() {
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
 
-
-      <Navbar />
-      <HeroSection />
-      <InfoBanner />
-      <SelectionMenu />
-      <FoodItemSection />
-
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/details" element={<Details />} />
+      </Routes>
     </ThemeProvider>
   )
 }

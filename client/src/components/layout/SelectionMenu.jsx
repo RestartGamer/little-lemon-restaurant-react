@@ -57,7 +57,7 @@ export function SelectionMenu() {
         }}>
             {options.map(({ id, name, filter }) => {
                 return (
-                    <SelectionBtn key="id">
+                    <SelectionBtn key={id}>
                         {name}
                     </SelectionBtn>
                 )

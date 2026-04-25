@@ -14,8 +14,8 @@ const icons = [
 
 let optionId = 0;
 const dropdownOptions = [
+    { id: optionId++, name: "Homepage", route: "/" },
     { id: optionId++, name: "About us", route: "/somewhere" },
-    { id: optionId++, name: "Our Menu", route: "/somewhere" },
     { id: optionId++, name: "Reserve a table", route: "/somewhere" },
 ]
 
@@ -33,7 +33,7 @@ function DropDown() {
         }}>
             {dropdownOptions.map(({ id, name, route }) => {
                 return (
-                    <ButtonBase key={id} component="RouteLink" to={route}
+                    <ButtonBase key={id} component={RouteLink} to={route}
                         sx={{
                             bgcolor: "background.paper",
                             px: convert(7),
