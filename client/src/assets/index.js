@@ -6,3 +6,8 @@ export {default as infoIcon} from "./utils/infoIcon.png"
 
 //Images
 export {default as heroImage} from "./images/heroImage.png"
+export { default as grilledLemonChicken } from "./images/grilledLemonChicken.jpg"
+export { default as slowCookedBeefBowl } from "./images/slowCookedBeefBowl.jpg"
+export { default as herbCrustedWhiteFish } from "./images/herbCrustedWhiteFish.jpg"
+export { default as lemonVeggiePlate } from "./images/lemonVeggiePlate.jpg"
+export { default as greenPowerBowl } from "./images/greenPowerBowl.jpg"

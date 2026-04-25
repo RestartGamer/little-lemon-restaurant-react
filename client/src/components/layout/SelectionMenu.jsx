@@ -27,7 +27,7 @@ function SelectionBtn({ children }) {
 
             boxSizing: "content-box",
             border: "1px solid",
-            borderColor: "custom.normalBorder",
+            borderColor: "custom.borderNormal",
             borderRadius: "3px",
 
         }}>

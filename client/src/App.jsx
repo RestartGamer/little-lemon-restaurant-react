@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { CssBaseline } from "@mui/material"
+import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
-import { HeroSection } from "./sections"
+import { HeroSection, FoodItemSection } from "./sections"
 import './App.css'
 
 const sharedTypography = {
@@ -51,11 +51,12 @@ const themeSettings = {
     },
     custom: {
       textSpecial: "#FECE14",
-      normalBorder: "#000000",
+      borderNormal: "#000000",
       borderSpecial: "#FFF87D",
       borderSpecial2: "#FECE14",
       heroTitleBg: "#494949",
-      buttonSpecial: "#C7C7C7"
+      buttonSpecial: "#C7C7C7",
+      backgroundSpecial: "#FECE14",
     },
   }
 
@@ -69,10 +70,13 @@ function App() {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
+
+
       <Navbar />
       <HeroSection />
       <InfoBanner />
       <SelectionMenu />
+      <FoodItemSection />
 
     </ThemeProvider>
   )
