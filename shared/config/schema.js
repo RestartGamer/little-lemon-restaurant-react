@@ -1,0 +1,25 @@
+import { z } from "zod";
+
+export const Schema = z.object({
+  name: z.string().min(3, "3 characters minimum"),
+
+  phoneNumber: z
+    .string()
+    .min(9, "Please insert a valid phone number"),
+
+  email: z
+    .email("Please insert a valid email address"),
+
+  dateTime: z
+    .string()
+    .min(1, "Please choose a date and time"),
+
+  numberOfPeople: z
+    .coerce
+    .number()
+    .min(1, "Please state a number"),
+
+  message: z
+    .string()
+    .min(10, "10 characters minimum"),
+});

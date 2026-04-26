@@ -1,4 +1,4 @@
-import { Navbar, ItemDetails } from "../components"
+import { Navbar, ItemDetails, BigButton, PageTitle } from "../components"
 import { FoodItemSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"
@@ -72,13 +72,14 @@ const foodItems = [
     },
 ];
 
+const reservationBtnText = "Reserve a table"
 
-export function Details() {
+
+export function DetailsPage() {
     const { state } = useLocation();
     if (!state) {
         return (
             <>
-                <Navbar />
                 <p>No item selected.</p>
             </>
         );
@@ -88,9 +89,15 @@ export function Details() {
 
     return (
         <>
-            <Navbar />
+            <PageTitle title={title} route="/"/>
             <ItemDetails src={src} title={title} description={description} price={price} highlights={highlights} />
-            <FoodItemSection items={foodItems} />
+            <BigButton text={reservationBtnText} 
+            to="/reservation"
+            position={{
+                position: "relative",
+                width: "80%",
+                alignSelf: "center",
+            }} />
 
         </>
     )

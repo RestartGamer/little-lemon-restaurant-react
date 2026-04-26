@@ -4,7 +4,7 @@ import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
-import { Home, Details } from "./pages"
+import { HomePage, DetailsPage, ReservationPage } from "./pages"
 import './App.css'
 
 const sharedTypography = {
@@ -23,6 +23,10 @@ const sharedTypography = {
   sectionTitle: {
     fontWeight: 500, //Medium -- semiBold
     fontSize: "28px"
+  },
+  bigButtonTitle: {
+    fontWeight: 500, //medium
+    fontSize: "22px"
   },
   cardTitle: {
     fontWeight: 500, //medium
@@ -61,6 +65,8 @@ const themeSettings = {
       heroTitleBg: "#494949",
       buttonSpecial: "#C7C7C7",
       backgroundSpecial: "#FECE14",
+      bigButtonBg: "#157C28",
+      bigButtonBorder: "#2C2C2C"
     },
   }
 
@@ -74,11 +80,16 @@ function App() {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/details" element={<Details />} />
-      </Routes>
+      <Stack sx={{
+        position: "relative",
+      }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+        </Routes>
+      </Stack>
     </ThemeProvider>
   )
 }

@@ -1,2 +1,3 @@
-export { Home } from "./HomePage"
-export { Details } from "./DetailsPage"
+export { HomePage } from "./HomePage"
+export { DetailsPage } from "./DetailsPage"
+export { ReservationPage } from "./ReservationPage"

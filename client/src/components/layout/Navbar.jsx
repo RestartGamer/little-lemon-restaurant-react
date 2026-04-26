@@ -15,8 +15,8 @@ const icons = [
 let optionId = 0;
 const dropdownOptions = [
     { id: optionId++, name: "Homepage", route: "/" },
-    { id: optionId++, name: "About us", route: "/somewhere" },
-    { id: optionId++, name: "Reserve a table", route: "/somewhere" },
+    { id: optionId++, name: "About us", route: "/" },
+    { id: optionId++, name: "Reserve a table", route: "/reservation" },
 ]
 
 function DropDown() {
@@ -29,7 +29,13 @@ function DropDown() {
             right: 0,
             px: convert(30),
             py: convert(30),
-            bgcolor: "background.paper"
+            bgcolor: "background.paper",
+            gap: convert(10),
+            borderTop: "0.5px solid",
+            borderLeft: "2px solid",
+            borderRight: "2px solid",
+            borderBottom: "2px solid",
+            borderColor: "custom.borderNormal",
         }}>
             {dropdownOptions.map(({ id, name, route }) => {
                 return (
@@ -38,6 +44,9 @@ function DropDown() {
                             bgcolor: "background.paper",
                             px: convert(7),
                             py: convert(5),
+                            border: "1px solid",
+                            borderColor: "custom.borderNormal",
+                            borderRadius: "6px"
                         }}>
                         {name}
                     </ButtonBase>
@@ -52,7 +61,7 @@ function DropDown() {
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const buttonActions = {
-        info: () => setIsOpen(true),
+        info: "",
         menu: () => setIsOpen(prev => !prev),
     }
     return (
@@ -67,6 +76,8 @@ export function Navbar() {
                 px: convert(20),
                 py: convert(19),
                 zIndex: 9999,
+                borderBottom: "5px solid",
+                borderColor: "custom.bigButtonBg",
 
             }}>
             {icons.map(({ id, type, action, src, height, sx, onClick }) => {

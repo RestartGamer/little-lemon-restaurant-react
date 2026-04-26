@@ -149,10 +149,10 @@ const foodItems = [
 
 
 
-export function Home() {
+export function HomePage() {
     return (
         <>
-            <Navbar />
+            
             <HeroSection />
             <InfoBanner />
             <SelectionMenu />

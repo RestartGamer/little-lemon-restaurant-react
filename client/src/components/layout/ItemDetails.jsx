@@ -115,6 +115,7 @@ export function ItemDetails({ src, title, description, price, highlights }) {
                     minWidth: "186px",
                     width: "34%",
                     aspectRatio: "1 / 1",
+                    objectFit: "cover",
                 }} />
 
                 <Stack sx={{
