@@ -10,9 +10,13 @@ export const Schema = z.object({
   email: z
     .email("Please insert a valid email address"),
 
-  dateTime: z
+  date: z
     .string()
-    .min(1, "Please choose a date and time"),
+    .min(1, "Please choose a date"),
+
+  time: z
+    .string()
+    .min(1, "Please choose a time"),
 
   numberOfPeople: z
     .coerce
