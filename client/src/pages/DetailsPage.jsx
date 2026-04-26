@@ -1,0 +1,104 @@
+import { Navbar, ItemDetails, BigButton, PageTitle } from "../components"
+import { FoodItemSection } from "../sections"
+import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
+import { useLocation } from "react-router-dom"
+
+let itemId = 0;
+const foodItems = [
+    {
+        id: itemId++,
+        type: "foodItem",
+        src: grilledLemonChicken,
+        title: "Grilled Lemon Chicken",
+        description: "Juicy grilled chicken with lemon, herbs, and a light garlic sauce.",
+        price: "$12.99",
+        highlights: [
+            "🌿 Gluten-free",
+            "🥗 High protein",
+            "🍋 Fresh & light flavor",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        src: slowCookedBeefBowl,
+        title: "Slow-Cooked Beef Bowl",
+        description: "Tender beef with roasted vegetables and savory house sauce.",
+        price: "$14.99",
+        highlights: [
+            "🔥 Slow-cooked for 8+ hours",
+            "🥩 Rich, tender beef",
+            "🍲 Comfort food classic",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        src: herbCrustedWhiteFish,
+        title: "Herb-Crusted White Fish",
+        description: "Fresh white fish baked with herbs and a hint of citrus.",
+        price: "$17.99",
+        highlights: [
+            "🐟 Fresh daily catch",
+            "🌿 Herb-crusted & baked",
+            "🍋 Light citrus finish",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        src: lemonVeggiePlate,
+        title: "Lemon Veggie Plate",
+        description: "Roasted seasonal vegetables, chickpeas, and tahini drizzle.",
+        price: "$13.99",
+        highlights: [
+            "🌱 100% plant-based",
+            "🥕 Roasted seasonal vegetables",
+            "🥙 Served with tahini drizzle",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        src: greenPowerBowl,
+        title: "Green Power Bowl",
+        description: "Quinoa, mixed greens, grilled vegetables, and lemon dressing.",
+        price: "$13.99",
+        highlights: [
+            "💪 Nutrient-dense",
+            "🌾 Quinoa & mixed greens",
+            "🥗 Balanced & energizing",
+        ],
+    },
+];
+
+const reservationBtnText = "Reserve a table"
+
+
+export function DetailsPage() {
+    const { state } = useLocation();
+    if (!state) {
+        return (
+            <>
+                <p>No item selected.</p>
+            </>
+        );
+    }
+
+    const { src, title, description, price, highlights } = state;
+
+    return (
+        <>
+            <PageTitle title={title} route="/"/>
+            <ItemDetails src={src} title={title} description={description} price={price} highlights={highlights} />
+            <BigButton text={reservationBtnText} 
+            to="/reservation"
+            position={{
+                position: "relative",
+                width: "80%",
+                alignSelf: "center",
+            }} />
+
+        </>
+    )
+}

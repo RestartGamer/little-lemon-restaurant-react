@@ -3,6 +3,7 @@ import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 import { heroImage } from "../assets"
 import { convert } from "../utils/muiConverter"
+import {BigButton} from "../components"
 
 const title = "Little Lemon"
 const subTitle = "Chicago"
@@ -42,36 +43,6 @@ function TitleBlock() {
     )
 }
 
-function ReservationBtn() {
-    return (
-        <ButtonBase component="RouteLink"
-            sx={{
-                display: "inline-flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                mr: convert(18),
-                mb: convert(22),
-                px: convert(9),
-                py: convert(6),
-
-                border: "1px solid",
-                borderColor: "custom.borderSpecial2",
-                borderRadius: "4.54px",
-                bgcolor: "custom.heroTitleBg"
-            }}>
-            <Typography variant="cardTitle" sx={{
-                color: "text.secondary",
-            }}>
-                {reservationBtnText}
-            </Typography>
-
-        </ButtonBase>
-    )
-}
-
 
 
 export function HeroSection() {
@@ -79,18 +50,21 @@ export function HeroSection() {
     return (
         <Stack
             sx={{
+                width:"100%",
                 justifyContent: "flex-start",
                 position: "relative",
+                bgcolor: "grey",
+                overflow: "clip",
             }}
         >
             <Box component="img" src={heroImage} alt={imageAlt} sx={{
-                width: "100%",
-                maxHeight: "500px",
+                width:"max-content",
+                maxHeight: "218px",
 
 
             }} />
             <TitleBlock />
-            <ReservationBtn />
+            <BigButton text={reservationBtnText}/>
 
         </Stack>
     )

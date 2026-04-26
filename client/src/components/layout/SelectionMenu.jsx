@@ -27,7 +27,7 @@ function SelectionBtn({ children }) {
 
             boxSizing: "content-box",
             border: "1px solid",
-            borderColor: "custom.normalBorder",
+            borderColor: "custom.borderNormal",
             borderRadius: "3px",
 
         }}>
@@ -57,7 +57,7 @@ export function SelectionMenu() {
         }}>
             {options.map(({ id, name, filter }) => {
                 return (
-                    <SelectionBtn key="id">
+                    <SelectionBtn key={id}>
                         {name}
                     </SelectionBtn>
                 )

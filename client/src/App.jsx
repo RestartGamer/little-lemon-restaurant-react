@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { CssBaseline } from "@mui/material"
+import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
-import { HeroSection } from "./sections"
+import { HeroSection, FoodItemSection } from "./sections"
+import { Routes, Route } from "react-router-dom"
+import { HomePage, DetailsPage, ReservationPage } from "./pages"
 import './App.css'
 
 const sharedTypography = {
@@ -22,6 +24,10 @@ const sharedTypography = {
     fontWeight: 500, //Medium -- semiBold
     fontSize: "28px"
   },
+  bigButtonTitle: {
+    fontWeight: 500, //medium
+    fontSize: "22px"
+  },
   cardTitle: {
     fontWeight: 500, //medium
     fontSize: "16px"
@@ -31,7 +37,8 @@ const sharedTypography = {
     fontSize: "14px"
   },
   bodyMedium: {
-
+    fontWeight: 400, //Regular 
+    fontSize: "12px"
   },
   bodySmall: {
 
@@ -51,11 +58,15 @@ const themeSettings = {
     },
     custom: {
       textSpecial: "#FECE14",
-      normalBorder: "#000000",
+      borderNormal: "#000000",
       borderSpecial: "#FFF87D",
       borderSpecial2: "#FECE14",
+      borderGrey: "#A2A2A2",
       heroTitleBg: "#494949",
-      buttonSpecial: "#C7C7C7"
+      buttonSpecial: "#C7C7C7",
+      backgroundSpecial: "#FECE14",
+      bigButtonBg: "#157C28",
+      bigButtonBorder: "#2C2C2C"
     },
   }
 
@@ -69,11 +80,16 @@ function App() {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      <Navbar />
-      <HeroSection />
-      <InfoBanner />
-      <SelectionMenu />
-
+      <Stack sx={{
+        position: "relative",
+      }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+        </Routes>
+      </Stack>
     </ThemeProvider>
   )
 }
