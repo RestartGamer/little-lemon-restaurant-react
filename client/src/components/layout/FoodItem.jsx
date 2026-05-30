@@ -46,9 +46,7 @@ function DetailsBox({ src, title, description, price, highlights }) {
                 {price}
             </Typography>
             <ButtonBase
-                component={RouteLink}
-                to={routePath}
-                state={{src, title, description, price, highlights}}
+
                 sx={{
                     border: "1px solid",
                     borderColor: "custom.borderNormal",
@@ -56,27 +54,34 @@ function DetailsBox({ src, title, description, price, highlights }) {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    px: convert(5),
+                    py: convert(2)
                 }}>
                 <Typography variant="bodyLarge" sx={{
-                    fontWeight: 600,
+                    fontWeight: 500,
                     color: "text.primary",
                 }}>
-                    More Details
+                    Add to cart
                 </Typography>
             </ButtonBase>
         </Stack>
     )
 }
 
-export function FoodItem({ id, src, title, description, price, highlights=[] }) {
+export function FoodItem({ id, src, title, description, price, highlights = [] }) {
 
     return (
-        <Stack direction="row" sx={{
-            justifyContent: "center",
-            alignItems: "center",
-            gap: convert(10),
-            py: convert(5),
-        }}>
+        <Stack
+            component={RouteLink}
+            to={routePath}
+            state={{ src, title, description, price, highlights }}
+            direction="row" sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                gap: convert(10),
+                py: convert(5),
+                textDecoration: "none"
+            }}>
             <Box component="img" src={src} alt={`An image of ${title}`} sx={{
                 minWidth: "113px",
                 maxWidth: "120px",

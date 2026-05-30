@@ -1,32 +1,35 @@
 import { useState } from "react"
 import { Box, Stack, ButtonBase } from "@mui/material"
-import { logo, hamBtnIcon, infoIcon } from "../../assets"
+import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 
 const iconHeight = "57px"
 let iconId = 0;
 const icons = [
-    { id: iconId++, type: "button", action: "info", src: infoIcon, height: "57px", sx: { aspectRatio: "1 / 1" } },
+    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "40px", sx: {} },
     { id: iconId++, type: "link", src: logo, height: "57px", sx: { aspectRatio: "1 / 1" } },
-    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "40px", sx: {} }
+    { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "50px", sx: { aspectRatio: "1 / 1" } },
+
+
 ]
 
 let optionId = 0;
-const dropdownOptions = [
+const dropdownOptionsMenu = [
     { id: optionId++, name: "Homepage", route: "/" },
     { id: optionId++, name: "About us", route: "/" },
     { id: optionId++, name: "Reserve a table", route: "/reservation" },
 ]
 
-function DropDown() {
+function DropDown({ orientation, dropdownOptions }) {
     return (
         <Stack sx={{
-            alignItems: "flex-end",
+            alignItems: "flex-start",
             justifyContent: "flex-start",
             position: "absolute",
-            top:"100%",
-            right: 0,
+            top: "100%",
+            ...(orientation === "left" && { left: 0, alignItems: "flex-start" }),
+            ...(orientation === "right" && { right: 0, alignItems: "flex-end"}),
             px: convert(30),
             py: convert(30),
             bgcolor: "background.paper",
@@ -58,11 +61,13 @@ function DropDown() {
 }
 
 
+
 export function Navbar() {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const [isOpenCart, setIsOpenCart] = useState(false);
     const buttonActions = {
-        info: "",
-        menu: () => setIsOpen(prev => !prev),
+        cart: () => setIsOpenCart(prev => !prev),
+        menu: () => setIsOpenMenu(prev => !prev),
     }
     return (
         <Stack component="nav" direction="row"
@@ -94,12 +99,16 @@ export function Navbar() {
                 )
             })}
             {
-                isOpen && (
-                    <DropDown />
+                isOpenMenu && (
+                    <DropDown orientation="left" dropdownOptions={dropdownOptionsMenu} />
                 )
             }
 
-
+            {
+                isOpenCart && (
+                    <DropDown orientation="right" dropdownOptions={dropdownOptionsMenu} />
+                )
+            }
         </Stack>
     )
 }
