@@ -1,13 +1,15 @@
 import { useState } from "react"
-import { Box, Stack, ButtonBase } from "@mui/material"
+import { Box, Stack, ButtonBase, Typography } from "@mui/material"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
+import {trashIcon} from "../../assets"
+import {foodItems} from "../../data/food-items"
 
 const iconHeight = "57px"
 let iconId = 0;
 const icons = [
-    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "40px", sx: {} },
+    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "37px", sx: {} },
     { id: iconId++, type: "link", src: logo, height: "57px", sx: { aspectRatio: "1 / 1" } },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "50px", sx: { aspectRatio: "1 / 1" } },
 
@@ -60,6 +62,59 @@ function DropDown({ orientation, dropdownOptions }) {
     )
 }
 
+const foodImageSx = {
+    height: "76px",
+    aspectRatio: "1 / 1",
+    objectFit: "cover",
+}
+function FoodItem({src, title, cartCount=1, price}){
+    return(
+        <Stack direction="row">
+            <Box component="img" src={src} alt={`Image of ${title}`} sx={{...foodImageSx}}/>
+            <Stack>
+                <Typography>
+                    {title}
+                </Typography>
+                <Stack direction="row">
+                    <Typography>
+                        Qty:
+                    </Typography>
+                    <Stack>
+                        <Box sx={{
+                            border: "1px 0 0 1px solid",
+                            borderColor: "black"
+                        }}/>
+                        <Typography>
+                            {cartCount}
+                        </Typography>
+                        <Box sx={{
+                            border: "0 1px 1px 0 solid",
+                            borderColor: "black"
+                        }}/>
+                    </Stack>
+                </Stack>
+                <Typography>
+                    {price}
+                </Typography>
+            </Stack>
+            <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{...foodImageSx}}/>
+        </Stack>
+    )
+}
+
+function ShoppingCart() {
+    return (
+        <Stack>
+            {foodItems.map(({id, src, title, price})=> {
+                return (
+                    <FoodItem key={id} src={src} title={title} price={price}/>
+                )
+            })}
+        </Stack>
+    )
+}
+
+
 
 
 export function Navbar() {
@@ -106,7 +161,7 @@ export function Navbar() {
 
             {
                 isOpenCart && (
-                    <DropDown orientation="right" dropdownOptions={dropdownOptionsMenu} />
+                    <ShoppingCart/>
                 )
             }
         </Stack>
