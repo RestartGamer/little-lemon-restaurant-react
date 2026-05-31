@@ -66,7 +66,8 @@ const themeSettings = {
       buttonSpecial: "#C7C7C7",
       backgroundSpecial: "#FECE14",
       bigButtonBg: "#157C28",
-      bigButtonBorder: "#2C2C2C"
+      bigButtonBorder: "#2C2C2C",
+      backgroundSecondary: "#E8E8E8",
     },
   }
 

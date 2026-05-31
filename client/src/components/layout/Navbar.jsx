@@ -3,8 +3,8 @@ import { Box, Stack, ButtonBase, Typography } from "@mui/material"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
-import {trashIcon} from "../../assets"
-import {foodItems} from "../../data/food-items"
+import { trashIcon } from "../../assets"
+import { foodItems } from "../../data/food-items"
 
 const iconHeight = "57px"
 let iconId = 0;
@@ -31,7 +31,7 @@ function DropDown({ orientation, dropdownOptions }) {
             position: "absolute",
             top: "100%",
             ...(orientation === "left" && { left: 0, alignItems: "flex-start" }),
-            ...(orientation === "right" && { right: 0, alignItems: "flex-end"}),
+            ...(orientation === "right" && { right: 0, alignItems: "flex-end" }),
             px: convert(30),
             py: convert(30),
             bgcolor: "background.paper",
@@ -62,52 +62,105 @@ function DropDown({ orientation, dropdownOptions }) {
     )
 }
 
-const foodImageSx = {
-    height: "76px",
-    aspectRatio: "1 / 1",
-    objectFit: "cover",
-}
-function FoodItem({src, title, cartCount=1, price}){
-    return(
-        <Stack direction="row">
-            <Box component="img" src={src} alt={`Image of ${title}`} sx={{...foodImageSx}}/>
-            <Stack>
-                <Typography>
+function FoodItem({ src, title, cartCount = 1, price }) {
+    return (
+        <Stack direction="row" sx={{
+            justifyContent: "flex-end",
+            width:"100%",
+            gap: convert(12),
+
+        }}>
+            <Box component="img" src={src} alt={`Image of ${title}`} sx={{
+                height: "76px",
+                aspectRatio: "1 / 1",
+                objectFit: "cover",
+                borderRadius: "5px",
+                border: "0.5px solid",
+                borderColor: "black",
+            }} />
+            <Stack sx={{
+                width: "max-content",
+                maxWidth: "280px",
+                marginRight: "auto",
+            }}>
+                <Typography variant="cardTitle" sx={{
+                    color: "text.primary",
+                    textAlign: "left",
+                }}>
                     {title}
                 </Typography>
-                <Stack direction="row">
-                    <Typography>
+                <Stack direction="row" sx={{
+                    alignItems: "center",
+                    gap: convert(2),
+                }}>
+                    <Typography variant="bodyMedium" sx={{
+                        color: "text.primary",
+                        textAlign: "left",
+                    }}>
                         Qty:
                     </Typography>
                     <Stack>
                         <Box sx={{
-                            border: "1px 0 0 1px solid",
-                            borderColor: "black"
-                        }}/>
-                        <Typography>
+                            height: "6px",
+                            aspectRatio: "1 / 1",
+                            borderStyle: "solid",
+                            borderWidth: "1px 0 0 1px",
+                            borderColor: "black",
+                            transform: "rotate(45deg)",
+                        }} />
+                        <Typography variant="bodyMedium" sx={{
+                            color: "text.primary",
+                            textAlign: "left",
+                        }}>
                             {cartCount}
                         </Typography>
                         <Box sx={{
-                            border: "0 1px 1px 0 solid",
-                            borderColor: "black"
-                        }}/>
+                            height: "6px",
+                            aspectRatio: "1 / 1",
+                            borderStyle: "solid",
+                            borderWidth: "0 1px 1px 0",
+                            borderColor: "black",
+                            transform: "rotate(45deg)"
+                        }} />
                     </Stack>
                 </Stack>
-                <Typography>
+                <Typography sx={{
+                    color: "text.primary",
+                    textAlign: "left",
+                }}>
                     {price}
                 </Typography>
             </Stack>
-            <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{...foodImageSx}}/>
+                <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{
+                    height: "40px",
+                    aspectRatio: "1 / 1",
+                    marginLeft: "auto"
+                }} />
         </Stack>
     )
 }
 
 function ShoppingCart() {
     return (
-        <Stack>
-            {foodItems.map(({id, src, title, price})=> {
+        <Stack spacing={convert(18)} sx={{
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            bgcolor: "custom.backgroundSecondary",
+            minWidth: "fit-content",
+            maxWidth: "292px",
+            height: "fit-content",
+            borderStyle: "solid",
+            borderWidth: "0.5px 1px 1px 1px",
+            borderColor: "black",
+            borderRadius: "0px 0px 0px 26px",
+            px: convert(30),
+            py: convert(29),
+            alignItems: "flex-start"
+        }}>
+            {foodItems.map(({ id, src, title, price }) => {
                 return (
-                    <FoodItem key={id} src={src} title={title} price={price}/>
+                    <FoodItem key={id} src={src} title={title} price={price} />
                 )
             })}
         </Stack>
@@ -125,45 +178,48 @@ export function Navbar() {
         menu: () => setIsOpenMenu(prev => !prev),
     }
     return (
-        <Stack component="nav" direction="row"
-            sx={{
-                justifyContent: "space-between",
-                alignItems: "center",
-                position: "sticky",
-                top: 0,
-                width: "100%",
-                bgcolor: "background.paper",
-                px: convert(20),
-                py: convert(19),
-                zIndex: 9999,
-                borderBottom: "5px solid",
-                borderColor: "custom.bigButtonBg",
+        <>
+            <Stack component="nav" direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    position: "sticky",
+                    top: 0,
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    px: convert(20),
+                    py: convert(19),
+                    zIndex: 9999,
+                    borderBottom: "5px solid",
+                    borderColor: "custom.bigButtonBg",
 
-            }}>
-            {icons.map(({ id, type, action, src, height, sx, onClick }) => {
-                return (
-                    type === "button" ? (
-                        <ButtonBase onClick={buttonActions[action]}>
-                            <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
-                        </ButtonBase>
-                    ) : type === "link" && (
-                        <Box component="RouteLink">
-                            <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
-                        </Box>
+                }}>
+                {icons.map(({ id, type, action, src, height, sx, onClick }) => {
+                    return (
+                        type === "button" ? (
+                            <ButtonBase onClick={buttonActions[action]}>
+                                <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
+                            </ButtonBase>
+                        ) : type === "link" && (
+                            <Box component="RouteLink">
+                                <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
+                            </Box>
+                        )
                     )
-                )
-            })}
-            {
-                isOpenMenu && (
-                    <DropDown orientation="left" dropdownOptions={dropdownOptionsMenu} />
-                )
-            }
+                })}
+                {
+                    isOpenMenu && (
+                        <DropDown orientation="left" dropdownOptions={dropdownOptionsMenu} />
+                    )
+                }
 
-            {
-                isOpenCart && (
-                    <ShoppingCart/>
-                )
-            }
-        </Stack>
+                {
+                    isOpenCart && (
+                        <ShoppingCart />
+                    )
+                }
+            </Stack>
+
+        </>
     )
 }
