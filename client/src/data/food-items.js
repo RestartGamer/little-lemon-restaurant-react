@@ -1,5 +1,6 @@
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 
+
 let itemId = 0;
 
 export const foodItems = [

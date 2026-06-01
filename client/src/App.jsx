@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { CartProvider } from "./context/CartContext";
 import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
@@ -37,7 +38,7 @@ const sharedTypography = {
     fontSize: "14px"
   },
   bodyMedium: {
-    fontWeight: 400, //Regular 
+    fontWeight: 400, //Regular -- 500 for Medium
     fontSize: "12px"
   },
   bodySmall: {
@@ -62,8 +63,10 @@ const themeSettings = {
       borderSpecial: "#FFF87D",
       borderSpecial2: "#FECE14",
       borderGrey: "#A2A2A2",
+      borderGrey1: "#818181",
       heroTitleBg: "#494949",
       buttonSpecial: "#C7C7C7",
+      buttonSpecial2: "#222222",
       backgroundSpecial: "#FECE14",
       bigButtonBg: "#157C28",
       bigButtonBorder: "#2C2C2C",
@@ -81,16 +84,18 @@ function App() {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      <Stack sx={{
-        position: "relative",
-      }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/details" element={<DetailsPage />} />
-          <Route path="/reservation" element={<ReservationPage />} />
-        </Routes>
-      </Stack>
+      <CartProvider>
+        <Stack sx={{
+          position: "relative",
+        }}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/details" element={<DetailsPage />} />
+            <Route path="/reservation" element={<ReservationPage />} />
+          </Routes>
+        </Stack>
+      </CartProvider>
     </ThemeProvider>
   )
 }

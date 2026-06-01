@@ -1,4 +1,4 @@
-import { Navbar, ItemDetails, BigButton, PageTitle } from "../components"
+import { Navbar, ItemDetails, CustomButton, PageTitle } from "../components"
 import { FoodItemSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"
@@ -91,7 +91,7 @@ export function DetailsPage() {
         <>
             <PageTitle title={title} route="/"/>
             <ItemDetails src={src} title={title} description={description} price={price} highlights={highlights} />
-            <BigButton text={reservationBtnText} 
+            <CustomButton text={reservationBtnText} 
             to="/reservation"
             position={{
                 position: "relative",

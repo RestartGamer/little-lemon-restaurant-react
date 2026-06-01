@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Box, Stack, ButtonBase, Typography } from "@mui/material"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 import { trashIcon } from "../../assets"
 import { foodItems } from "../../data/food-items"
+import { useCart } from "../../context/CartContext";
+
+
 
 const iconHeight = "57px"
 let iconId = 0;
@@ -12,8 +15,6 @@ const icons = [
     { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "37px", sx: {} },
     { id: iconId++, type: "link", src: logo, height: "57px", sx: { aspectRatio: "1 / 1" } },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "50px", sx: { aspectRatio: "1 / 1" } },
-
-
 ]
 
 let optionId = 0;
@@ -62,11 +63,11 @@ function DropDown({ orientation, dropdownOptions }) {
     )
 }
 
-function FoodItem({ src, title, cartCount = 1, price }) {
+function CartFoodItem({ id, src, title, quantity, price }) {
     return (
         <Stack direction="row" sx={{
             justifyContent: "flex-end",
-            width:"100%",
+            width: "100%",
             gap: convert(12),
 
         }}>
@@ -93,7 +94,7 @@ function FoodItem({ src, title, cartCount = 1, price }) {
                     alignItems: "center",
                     gap: convert(2),
                 }}>
-                    <Typography variant="bodyMedium" sx={{
+                    <Typography variant="bodyLarge" sx={{
                         color: "text.primary",
                         textAlign: "left",
                     }}>
@@ -108,11 +109,11 @@ function FoodItem({ src, title, cartCount = 1, price }) {
                             borderColor: "black",
                             transform: "rotate(45deg)",
                         }} />
-                        <Typography variant="bodyMedium" sx={{
+                        <Typography variant="bodyLarge" sx={{
                             color: "text.primary",
                             textAlign: "left",
                         }}>
-                            {cartCount}
+                            {quantity}
                         </Typography>
                         <Box sx={{
                             height: "6px",
@@ -131,24 +132,24 @@ function FoodItem({ src, title, cartCount = 1, price }) {
                     {price}
                 </Typography>
             </Stack>
-                <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{
-                    height: "40px",
-                    aspectRatio: "1 / 1",
-                    marginLeft: "auto"
-                }} />
+            <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{
+                height: "40px",
+                aspectRatio: "1 / 1",
+                marginLeft: "auto"
+            }} />
         </Stack>
     )
 }
 
-function ShoppingCart() {
+function ShoppingCart({ cartItems }) {
     return (
         <Stack spacing={convert(18)} sx={{
             position: "absolute",
             top: "100%",
             right: 0,
             bgcolor: "custom.backgroundSecondary",
-            minWidth: "fit-content",
-            maxWidth: "292px",
+            width: "fit-content",
+            maxWidth: "100%",
             height: "fit-content",
             borderStyle: "solid",
             borderWidth: "0.5px 1px 1px 1px",
@@ -158,9 +159,9 @@ function ShoppingCart() {
             py: convert(29),
             alignItems: "flex-start"
         }}>
-            {foodItems.map(({ id, src, title, price }) => {
+            {cartItems.map(({ id, src, title, price, quantity }) => {
                 return (
-                    <FoodItem key={id} src={src} title={title} price={price} />
+                    <CartFoodItem key={id} id={id} src={src} title={title} price={price} quantity={quantity} />
                 )
             })}
         </Stack>
@@ -177,6 +178,11 @@ export function Navbar() {
         cart: () => setIsOpenCart(prev => !prev),
         menu: () => setIsOpenMenu(prev => !prev),
     }
+    const { cartItems } = useCart()
+    useEffect(()=> {
+        console.log(cartItems);
+    }, [cartItems])
+
     return (
         <>
             <Stack component="nav" direction="row"
@@ -190,8 +196,8 @@ export function Navbar() {
                     px: convert(20),
                     py: convert(19),
                     zIndex: 9999,
-                    borderBottom: "5px solid",
-                    borderColor: "custom.bigButtonBg",
+                    borderBottom: "1px solid",
+                    borderColor: "black",
 
                 }}>
                 {icons.map(({ id, type, action, src, height, sx, onClick }) => {
@@ -215,7 +221,7 @@ export function Navbar() {
 
                 {
                     isOpenCart && (
-                        <ShoppingCart />
+                        <ShoppingCart cartItems={cartItems}/>
                     )
                 }
             </Stack>

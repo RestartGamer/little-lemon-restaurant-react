@@ -3,6 +3,8 @@ import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
+import { CustomButton } from "../../components"
+import { useCart } from "../../context/CartContext";
 
 const imageAspect = 113 / 73;
 const routePath = "/details";
@@ -32,7 +34,15 @@ function TitleBox({ title, description }) {
     )
 }
 
-function DetailsBox({ src, title, description, price, highlights }) {
+function DetailsBox({ addToCart = undefined, id, src, title, description, price, highlights }) {
+    const item = {
+        id,
+        src,
+        title,
+        description,
+        price,
+        highlights,
+    };
     return (
         <Stack sx={{
             alignItems: "center",
@@ -45,36 +55,25 @@ function DetailsBox({ src, title, description, price, highlights }) {
             }}>
                 {price}
             </Typography>
-            <ButtonBase
-
-                sx={{
-                    border: "1px solid",
-                    borderColor: "custom.borderNormal",
-                    borderRadius: "3px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    px: convert(5),
-                    py: convert(2)
-                }}>
-                <Typography variant="bodyLarge" sx={{
-                    fontWeight: 500,
-                    color: "text.primary",
-                }}>
-                    Add to cart
-                </Typography>
-            </ButtonBase>
+            <CustomButton onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                addToCart(item)
+            }}>
+                Add to cart
+            </CustomButton>
         </Stack>
     )
 }
 
 export function FoodItem({ id, src, title, description, price, highlights = [] }) {
+    const { addToCart } = useCart();
 
     return (
         <Stack
             component={RouteLink}
             to={routePath}
-            state={{ src, title, description, price, highlights }}
+            state={{ id, src, title, description, price, highlights }}
             direction="row" sx={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -90,7 +89,7 @@ export function FoodItem({ id, src, title, description, price, highlights = [] }
                 objectFit: "cover",
             }} />
             <TitleBox title={title} description={description} />
-            <DetailsBox src={src} title={title} description={description} price={price} highlights={highlights} />
+            <DetailsBox addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
         </Stack>
     )
 }
