@@ -53,7 +53,7 @@ function DetailsBox({ addToCart = undefined, id, src, title, description, price,
                 color: "text.primary",
 
             }}>
-                {price}
+                ${price}
             </Typography>
             <CustomButton onClick={(event) => {
                 event.preventDefault();

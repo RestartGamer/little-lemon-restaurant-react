@@ -10,7 +10,7 @@ export const foodItems = [
         src: grilledLemonChicken,
         title: "Grilled Lemon Chicken",
         description: "Juicy grilled chicken with lemon, herbs, and a light garlic sauce.",
-        price: "$12.99",
+        price: 12.99,
         highlights: [
             "🌿 Gluten-free",
             "🥗 High protein",
@@ -23,7 +23,7 @@ export const foodItems = [
         src: slowCookedBeefBowl,
         title: "Slow-Cooked Beef Bowl",
         description: "Tender beef with roasted vegetables and savory house sauce.",
-        price: "$14.99",
+        price: 14.99,
         highlights: [
             "🔥 Slow-cooked for 8+ hours",
             "🥩 Rich, tender beef",
@@ -36,7 +36,7 @@ export const foodItems = [
         src: herbCrustedWhiteFish,
         title: "Herb-Crusted White Fish",
         description: "Fresh white fish baked with herbs and a hint of citrus.",
-        price: "$17.99",
+        price: 17.99,
         highlights: [
             "🐟 Fresh daily catch",
             "🌿 Herb-crusted & baked",
@@ -49,7 +49,7 @@ export const foodItems = [
         src: lemonVeggiePlate,
         title: "Lemon Veggie Plate",
         description: "Roasted seasonal vegetables, chickpeas, and tahini drizzle.",
-        price: "$13.99",
+        price: 13.99,
         highlights: [
             "🌱 100% plant-based",
             "🥕 Roasted seasonal vegetables",
@@ -62,7 +62,7 @@ export const foodItems = [
         src: greenPowerBowl,
         title: "Green Power Bowl",
         description: "Quinoa, mixed greens, grilled vegetables, and lemon dressing.",
-        price: "$13.99",
+        price: 13.99,
         highlights: [
             "💪 Nutrient-dense",
             "🌾 Quinoa & mixed greens",

@@ -30,8 +30,31 @@ export function CartProvider({ children }) {
     });
   }
 
+  function removeFromCart(item, quantity=1) {
+    setCartItems((currentCartItems) => {  /*Note that this is the "functional state update pattern"
+       where React automatically passes the current state as a parameter into the function*/
+      const existingItem = currentCartItems.find(
+        (cartItem) => cartItem.id === item.id
+      );
+
+      if (existingItem) {
+        return currentCartItems
+          .map((currentCartItem) =>
+            currentCartItem.id === item.id
+              ? { ...currentCartItem, quantity: currentCartItem.quantity - quantity }
+              : currentCartItem
+          )
+          .filter((currentCartItem) => currentCartItem.quantity > 0)
+      }
+
+      return [
+        ...currentCartItems
+      ];
+    });
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Box, Stack, ButtonBase, Typography } from "@mui/material"
+import { CustomButton } from "../../components"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
@@ -63,7 +64,7 @@ function DropDown({ orientation, dropdownOptions }) {
     )
 }
 
-function CartFoodItem({ id, src, title, quantity, price }) {
+function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCart, cartItem }) {
     return (
         <Stack direction="row" sx={{
             justifyContent: "flex-end",
@@ -72,8 +73,8 @@ function CartFoodItem({ id, src, title, quantity, price }) {
 
         }}>
             <Box component="img" src={src} alt={`Image of ${title}`} sx={{
-                height: "76px",
-                aspectRatio: "1 / 1",
+                height: "89px",
+                width: "89px",
                 objectFit: "cover",
                 borderRadius: "5px",
                 border: "0.5px solid",
@@ -100,24 +101,29 @@ function CartFoodItem({ id, src, title, quantity, price }) {
                     }}>
                         Qty:
                     </Typography>
-                    <Stack>
-                        <Box sx={{
-                            height: "6px",
-                            aspectRatio: "1 / 1",
+                    <Stack sx={{
+                        "--button-size": "7px",
+                        alignItems: "center",
+                    }}>
+                        <ButtonBase onClick={() => addToCart(cartItem)} sx={{
+                            height: "var(--button-size)",
+                            width: "var(--button-size)",
                             borderStyle: "solid",
                             borderWidth: "1px 0 0 1px",
                             borderColor: "black",
                             transform: "rotate(45deg)",
                         }} />
-                        <Typography variant="bodyLarge" sx={{
+
+                        <Typography variant="cardTitle" sx={{
                             color: "text.primary",
                             textAlign: "left",
                         }}>
                             {quantity}
                         </Typography>
-                        <Box sx={{
-                            height: "6px",
-                            aspectRatio: "1 / 1",
+
+                        <ButtonBase onClick={() => removeFromCart(cartItem)} sx={{
+                            height: "var(--button-size)",
+                            width: "var(--button-size)",
                             borderStyle: "solid",
                             borderWidth: "0 1px 1px 0",
                             borderColor: "black",
@@ -129,19 +135,58 @@ function CartFoodItem({ id, src, title, quantity, price }) {
                     color: "text.primary",
                     textAlign: "left",
                 }}>
-                    {price}
+                    ${price}
                 </Typography>
             </Stack>
-            <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{
-                height: "40px",
-                aspectRatio: "1 / 1",
-                marginLeft: "auto"
+            <ButtonBase onClick={()=> removeFromCart(cartItem, cartItem.quantity)} sx={{
+                width:"fit-content",
+                height: "fit-content",
+                alignSelf: "center",
+                display:"flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+                <Box component="img" src={trashIcon} alt="Image of trash icon" sx={{
+                    height: "40px",
+                    aspectRatio: "1 / 1",
+                    marginLeft: "auto",
+                    
+                }} />
+            </ButtonBase>
+        </Stack>
+    )
+}
+
+function TotalPrice({ cartItems }) { //inherited from the shopping cart
+    return (
+        <Stack sx={{
+            width: "100%",
+        }}>
+            <Box sx={{
+                borderBottom: "1px solid",
+                borderColor: "black",
+            }} />
+            <Typography>
+                Total price: ${
+                    cartItems != null
+                        ? (
+                            cartItems.reduce((total, cartItem) => {
+                                return total + cartItem.price * cartItem.quantity
+                            }, 0).toFixed(2)
+                        ) : (
+                            0
+                        )
+                }
+            </Typography>
+            <Box sx={{
+                borderBottom: "1px solid",
+                borderColor: "black",
             }} />
         </Stack>
     )
 }
 
-function ShoppingCart({ cartItems }) {
+function ShoppingCart({ cartItems, addToCart, removeFromCart }) {
     return (
         <Stack spacing={convert(18)} sx={{
             position: "absolute",
@@ -157,13 +202,28 @@ function ShoppingCart({ cartItems }) {
             borderRadius: "0px 0px 0px 26px",
             px: convert(30),
             py: convert(29),
-            alignItems: "flex-start"
+            alignItems: "flex-end"
         }}>
-            {cartItems.map(({ id, src, title, price, quantity }) => {
+            {cartItems.map((cartItem) => {
+                const { id, src, title, price, quantity } = cartItem
                 return (
-                    <CartFoodItem key={id} id={id} src={src} title={title} price={price} quantity={quantity} />
+                    <CartFoodItem key={id} cartItem={cartItem} addToCart={addToCart} removeFromCart={removeFromCart} id={id} src={src} title={title} price={price} quantity={quantity} />
                 )
             })}
+            <TotalPrice cartItems={cartItems} />
+            <CustomButton textVariant="bodyLarge" buttonSx={{
+                alignSelf: "center",
+                bgcolor: "custom.backgroundSpecial",
+                border: "1px solid",
+                borderColor: "black",
+                px: convert(14),
+                py: convert(5),
+            }}
+                textSx={{
+                    fontWeight: 500,
+                }}>
+                Go to checkout
+            </CustomButton>
         </Stack>
     )
 }
@@ -178,8 +238,9 @@ export function Navbar() {
         cart: () => setIsOpenCart(prev => !prev),
         menu: () => setIsOpenMenu(prev => !prev),
     }
-    const { cartItems } = useCart()
-    useEffect(()=> {
+    const { cartItems, addToCart, removeFromCart } = useCart()
+
+    useEffect(() => {
         console.log(cartItems);
     }, [cartItems])
 
@@ -221,7 +282,7 @@ export function Navbar() {
 
                 {
                     isOpenCart && (
-                        <ShoppingCart cartItems={cartItems}/>
+                        <ShoppingCart cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
                     )
                 }
             </Stack>

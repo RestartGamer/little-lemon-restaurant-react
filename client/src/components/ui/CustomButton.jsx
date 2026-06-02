@@ -16,6 +16,7 @@ export function CustomButton({ children, onClick = undefined, to = "/", text, bu
                 width: "fit-content",
                 px: convert(5),
                 py: convert(2),
+                lineHeight: 1,
                 ...buttonSx,
             }}>
             <Typography variant={textVariant} sx={{
