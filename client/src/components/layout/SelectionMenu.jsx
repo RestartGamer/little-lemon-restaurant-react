@@ -7,11 +7,11 @@ const options = [
     { id: optionsId++, name: "Chicken", filter: "chicken" },
     { id: optionsId++, name: "Beef", filter: "beef" },
     { id: optionsId++, name: "Fish", filter: "fish" },
-    { id: optionsId++, name: "Entrées", filter: "entrées" },
+    { id: optionsId++, name: "Entrées", filter: "appetizer" },
     { id: optionsId++, name: "Vegan", filter: "vegan" },
     { id: optionsId++, name: "Salad", filter: "salad" },
     { id: optionsId++, name: "Dessert", filter: "dessert" },
-    { id: optionsId++, name: "Beverages", filter: "beverages" },
+    { id: optionsId++, name: "Beverages", filter: "beverage" },
 ]
 
 function SelectionBtn({ children }) {

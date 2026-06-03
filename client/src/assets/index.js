@@ -10,6 +10,9 @@ export { default as slowCookedBeefBowl } from "./images/slowCookedBeefBowl.jpg"
 export { default as herbCrustedWhiteFish } from "./images/herbCrustedWhiteFish.jpg"
 export { default as lemonVeggiePlate } from "./images/lemonVeggiePlate.jpg"
 export { default as greenPowerBowl } from "./images/greenPowerBowl.jpg"
+export { default as greekSalad } from "./images/greekSalad.jpg"
+export { default as springRolls } from "./images/springRolls.jpg"
+export { default as waterBottle } from "./images/waterBottle.jpg"
 
 
 //Utils

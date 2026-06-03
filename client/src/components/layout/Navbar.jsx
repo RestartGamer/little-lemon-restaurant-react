@@ -25,9 +25,9 @@ const dropdownOptionsMenu = [
     { id: optionId++, name: "Reserve a table", route: "/reservation" },
 ]
 
-function DropDown({ orientation, dropdownOptions }) {
+function DropDown({ orientation, dropdownOptions, forwardRef }) {
     return (
-        <Stack sx={{
+        <Stack ref={forwardRef} sx={{
             alignItems: "flex-start",
             justifyContent: "flex-start",
             position: "absolute",
@@ -105,7 +105,10 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
                         "--button-size": "7px",
                         alignItems: "center",
                     }}>
-                        <ButtonBase onClick={() => addToCart(cartItem)} sx={{
+                        <ButtonBase onClick={(event) => {
+                            event.stopPropagation();
+                            addToCart(cartItem)
+                        }} sx={{
                             height: "var(--button-size)",
                             width: "var(--button-size)",
                             borderStyle: "solid",
@@ -121,7 +124,10 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
                             {quantity}
                         </Typography>
 
-                        <ButtonBase onClick={() => removeFromCart(cartItem)} sx={{
+                        <ButtonBase onClick={(event) => {
+                            event.stopPropagation();
+                            removeFromCart(cartItem)
+                        }} sx={{
                             height: "var(--button-size)",
                             width: "var(--button-size)",
                             borderStyle: "solid",
@@ -138,7 +144,11 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
                     ${price}
                 </Typography>
             </Stack>
-            <ButtonBase onClick={() => removeFromCart(cartItem, cartItem.quantity)} sx={{
+            <ButtonBase onClick={(event) => {
+                event.stopPropagation();
+                removeFromCart(cartItem, cartItem.quantity)
+            }
+            } sx={{
                 width: "fit-content",
                 height: "fit-content",
                 alignSelf: "center",
@@ -160,9 +170,12 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
 function TotalPrice({ cartItems }) { //inherited from the shopping cart
     return (
         <Stack sx={{
+            "--line-width": "90%",
             width: "100%",
+            alignItems: "center",
         }}>
             <Box sx={{
+                width: "var(--line-width)",
                 borderBottom: "1px solid",
                 borderColor: "black",
             }} />
@@ -179,6 +192,7 @@ function TotalPrice({ cartItems }) { //inherited from the shopping cart
                 }
             </Typography>
             <Box sx={{
+                width: "var(--line-width)",
                 borderBottom: "1px solid",
                 borderColor: "black",
             }} />
@@ -188,7 +202,7 @@ function TotalPrice({ cartItems }) { //inherited from the shopping cart
 
 function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
     return (
-        <Stack spacing={convert(18)} sx={{
+        <Stack ref={forwardRef} sx={{
             position: "absolute",
             top: "100%",
             right: 0,
@@ -204,26 +218,62 @@ function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
             py: convert(29),
             alignItems: "flex-end"
         }}>
-            {cartItems.map((cartItem) => {
-                const { id, src, title, price, quantity } = cartItem
-                return (
-                    <CartFoodItem key={id} cartItem={cartItem} addToCart={addToCart} removeFromCart={removeFromCart} id={id} src={src} title={title} price={price} quantity={quantity} />
-                )
-            })}
-            <TotalPrice cartItems={cartItems} />
-            <CustomButton forwardRef={forwardRef} textVariant="bodyLarge" buttonSx={{
-                alignSelf: "center",
-                bgcolor: "custom.backgroundSpecial",
-                border: "1px solid",
+            <Stack sx={{  //item mask
+                overflow: "hidden",
+                width: "fit-content",
+                height: "fit-content",
+                maxHeight: "300px",
+                mb: convert(30),
+                borderBottom: cartItems && cartItems.length > 0 ? "0.5px solid" : "0px solid",
                 borderColor: "black",
-                px: convert(14),
-                py: convert(5),
-            }}
-                textSx={{
-                    fontWeight: 500,
-                }}>
-                Go to checkout
-            </CustomButton>
+            }}>
+                <Stack sx={{
+                    overflow: "auto",
+                    width: "fit-content",
+                    height: "fit-content",
+                    gap: convert(20),
+                }}> {/*full item container*/}
+
+
+                    {
+                        cartItems && cartItems.length > 0
+                            ? (
+                                cartItems.map((cartItem) => {
+                                    const { id, src, title, price, quantity } = cartItem
+                                    return (
+                                        <CartFoodItem key={id} cartItem={cartItem} addToCart={addToCart} removeFromCart={removeFromCart} id={id} src={src} title={title} price={price} quantity={quantity} />
+                                    )
+                                })
+                            )
+                            : (
+                                <>Shopping cart is empty</>
+                            )
+                    }
+                </Stack>
+            </Stack>
+
+            <Stack sx={{
+                width: "100%",
+                gap: convert(20),
+                alignSelf: "center",
+            }}>
+                <TotalPrice cartItems={cartItems} />
+
+                <CustomButton textVariant="bodyLarge" buttonSx={{
+                    alignSelf: "center",
+                    bgcolor: "custom.backgroundSpecial",
+                    border: "1px solid",
+                    borderColor: "black",
+                    px: convert(14),
+                    py: convert(5),
+                }}
+                    textSx={{
+                        fontWeight: 500,
+                    }}>
+                    Go to checkout
+                </CustomButton>
+            </Stack>
+
         </Stack>
     )
 }
@@ -231,16 +281,24 @@ function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
 
 
 
-export function Navbar() {
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const [isOpenCart, setIsOpenCart] = useState(false);
+export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart }) {
+
     const buttonActions = {
-        cart: () => setIsOpenCart(prev => !prev),
-        menu: () => setIsOpenMenu(prev => !prev),
+        cart: () => {
+            setIsOpenCart(prev => !prev)
+            setIsOpenMenu(false)
+        },
+        menu: () => {
+            setIsOpenMenu(prev => !prev)
+            setIsOpenCart(false)
+        },
     }
     const { cartItems, addToCart, removeFromCart } = useCart()
 
-    const menuRef = useRef(null)
+    const hamButtonRef = useRef(null)
+    const cartButtonRef = useRef(null)
+    const hamDropdownRef = useRef(null)
+    const cartDropdownRef = useRef(null)
 
     useEffect(() => {
         console.log(cartItems);
@@ -248,18 +306,21 @@ export function Navbar() {
 
     useEffect(() => {
         function offClickHandler(e) {
-            if (menuRef.current && !menuRef.current.contains(e.target)) {
+            if (!hamButtonRef.current?.contains(e.target) &&
+                !cartButtonRef.current?.contains(e.target) &&
+                !hamDropdownRef.current?.contains(e.target) &&
+                !cartDropdownRef.current?.contains(e.target)) {
                 setIsOpenMenu(false);
                 setIsOpenCart(false);
             }
         }
 
-        document.addEventListener("mousedown", offClickHandler);
+        document.addEventListener("click", offClickHandler);
 
-        return ()=> (
-            document.removeEventListener("mousedown", offClickHandler)
+        return () => (
+            document.removeEventListener("click", offClickHandler)
         )
-    },[])
+    }, [])
 
 
     return (
@@ -282,7 +343,7 @@ export function Navbar() {
                 {icons.map(({ id, type, action, src, height, sx, onClick }) => {
                     return (
                         type === "button" ? (
-                            <ButtonBase ref={menuRef} onClick={buttonActions[action]}>
+                            <ButtonBase ref={action === "menu" ? hamButtonRef : action === "cart" ? cartButtonRef : null} onClick={buttonActions[action]}>
                                 <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
                             </ButtonBase>
                         ) : type === "link" && (
@@ -294,13 +355,13 @@ export function Navbar() {
                 })}
                 {
                     isOpenMenu && (
-                        <DropDown orientation="left" dropdownOptions={dropdownOptionsMenu} />
+                        <DropDown forwardRef={hamDropdownRef} orientation="left" dropdownOptions={dropdownOptionsMenu} />
                     )
                 }
 
                 {
                     isOpenCart && (
-                        <ShoppingCart forwardRef={menuRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <ShoppingCart forwardRef={cartDropdownRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
                     )
                 }
             </Stack>

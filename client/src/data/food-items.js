@@ -1,4 +1,13 @@
-import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
+import {
+    grilledLemonChicken,
+    slowCookedBeefBowl,
+    herbCrustedWhiteFish,
+    lemonVeggiePlate,
+    greenPowerBowl,
+    greekSalad,
+    springRolls,
+    waterBottle
+} from "../assets"
 
 
 let itemId = 0;
@@ -63,7 +72,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
-        category:"vegan",
+        category: "vegan",
         src: greenPowerBowl,
         title: "Green Power Bowl",
         description: "Quinoa, mixed greens, grilled vegetables, and lemon dressing.",
@@ -72,6 +81,46 @@ export const foodItems = [
             "💪 Nutrient-dense",
             "🌾 Quinoa & mixed greens",
             "🥗 Balanced & energizing",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        category: "salad",
+        src: greekSalad,
+        title: "Greek Salad",
+        description: "A deliciously seasoned Greek Salad",
+        price: 7.99,
+        highlights: [
+            "💪 Nutrient-dense",
+            "🌾 Lightly seasoned",
+            "🥗 Balanced & energizing",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        category: "appetizer",
+        src: springRolls,
+        title: "Spring Rolls",
+        description: "Carefully prepared Spring Rolls",
+        price: 6.99,
+        highlights: [
+            "💪 Nutrient-dense",
+            "🌾 Crunchy",
+            "🥗 Balanced & energizing",
+        ],
+    },
+    {
+        id: itemId++,
+        type: "foodItem",
+        category: "beverage",
+        src: waterBottle,
+        title: "Water 500ml",
+        description: "",
+        price: 3.99,
+        highlights: [
+            "Refreshing",
         ],
     },
 ];

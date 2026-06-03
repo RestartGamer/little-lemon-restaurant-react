@@ -7,7 +7,7 @@ import { FoodItem } from "../components"
 
 
 
-export function FoodItemSection({ items }) {
+export function FoodItemSection({ items, isOpenMenu, isOpenCart }) {
     return (
         <Stack sx={{
             justifyContent: "space-between",
@@ -18,7 +18,7 @@ export function FoodItemSection({ items }) {
                 items.map(({ id, type, src, title, description, price, highlights = [] }) => {
                     return (
                         type === "foodItem" ? (
-                            <FoodItem key={id} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+                            <FoodItem key={id} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart}id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
                         ) :
                             type === "promoItem" && (
                                 <Box sx={{

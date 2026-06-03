@@ -6,6 +6,7 @@ import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage } from "./pages"
+import { convert } from "./utils/muiConverter"
 import './App.css'
 
 const sharedTypography = {
@@ -78,6 +79,9 @@ const themeSettings = {
 
 
 function App() {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
+
   const muiTheme = useMemo(() =>
     createTheme(themeSettings), []
   )
@@ -87,10 +91,12 @@ function App() {
       <CartProvider>
         <Stack sx={{
           position: "relative",
+          pb: convert(30),
         }}>
-          <Navbar />
+          <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} 
+                  isOpenCart={isOpenCart}  setIsOpenCart={setIsOpenCart}/>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart}/>} />
             <Route path="/details" element={<DetailsPage />} />
             <Route path="/reservation" element={<ReservationPage />} />
           </Routes>

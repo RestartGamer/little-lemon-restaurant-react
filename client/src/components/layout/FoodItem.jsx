@@ -66,7 +66,7 @@ function DetailsBox({ addToCart = undefined, id, src, title, description, price,
     )
 }
 
-export function FoodItem({ id, src, title, description, price, highlights = [] }) {
+export function FoodItem({ id, src, title, description, price, highlights = [], isOpenMenu, isOpenCart }) {
     const { addToCart } = useCart();
 
     return (
@@ -80,6 +80,11 @@ export function FoodItem({ id, src, title, description, price, highlights = [] }
                 gap: convert(10),
                 py: convert(5),
                 textDecoration: "none"
+            }}
+            onClick={(event) => {
+                if (isOpenMenu || isOpenCart ) {
+                    event.preventDefault(); //prevents the RouteLink from functioning
+                }
             }}>
             <Box component="img" src={src} alt={`An image of ${title}`} sx={{
                 minWidth: "113px",
@@ -88,8 +93,10 @@ export function FoodItem({ id, src, title, description, price, highlights = [] }
                 aspectRatio: imageAspect,
                 objectFit: "cover",
             }} />
+
             <TitleBox title={title} description={description} />
             <DetailsBox addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+        
         </Stack>
     )
 }
