@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Box, Stack, ButtonBase, Typography } from "@mui/material"
 import { CustomButton } from "../../components"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
@@ -138,11 +138,11 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
                     ${price}
                 </Typography>
             </Stack>
-            <ButtonBase onClick={()=> removeFromCart(cartItem, cartItem.quantity)} sx={{
-                width:"fit-content",
+            <ButtonBase onClick={() => removeFromCart(cartItem, cartItem.quantity)} sx={{
+                width: "fit-content",
                 height: "fit-content",
                 alignSelf: "center",
-                display:"flex",
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
             }}>
@@ -150,7 +150,7 @@ function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCa
                     height: "40px",
                     aspectRatio: "1 / 1",
                     marginLeft: "auto",
-                    
+
                 }} />
             </ButtonBase>
         </Stack>
@@ -186,7 +186,7 @@ function TotalPrice({ cartItems }) { //inherited from the shopping cart
     )
 }
 
-function ShoppingCart({ cartItems, addToCart, removeFromCart }) {
+function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
     return (
         <Stack spacing={convert(18)} sx={{
             position: "absolute",
@@ -211,7 +211,7 @@ function ShoppingCart({ cartItems, addToCart, removeFromCart }) {
                 )
             })}
             <TotalPrice cartItems={cartItems} />
-            <CustomButton textVariant="bodyLarge" buttonSx={{
+            <CustomButton forwardRef={forwardRef} textVariant="bodyLarge" buttonSx={{
                 alignSelf: "center",
                 bgcolor: "custom.backgroundSpecial",
                 border: "1px solid",
@@ -240,9 +240,27 @@ export function Navbar() {
     }
     const { cartItems, addToCart, removeFromCart } = useCart()
 
+    const menuRef = useRef(null)
+
     useEffect(() => {
         console.log(cartItems);
     }, [cartItems])
+
+    useEffect(() => {
+        function offClickHandler(e) {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setIsOpenMenu(false);
+                setIsOpenCart(false);
+            }
+        }
+
+        document.addEventListener("mousedown", offClickHandler);
+
+        return ()=> (
+            document.removeEventListener("mousedown", offClickHandler)
+        )
+    },[])
+
 
     return (
         <>
@@ -264,7 +282,7 @@ export function Navbar() {
                 {icons.map(({ id, type, action, src, height, sx, onClick }) => {
                     return (
                         type === "button" ? (
-                            <ButtonBase onClick={buttonActions[action]}>
+                            <ButtonBase ref={menuRef} onClick={buttonActions[action]}>
                                 <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
                             </ButtonBase>
                         ) : type === "link" && (
@@ -282,7 +300,7 @@ export function Navbar() {
 
                 {
                     isOpenCart && (
-                        <ShoppingCart cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <ShoppingCart forwardRef={menuRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
                     )
                 }
             </Stack>

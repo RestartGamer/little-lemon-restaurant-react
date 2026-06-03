@@ -3,9 +3,9 @@ import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
 
 
-export function CustomButton({ children, onClick = undefined, to = "/", text, buttonSx = {}, textVariant = "bodyLarge", textSx = {} }) {
+export function CustomButton({ forwardRef, children, onClick = undefined, to = "/", text, buttonSx = {}, textVariant = "bodyLarge", textSx = {} }) {
     return (
-        <ButtonBase onClick={onClick}
+        <ButtonBase ref={forwardRef} onClick={onClick}
             sx={{
                 border: "1px solid",
                 borderColor: "custom.borderNormal",

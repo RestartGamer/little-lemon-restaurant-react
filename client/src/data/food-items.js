@@ -7,6 +7,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
+        category: "chicken",
         src: grilledLemonChicken,
         title: "Grilled Lemon Chicken",
         description: "Juicy grilled chicken with lemon, herbs, and a light garlic sauce.",
@@ -20,6 +21,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
+        category: "beef", //cow
         src: slowCookedBeefBowl,
         title: "Slow-Cooked Beef Bowl",
         description: "Tender beef with roasted vegetables and savory house sauce.",
@@ -33,6 +35,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
+        category: "fish",
         src: herbCrustedWhiteFish,
         title: "Herb-Crusted White Fish",
         description: "Fresh white fish baked with herbs and a hint of citrus.",
@@ -46,6 +49,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
+        category: "vegan",
         src: lemonVeggiePlate,
         title: "Lemon Veggie Plate",
         description: "Roasted seasonal vegetables, chickpeas, and tahini drizzle.",
@@ -59,6 +63,7 @@ export const foodItems = [
     {
         id: itemId++,
         type: "foodItem",
+        category:"vegan",
         src: greenPowerBowl,
         title: "Green Power Bowl",
         description: "Quinoa, mixed greens, grilled vegetables, and lemon dressing.",
