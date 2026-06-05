@@ -47,7 +47,6 @@ export function SelectionMenu() {
             alignItems: "center",
             overflowX: "auto",
             scrollbarWidth: "none",
-
             pl: convert(21),
             py: convert(21),
             gap: convert(35),

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext"
 import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
@@ -88,20 +89,22 @@ function App() {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      <CartProvider>
-        <Stack sx={{
-          position: "relative",
-          pb: convert(30),
-        }}>
-          <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} 
-                  isOpenCart={isOpenCart}  setIsOpenCart={setIsOpenCart}/>
-          <Routes>
-            <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart}/>} />
-            <Route path="/details" element={<DetailsPage />} />
-            <Route path="/reservation" element={<ReservationPage />} />
-          </Routes>
-        </Stack>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Stack sx={{
+            position: "relative",
+            pb: convert(30),
+          }}>
+            <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
+              isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
+            <Routes>
+              <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
+              <Route path="/details" element={<DetailsPage />} />
+              <Route path="/reservation" element={<ReservationPage />} />
+            </Routes>
+          </Stack>
+        </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { Box, Stack, ButtonBase, Typography } from "@mui/material"
+import { Box, Stack, ButtonBase, Typography, FormControl, InputLabel, TextField, FormHelperText } from "@mui/material"
 import { CustomButton } from "../../components"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
@@ -7,6 +7,12 @@ import { Link as RouteLink } from "react-router-dom"
 import { trashIcon } from "../../assets"
 import { foodItems } from "../../data/food-items"
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
+
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 
 
 
@@ -278,6 +284,72 @@ function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
     )
 }
 
+function LoginWindow({ error = false, login, register, email, password }) {
+
+    return (
+        <Stack sx={{
+            position: "fixed",
+            top: "20%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            bgcolor: "background.paper"
+        }}>
+
+            <Typography variant="bigButtonTitle" sx={{
+                color: "text.primary",
+            }}>
+                Enter here
+            </Typography>
+
+
+            <Stack>
+                <Stack>
+                    <FormControl>
+                        <InputLabel>
+                            Email
+                        </InputLabel>
+                        <TextField>
+                            {
+                                error &&
+                                <FormHelperText>
+
+                                </FormHelperText>
+                            }
+                        </TextField>
+                    </FormControl>
+                </Stack>
+                <Stack>
+                    <FormControl>
+                        <InputLabel>
+                            Password
+                        </InputLabel>
+                        <TextField>
+                            {
+                                error &&
+                                <FormHelperText>
+
+                                </FormHelperText>
+                            }
+                        </TextField>
+                    </FormControl>
+                </Stack>
+            </Stack>
+
+            <Stack> {/*button section*/}
+                <ButtonBase onClick={() => login(email, password)}>
+                    Login
+                </ButtonBase>
+                <Typography variant="bodyLarge">
+                    or
+                </Typography>
+                <ButtonBase onClick={() => register(email, password)}>
+                    Register
+                </ButtonBase>
+            </Stack>
+
+        </Stack>
+    )
+}
 
 
 
@@ -299,6 +371,30 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
     const cartButtonRef = useRef(null)
     const hamDropdownRef = useRef(null)
     const cartDropdownRef = useRef(null)
+
+    const { login, logout, register, checkAuth, isAuthenticated } = useAuth();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(authSchema),
+        defaultValues: {
+            name: "dummy",
+            email: "dummy@dummy.com",
+            password: "dummypass",
+        },
+    });
+
+    async function handleLogin(data) {
+        await login(data.email, data.password);
+    }
+
+    async function handleRegister(data) {
+        await registerUser(data.name, data.email, data.password);
+    }
+
 
     useEffect(() => {
         console.log(cartItems);
@@ -361,7 +457,10 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
 
                 {
                     isOpenCart && (
-                        <ShoppingCart forwardRef={cartDropdownRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        isAuthenticated
+                            ? <ShoppingCart forwardRef={cartDropdownRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                            : <LoginWindow login={login} register={register} />
+
                     )
                 }
             </Stack>

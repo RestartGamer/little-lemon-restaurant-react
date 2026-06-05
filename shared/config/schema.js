@@ -27,3 +27,9 @@ export const Schema = z.object({
     .string()
     .min(10, "10 characters minimum"),
 });
+
+export const AuthSchema = z.object({
+  name: z.string().min(1, "Name is required").optional(),
+  email: z.string().email("Enter a valid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+})
