@@ -32,8 +32,11 @@ export function registerUser(req, res) {
     password,
     token: createToken(),
   };
+  
 
   users.push(newUser);
+
+  
 
   res.status(201).json({
     user: createPublicUser(newUser),

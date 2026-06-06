@@ -5,6 +5,7 @@ export { FoodItem } from "./layout/FoodItem"
 export { ItemDetails } from "./layout/ItemDetails"
 export { ShoppingCart } from "./layout/ShoppingCart"
 export { LoginWindow } from "./layout/LoginWindow"
+export { MainMenu } from "./layout/MainMenu"
 
 
 export { CustomButton } from "./ui/CustomButton"

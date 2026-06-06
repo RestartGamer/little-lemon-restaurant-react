@@ -5,6 +5,8 @@ import authRoutes from "./routes/authRoutes.js";
 import foodRoutes from "./routes/foodRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
+import { users } from "./data/users.js"
+
 const app = express();
 const PORT = 5000;
 const CLIENT_URL = "http://localhost:5173";
@@ -20,6 +22,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/food-items", foodRoutes);
 app.use("/api/orders", orderRoutes);
+
+console.log(users)
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

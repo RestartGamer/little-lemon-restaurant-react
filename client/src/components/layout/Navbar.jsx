@@ -1,18 +1,11 @@
 import { useState, useEffect, useRef } from "react"
 import { Box, Stack, ButtonBase, Typography, FormControl, InputLabel, TextField, FormHelperText } from "@mui/material"
-import { CustomButton, ShoppingCart, LoginWindow } from "../../components"
+import { CustomButton, ShoppingCart, LoginWindow, MainMenu } from "../../components"
 import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
-
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthSchema } from "../../../../shared/config/schema"
-
-
 
 
 const iconHeight = "57px"
@@ -22,54 +15,6 @@ const icons = [
     { id: iconId++, type: "link", src: logo, height: "57px", sx: { aspectRatio: "1 / 1" } },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "50px", sx: { aspectRatio: "1 / 1" } },
 ]
-
-let optionId = 0;
-const dropdownOptionsMenu = [
-    { id: optionId++, name: "Homepage", route: "/" },
-    { id: optionId++, name: "About us", route: "/" },
-    { id: optionId++, name: "Reserve a table", route: "/reservation" },
-]
-
-function DropDown({ orientation, dropdownOptions, forwardRef }) {
-    return (
-        <Stack ref={forwardRef} sx={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            position: "absolute",
-            top: "100%",
-            ...(orientation === "left" && { left: 0, alignItems: "flex-start" }),
-            ...(orientation === "right" && { right: 0, alignItems: "flex-end" }),
-            px: convert(30),
-            py: convert(30),
-            bgcolor: "background.paper",
-            gap: convert(10),
-            borderTop: "0.5px solid",
-            borderLeft: "2px solid",
-            borderRight: "2px solid",
-            borderBottom: "2px solid",
-            borderColor: "custom.borderNormal",
-        }}>
-            {dropdownOptions.map(({ id, name, route }) => {
-                return (
-                    <ButtonBase key={id} component={RouteLink} to={route}
-                        sx={{
-                            bgcolor: "background.paper",
-                            px: convert(7),
-                            py: convert(5),
-                            border: "1px solid",
-                            borderColor: "custom.borderNormal",
-                            borderRadius: "6px"
-                        }}>
-                        {name}
-                    </ButtonBase>
-                )
-            })}
-
-        </Stack>
-    )
-}
-
-
 
 export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart }) {
 
@@ -91,28 +36,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
     const cartDropdownRef = useRef(null)
     const loginWindowRef = useRef(null)
 
-    const { login, logout, register: registerUser, checkAuth, isAuthenticated } = useAuth();
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: zodResolver(AuthSchema),
-        defaultValues: {
-            name: "dummy",
-            email: "dummy@dummy.com",
-            password: "dummypass",
-        },
-    });
-
-    async function handleLogin(data) {
-        await login(data.email, data.password);
-    }
-
-    async function handleRegister(data) {
-        await registerUser(data.name, data.email, data.password);
-    }
+    const { loginUser, logoutUser, registerUser, checkAuth, isAuthenticated } = useAuth();
 
 
     useEffect(() => {
@@ -137,7 +61,6 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
             document.removeEventListener("click", offClickHandler)
         )
     }, [])
-
 
     return (
         <>
@@ -171,7 +94,12 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                 })}
                 {
                     isOpenMenu && (
-                        <DropDown forwardRef={hamDropdownRef} orientation="left" dropdownOptions={dropdownOptionsMenu} />
+                        <MainMenu
+                            forwardRef={hamDropdownRef}
+                            orientation="left"
+                            logoutUser={logoutUser}
+                            setIsOpenMenu={setIsOpenMenu}
+                            setIsOpenCart={setIsOpenCart} />
                     )
                 }
 
@@ -179,7 +107,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     isOpenCart && (
                         isAuthenticated
                             ? <ShoppingCart forwardRef={cartDropdownRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
-                            : <LoginWindow loginWindowRef={loginWindowRef} login={login} register={register} />
+                            : <LoginWindow loginWindowRef={loginWindowRef} />
 
                     )
                 }

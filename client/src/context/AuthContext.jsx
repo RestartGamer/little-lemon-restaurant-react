@@ -1,10 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLoading } from "."
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const {
+        isPageLoading,
+        loadingMessage,
+        startLoading,
+        stopLoading
+    } = useLoading();
+
 
     const isAuthenticated = user !== null;
 
@@ -17,8 +24,9 @@ export function AuthProvider({ children }) {
             body: JSON.stringify({ email, password }),
         });
 
-        if (!response.ok) { //tells you whether a http  request was successfull
-            throw new Error("Login failed");
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.message || "Login failed");
         }
 
         const data = await response.json();
@@ -36,17 +44,18 @@ export function AuthProvider({ children }) {
     }
 
     async function register(email, password) {
-        
+
         const response = await fetch("http://localhost:5000/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name, email, password }),
+            body: JSON.stringify({ email, password }),
         });
-        
+
         if (!response.ok) {
-            throw new Error("Register failed");
+            const errorData = await response.json()
+            throw new Error(errorData.message || "Register failed");
         }
 
         const data = await response.json();
@@ -55,15 +64,15 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
 
         return data.user;
-        
-        
+
+
     }
 
     async function checkAuth() {
         const token = localStorage.getItem("token");
 
         if (!token) {
-            setLoading(false);
+            stopLoading();
             return;
         }
 
@@ -85,7 +94,7 @@ export function AuthProvider({ children }) {
         } catch (error) {
             logout();
         } finally {
-            setLoading(false);
+            stopLoading();
         }
     }
 
@@ -97,11 +106,10 @@ export function AuthProvider({ children }) {
         user,
         setUser,
         isAuthenticated,
-        loading,
-        login,
-        logout,
+        loginUser: login,
+        logoutUser: logout,
         checkAuth,
-        register,
+        registerUser: register,
     };
 
     return (
