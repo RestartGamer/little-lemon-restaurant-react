@@ -3,7 +3,7 @@ import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 import { heroImage } from "../assets"
 import { convert } from "../utils/muiConverter"
-import {BigButton} from "../components"
+import { CustomButton } from "../components"
 
 const title = "Little Lemon"
 const subTitle = "Chicago"
@@ -50,7 +50,7 @@ export function HeroSection() {
     return (
         <Stack
             sx={{
-                width:"100%",
+                width: "100%",
                 justifyContent: "flex-start",
                 position: "relative",
                 bgcolor: "grey",
@@ -58,13 +58,35 @@ export function HeroSection() {
             }}
         >
             <Box component="img" src={heroImage} alt={imageAlt} sx={{
-                width:"max-content",
+                width: "max-content",
                 maxHeight: "218px",
 
 
             }} />
             <TitleBlock />
-            <BigButton text={reservationBtnText}/>
+            <CustomButton text={reservationBtnText}
+                buttonSx={{
+                    position: "absolute",
+                    top: "5%",
+                    right: "2%",
+                    bgcolor: "custom.buttonSpecial2",
+                    border: "0.5px solid",
+                    borderColor: "custom.borderGrey1",
+                    width: "fit-content",
+                    height: "fit-content",
+                    px: convert(7),
+                    py: convert(5),
+                    boxShadow: "0 3px 6px rgba(0, 0, 0, 0.35)",
+
+                }}
+                textVariant="bodyMedium"
+                textSx={{
+                    color: "text.secondary",
+                    lineHeight: "1",
+                    letterSpacing: "1px"
+                }}>
+                Reserve a table
+            </CustomButton>
 
         </Stack>
     )

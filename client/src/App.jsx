@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { CartProvider } from "./context/CartContext";
 import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, SelectionMenu } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage } from "./pages"
+import { convert } from "./utils/muiConverter"
 import './App.css'
 
 const sharedTypography = {
@@ -37,7 +39,7 @@ const sharedTypography = {
     fontSize: "14px"
   },
   bodyMedium: {
-    fontWeight: 400, //Regular 
+    fontWeight: 400, //Regular -- 500 for Medium
     fontSize: "12px"
   },
   bodySmall: {
@@ -62,11 +64,14 @@ const themeSettings = {
       borderSpecial: "#FFF87D",
       borderSpecial2: "#FECE14",
       borderGrey: "#A2A2A2",
+      borderGrey1: "#818181",
       heroTitleBg: "#494949",
       buttonSpecial: "#C7C7C7",
+      buttonSpecial2: "#222222",
       backgroundSpecial: "#FECE14",
       bigButtonBg: "#157C28",
-      bigButtonBorder: "#2C2C2C"
+      bigButtonBorder: "#2C2C2C",
+      backgroundSecondary: "#E8E8E8",
     },
   }
 
@@ -74,22 +79,29 @@ const themeSettings = {
 
 
 function App() {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
+
   const muiTheme = useMemo(() =>
     createTheme(themeSettings), []
   )
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      <Stack sx={{
-        position: "relative",
-      }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/details" element={<DetailsPage />} />
-          <Route path="/reservation" element={<ReservationPage />} />
-        </Routes>
-      </Stack>
+      <CartProvider>
+        <Stack sx={{
+          position: "relative",
+          pb: convert(30),
+        }}>
+          <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} 
+                  isOpenCart={isOpenCart}  setIsOpenCart={setIsOpenCart}/>
+          <Routes>
+            <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart}/>} />
+            <Route path="/details" element={<DetailsPage />} />
+            <Route path="/reservation" element={<ReservationPage />} />
+          </Routes>
+        </Stack>
+      </CartProvider>
     </ThemeProvider>
   )
 }

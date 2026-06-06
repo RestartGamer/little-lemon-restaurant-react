@@ -3,6 +3,8 @@ import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
+import { CustomButton } from "../../components"
+import { useCart } from "../../context/CartContext";
 
 const imageAspect = 113 / 73;
 const routePath = "/details";
@@ -32,7 +34,15 @@ function TitleBox({ title, description }) {
     )
 }
 
-function DetailsBox({ src, title, description, price, highlights }) {
+function DetailsBox({ addToCart = undefined, id, src, title, description, price, highlights }) {
+    const item = {
+        id,
+        src,
+        title,
+        description,
+        price,
+        highlights,
+    };
     return (
         <Stack sx={{
             alignItems: "center",
@@ -43,40 +53,39 @@ function DetailsBox({ src, title, description, price, highlights }) {
                 color: "text.primary",
 
             }}>
-                {price}
+                ${price}
             </Typography>
-            <ButtonBase
-                component={RouteLink}
-                to={routePath}
-                state={{src, title, description, price, highlights}}
-                sx={{
-                    border: "1px solid",
-                    borderColor: "custom.borderNormal",
-                    borderRadius: "3px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}>
-                <Typography variant="bodyLarge" sx={{
-                    fontWeight: 600,
-                    color: "text.primary",
-                }}>
-                    More Details
-                </Typography>
-            </ButtonBase>
+            <CustomButton onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                addToCart(item)
+            }}>
+                Add to cart
+            </CustomButton>
         </Stack>
     )
 }
 
-export function FoodItem({ id, src, title, description, price, highlights=[] }) {
+export function FoodItem({ id, src, title, description, price, highlights = [], isOpenMenu, isOpenCart }) {
+    const { addToCart } = useCart();
 
     return (
-        <Stack direction="row" sx={{
-            justifyContent: "center",
-            alignItems: "center",
-            gap: convert(10),
-            py: convert(5),
-        }}>
+        <Stack
+            component={RouteLink}
+            to={routePath}
+            state={{ id, src, title, description, price, highlights }}
+            direction="row" sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                gap: convert(10),
+                py: convert(5),
+                textDecoration: "none"
+            }}
+            onClick={(event) => {
+                if (isOpenMenu || isOpenCart ) {
+                    event.preventDefault(); //prevents the RouteLink from functioning
+                }
+            }}>
             <Box component="img" src={src} alt={`An image of ${title}`} sx={{
                 minWidth: "113px",
                 maxWidth: "120px",
@@ -84,8 +93,10 @@ export function FoodItem({ id, src, title, description, price, highlights=[] }) 
                 aspectRatio: imageAspect,
                 objectFit: "cover",
             }} />
+
             <TitleBox title={title} description={description} />
-            <DetailsBox src={src} title={title} description={description} price={price} highlights={highlights} />
+            <DetailsBox addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+        
         </Stack>
     )
 }

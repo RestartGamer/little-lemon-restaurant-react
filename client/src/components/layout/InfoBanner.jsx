@@ -1,8 +1,8 @@
 import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 
-const label = "Limited seats: "
-const value = "please order 1h in advance"
+const label = "Est. delivery time: "
+const value = "20 minutes"
 
 export function InfoBanner() {
     return (
