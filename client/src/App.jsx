@@ -24,7 +24,7 @@ const sharedTypography = {
   },
   sectionTitle: {
     fontWeight: 500, //Medium -- semiBold
-    fontSize: "28px"
+    fontSize: "26px"
   },
   bigButtonTitle: {
     fontWeight: 500, //medium

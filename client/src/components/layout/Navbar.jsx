@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Box, Stack, ButtonBase, Typography, FormControl, InputLabel, TextField, FormHelperText } from "@mui/material"
 import { CustomButton, ShoppingCart, LoginWindow, MainMenu } from "../../components"
-import { logo, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
+import { logoNew, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 import { useCart } from "../../context/CartContext";
@@ -11,9 +11,9 @@ import { useAuth } from "../../context/AuthContext";
 const iconHeight = "57px"
 let iconId = 0;
 const icons = [
-    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "37px", sx: {} },
-    { id: iconId++, type: "link", src: logo, height: "57px", sx: { aspectRatio: "1 / 1" } },
-    { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "50px", sx: { aspectRatio: "1 / 1" } },
+    { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "24px", sx: {} },
+    { id: iconId++, type: "link", src: logoNew, height: "75px", sx: {  } },
+    { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "35px", sx: { aspectRatio: "1 / 1" } },
 ]
 
 export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart }) {
@@ -71,12 +71,13 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     position: "sticky",
                     top: 0,
                     width: "100%",
+                    height: "fit-content",
                     bgcolor: "background.paper",
                     px: convert(20),
-                    py: convert(19),
+                    py: convert(1),
                     zIndex: 9999,
-                    borderBottom: "1px solid",
-                    borderColor: "black",
+                    borderBottom: "0.5px solid",
+                    borderColor: "darkgray",
 
                 }}>
                 {icons.map(({ id, type, action, src, height, sx, onClick }) => {
