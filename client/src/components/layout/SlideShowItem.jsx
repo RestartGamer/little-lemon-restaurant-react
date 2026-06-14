@@ -2,27 +2,31 @@ import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 import { AddToCartBtn } from "../../components"
 
+const aspectRatio = 420 / 260
 
 export function SlideShowItem({ title, price, src, children }) {
     return (
         <Stack sx={{
-            width: "100vw",
-            height: "260px",
             position: "relative",
+            "--max-width": "800px",
+            "--width": "min(93vw, var(--max-width))",
+            width: "var(--width)",
+            maxWidth: "var(--max-width)",
+            aspectRatio: aspectRatio,
+            ml: "calc((100vw - var(--width)) / 2)",
         }}>
             <Stack sx={{
-                width: "420px",
-                height: "260px",
                 position: "absolute",
                 top: 0,
-                left: "50%",
-                transform: "translateX(-50%)",
+                left: 0,
                 pl: convert(22),
                 pr: convert(30),
                 pt: convert(12),
                 pb: convert(20),
                 borderRadius: "11px",
                 overflow: "clip",
+                width: "100%",
+                height: "100%",
 
             }}>
                 <Box component="img" src={src} alt={`An image of a ${title}`} sx={{
@@ -31,9 +35,10 @@ export function SlideShowItem({ title, price, src, children }) {
                     left: 0,
                     width: "100%",
                     height: "100%",
+
                     objectFit: "cover",
-                    zIndex: -1,
-                    
+                    zIndex: 1,
+
                 }} />
 
 
@@ -43,6 +48,7 @@ export function SlideShowItem({ title, price, src, children }) {
                     justifyContent: "flex-start",
                     marginBottom: "auto",
                     marginRight: "auto",
+                    zIndex: 1,
                 }}>
                     <Typography variant="heroTitle" sx={(theme) => ({
                         textAlign: "start",
@@ -67,6 +73,7 @@ export function SlideShowItem({ title, price, src, children }) {
                     justifyContent: "flex-end",
                     marginTop: "auto",
                     marginLeft: "auto",
+                    zIndex: 1,
                 }}>
                     <Stack sx={{
                         alignItems: "center"
