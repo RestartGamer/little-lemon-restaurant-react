@@ -27,7 +27,6 @@ export function SlideShowItem({ title, price, src, children }) {
                 overflow: "clip",
                 width: "100%",
                 height: "100%",
-
             }}>
                 <Box component="img" src={src} alt={`An image of a ${title}`} sx={{
                     position: "absolute",
@@ -35,10 +34,8 @@ export function SlideShowItem({ title, price, src, children }) {
                     left: 0,
                     width: "100%",
                     height: "100%",
-
                     objectFit: "cover",
                     zIndex: 1,
-
                 }} />
 
 

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
-import { Navbar, InfoBanner, SelectionMenu } from "./components"
+import { Navbar, InfoBanner, CategorySelection } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage } from "./pages"

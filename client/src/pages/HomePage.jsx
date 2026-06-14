@@ -1,4 +1,4 @@
-import { Navbar, InfoBanner, SelectionMenu, SectionTitle } from "../components"
+import { Navbar, InfoBanner, CategorySelection, SectionTitle } from "../components"
 import { HeroSection, FoodItemSection, SlideShowSection } from "../sections"
 
 import { foodItems } from "../../../server/data/foodItems.js"
@@ -13,7 +13,7 @@ export function HomePage({isOpenMenu, isOpenCart}) {
             <SectionTitle title="Order Takeout"/>
             <InfoBanner />
             <SlideShowSection />
-            <SelectionMenu />
+            <CategorySelection />
             <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
         </>
     )

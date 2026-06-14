@@ -14,14 +14,14 @@ const options = [
     { id: optionsId++, name: "Beverages", filter: "beverage" },
 ]
 
-function SelectionBtn({ children }) {
+function CategoryBtn({ children }) {
     return (
         <ButtonBase component="button" sx={{
             display: "inline-flex",
             justifyContent: "center",
             alignItems: "center",
-            p:0,
-            
+            p: 0,
+
             bgcolor: "custom.buttonSpecial",
             px: convert(4),
 
@@ -40,28 +40,35 @@ function SelectionBtn({ children }) {
     )
 }
 
-export function SelectionMenu() {
+export function CategorySelection() {
     return (
-        <Stack direction="row" sx={{
-            justifyContent: "flex-start",
-            alignItems: "center",
-            overflowX: "auto",
-            scrollbarWidth: "none",
-            pl: convert(21),
+        <Stack sx={{
+            width: "100%",
+            overflow: "clip",
+            px: convert(21),
             py: convert(21),
-            gap: convert(35),
-
-            borderBlock: "1px solid",
-            bordercolor: "custom.borderNormal"
         }}>
-            {options.map(({ id, name, filter }) => {
-                return (
-                    <SelectionBtn key={id}>
-                        {name}
-                    </SelectionBtn>
-                )
-            })}
+            <Stack direction="row" sx={{
+                justifyContent: "flex-start",
+                alignItems: "center",
+                overflowX: "auto",
+                scrollbarWidth: "none",
+                
+                gap: convert(35),
+                borderLeft: "1px solid",
+                borderRight: "1px solid",
+                borderColor: "black",
+                py: convert(11)
+            }}>
+                {options.map(({ id, name, filter }) => {
+                    return (
+                        <CategoryBtn key={id}>
+                            {name}
+                        </CategoryBtn>
+                    )
+                })}
 
+            </Stack>
         </Stack>
     )
 }

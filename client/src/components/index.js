@@ -1,6 +1,6 @@
 export { Navbar } from "./layout/Navbar"
 export { InfoBanner } from "./layout/InfoBanner"
-export { SelectionMenu } from "./layout/SelectionMenu"
+export { CategorySelection } from "./layout/CategorySelection"
 export { FoodItem } from "./layout/FoodItem"
 export { ItemDetails } from "./layout/ItemDetails"
 export { ShoppingCart } from "./layout/ShoppingCart"
