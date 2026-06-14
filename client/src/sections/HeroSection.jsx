@@ -31,12 +31,11 @@ export function HeroSection() {
             }}
         >
             <Box component="img" src={heroImage2} alt={imageAlt} sx={{
-                width: "max-content",
 
                 objectFit: "cover",
                 transform: "scaleX(-1)",
-                width: "391px",
-                height: "243px",
+                width: "100%",
+                height: "100%",
                 objectPosition: "30% 67%",
 
 

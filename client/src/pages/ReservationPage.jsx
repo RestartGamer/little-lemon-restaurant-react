@@ -1,4 +1,4 @@
-import { PageTitle } from "../components"
+import { SectionTitle as PageTitle } from "../components"
 import {
   Stack,
   InputLabel,

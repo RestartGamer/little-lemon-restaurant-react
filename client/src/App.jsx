@@ -15,12 +15,12 @@ const sharedTypography = {
   heroTitle: {
     fontFamily: `"Markazi Text", sans-serif`,
     fontWeight: 500, //Medium
-    fontSize: "60px",
+    fontSize: "54px",
   },
   headingTitle: {
     fontFamily: `"Markazi Text", sans-serif`,
     fontWeight: 400, //Regular
-    fontSize: "45px",
+    fontSize: "38px",
   },
   sectionTitle: {
     fontWeight: 500, //Medium -- semiBold
@@ -32,7 +32,7 @@ const sharedTypography = {
   },
   cardTitle: {
     fontWeight: 500, //medium
-    fontSize: "16px"
+    fontSize: "18px"
   },
   bodyLarge: {
     fontWeight: 400, //Regular -- 600 for semiBold
@@ -66,6 +66,7 @@ const themeSettings = {
       borderGrey: "#A2A2A2",
       borderGrey1: "#818181",
       heroTitleBg: "#494949",
+      heroTitleTextBorder: "352C00",
       buttonSpecial: "#C7C7C7",
       buttonSpecial2: "#222222",
       backgroundSpecial: "#FECE14",
