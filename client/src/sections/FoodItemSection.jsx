@@ -15,10 +15,19 @@ export function FoodItemSection({ items, isOpenMenu, isOpenCart }) {
             pt: convert(15),
         }}>
             {
-                items.map(({ id, type, src, title, description, price, highlights = [] }) => {
+                items.map(({ id, type, src, title, description, descriptionLong, price, highlights = [] }) => {
                     return (
                         type === "foodItem" ? (
-                            <FoodItem key={id} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart}id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+                            <FoodItem 
+                            key={id} 
+                            isOpenMenu={isOpenMenu} 
+                            isOpenCart={isOpenCart} 
+                            id={id} src={src} 
+                            title={title} 
+                            description={description} 
+                            descriptionLong={descriptionLong}
+                            price={price} 
+                            highlights={highlights} />
                         ) :
                             type === "promoItem" && (
                                 <Box sx={{

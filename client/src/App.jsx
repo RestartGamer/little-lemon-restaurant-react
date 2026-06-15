@@ -23,8 +23,8 @@ const sharedTypography = {
     fontSize: "38px",
   },
   sectionTitle: {
-    fontWeight: 500, //Medium -- semiBold
-    fontSize: "26px"
+    fontWeight: 600, //Medium -- semiBold
+    fontSize: "27px"
   },
   bigButtonTitle: {
     fontWeight: 500, //medium
@@ -67,6 +67,7 @@ const themeSettings = {
       borderNormal: "#000000",
       yellowSpecial: "#EAE1B2",
       yellowSpecial2: "#FBF5D2",
+      yellowSpecial3: "#ebd463",
       borderSpecial2: "#FECE14",
       borderGrey: "#A2A2A2",
       borderGrey1: "#818181",

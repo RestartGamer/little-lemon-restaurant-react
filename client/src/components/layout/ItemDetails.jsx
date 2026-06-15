@@ -1,144 +1,97 @@
-import { Box, Typography, Stack } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
+import { useLocation } from "react-router-dom"
 
-function ItemDescription({ description }) {
+const imageAspect = 244 / 265;
+const yellowAspect = 196 / 265;
+const maxHeight = "326px";
 
-    return (
-        <Typography component="p" variant="cardTitle" sx={{
-            fontWeight: 400,
-            color: "text.primary",
-            textAlign: "start",
-        }}>
-            {description}
-        </Typography>
-    )
-}
-
-function Divider({ width = "80%", sx={} }) {
+function Highlights({ highlights }) {
 
     return (
         <Box sx={{
-            width: width,
-            height: "fit-content",
-            display: "inline-flex",
-            ...sx,
-        }}>
-            <Box
-                component="hr"
-                sx={{
-                    width: "100%",
-                    maxWidth: "1080px",
-                    maxHeight:"2px",
-                    border: "none",
-                    borderBottom: "1px solid",
-                    borderColor: "custom.borderNormal",
-                    
-                }} />
-        </Box>
-    )
-}
-
-function PriceBox({ price }) {
-
-    return (
-        <Box sx={{
-            display: "inline-flex",
-            justifyContent: "flex-end",
+            display: "flex",
+            justifyContent: "center",
             alignItems: "center",
-        }}>
-            <Typography component="span" variant="cardTitle" sx={{
-                color: "text.primary",
-                fontWeight: 600,
-            }}>
-                {price}
-            </Typography>
-        </Box>
-    )
-}
-
-function HighlightBox({ highlights }) {
-
-    return (
-        <Stack 
-        sx={{
             width: "100%",
-            maxWidth: "300px",
-            justifyContent: "start",
-            alignItems: "start",
+            px: convert(33),
+            py: convert(9),
             bgcolor: "custom.heroTitleBg",
-            border: "2px solid",
-            borderColor: "custom.borderSpecial2",
-            px: convert(9),
-            py: convert(3),
         }}>
-            {highlights.map(highlight => {
-                return (
-                    <Typography component="span" variant="bodyMedium" sx={{
-                        color: "text.secondary",
-                        textAlign: "start",
-                    }}>
-                        {highlight}
-                    </Typography>
-                )
-            })
-
-            }
-        </Stack>
-
+            <Stack direction="row" 
+            sx={{
+                width:"100%",
+                maxWidth: "700px",
+                justifyContent: "space-between",
+            }}>
+                {highlights.map((highlight) => {
+                    return (
+                        <Typography variant="bodyMedium" sx={{
+                            color: "text.secondary",
+                        }}>
+                            {highlight}
+                        </Typography>
+                    )
+                })}
+            </Stack>
+        </Box>
     )
 }
 
-
-export function ItemDetails({ src, title, description, price, highlights }) {
-
+export function ItemDetails({ src, title, description, descriptionLong, price, highlights }) {
     return (
-        <Stack sx={{
-            justifyContent: "start",
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
             alignItems: "center",
-            pt: convert(20),
-            pb: convert(10),
-            gap: convert(20)
+            width: "100%",
         }}>
-
-
             <Stack direction="row" sx={{
                 width: "100%",
-                height: "max-content",
-                minHeight: "180px",
-                justifyContent: "space-between",
-                alignItems: "center",
-                px: convert(18),
-                
+                position: "relative",
+                justifyContent: "center",
             }}>
-
                 <Box component="img" src={src} alt={`An image of ${title}`} sx={{
-                    minWidth: "186px",
-                    width: "34%",
-                    aspectRatio: "1 / 1",
+                    width: "55%",
+                    maxWidth: "436px",
+                    maxHeight: maxHeight,
+                    aspectRatio: imageAspect,
                     objectFit: "cover",
                 }} />
+                <Typography variant="sectionTitle" sx={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "5%",
+                    transform: "translateX(-50%)",
+                    textAlign: "end",
+                    color: "text.primary",
+                    lineHeight: 1.3,
+                }}>
+                    {title}
+                </Typography>
 
                 <Stack sx={{
-                    minWidth: "199px",
-                    maxWidth: "40%",
-                    height: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "end",
+                    width: "45%",
+                    maxHeight: maxHeight,
+                    aspectRatio: yellowAspect,
+                    bgcolor: "custom.yellowSpecial2",
+                    px: convert(14),
+                    pt: convert(110),
+                    pb: convert(15),
+                    alignItems: "flex-start",
                 }}>
 
-
-                    <ItemDescription description={description} />
-                    <Divider width="80%" sx={{
-                        py: convert(8)
-                    }}/>
-                    <PriceBox price={price} />
-                    <HighlightBox highlights={highlights} />
-
-
+                    <Typography variant="bodyLarge" sx={{
+                        maxWidth: "200px",
+                        textAlign: "start",
+                        lineHeight: 1.1,
+                    }}>
+                        {descriptionLong}
+                    </Typography>
                 </Stack>
-
             </Stack>
-            <Divider width="80%" />
-        </Stack>
+            <Highlights highlights={highlights} />
+        </Box>
     )
 }

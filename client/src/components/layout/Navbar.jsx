@@ -77,7 +77,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     py: convert(1),
                     zIndex: 9999,
                     borderBottom: "0.5px solid",
-                    borderColor: "darkgray",
+                    borderColor: "black",
 
                 }}>
                 {icons.map(({ id, type, action, src, height, sx, onClick }) => {
