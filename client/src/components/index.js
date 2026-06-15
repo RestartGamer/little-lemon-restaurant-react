@@ -8,6 +8,8 @@ export { LoginWindow } from "./layout/LoginWindow"
 export { MainMenu } from "./layout/MainMenu" 
 export { SlideShowItem } from "./layout/SlideShowItem"
 export { AddToCartBtn } from "./layout/AddToCartBtn"
+export { BottomInfo } from "./layout/BottomInfo"
+export { Footer } from "./layout/Footer"
 
 
 export { CustomButton } from "./ui/CustomButton"

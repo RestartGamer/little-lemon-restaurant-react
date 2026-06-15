@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
-import { Navbar, InfoBanner, CategorySelection } from "./components"
+import { Navbar, InfoBanner, CategorySelection, BottomInfo, Footer } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage } from "./pages"
@@ -65,7 +65,8 @@ const themeSettings = {
     custom: {
       textSpecial: "#FECE14",
       borderNormal: "#000000",
-      borderSpecial: "#FFF87D",
+      yellowSpecial: "#EAE1B2",
+      yellowSpecial2: "#FBF5D2",
       borderSpecial2: "#FECE14",
       borderGrey: "#A2A2A2",
       borderGrey1: "#818181",
@@ -77,6 +78,7 @@ const themeSettings = {
       bigButtonBg: "#157C28",
       bigButtonBorder: "#2C2C2C",
       backgroundSecondary: "#E8E8E8",
+      bottomInfoBg: "#CDCDCD",
     },
   }
 
@@ -112,6 +114,8 @@ function App() {
               </Routes>
 
             </Stack>
+            <BottomInfo />
+            <Footer />
           </CartProvider>
 
         </AuthProvider>
