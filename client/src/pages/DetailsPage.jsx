@@ -1,4 +1,4 @@
-import { Navbar, ItemDetails, CustomButton, SectionTitle as PageTitle } from "../components"
+import { Navbar, ItemDetails, CustomButton, SectionTitle } from "../components"
 import { FoodItemSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"

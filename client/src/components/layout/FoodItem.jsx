@@ -3,20 +3,20 @@ import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
-import { CustomButton } from "../../components"
 import { useCart } from "../../context/CartContext";
+import { AddToCartBtn } from "../../components"
 
-const imageAspect = 113 / 73;
+const imageAspect = 194 / 113;
 const routePath = "/details";
 
-function TitleBox({ title, description }) {
+function TitleAndDescription({ title, description }) {
     return (
         <Stack sx={{
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            width: "42%",
+            width: "100%",
             maxWidth: "1080px",
-
+            gap: "6px",
         }}>
             <Typography variant="cardTitle" sx={{
                 color: "text.primary",
@@ -27,6 +27,7 @@ function TitleBox({ title, description }) {
             <Typography variant="bodyLarge" sx={{
                 color: "text.primary",
                 textAlign: "start",
+                lineHeight: 1
             }}>
                 {description}
             </Typography>
@@ -34,7 +35,7 @@ function TitleBox({ title, description }) {
     )
 }
 
-function DetailsBox({ addToCart = undefined, id, src, title, description, price, highlights }) {
+function PriceAndCTA({ addToCart = undefined, id, src, title, description, price, highlights }) {
     const item = {
         id,
         src,
@@ -44,24 +45,26 @@ function DetailsBox({ addToCart = undefined, id, src, title, description, price,
         highlights,
     };
     return (
-        <Stack sx={{
+        <Stack direction="row" sx={{
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
             gap: convert(9),
         }}>
-            <Typography variant="bodyLarge" sx={{
+            <Typography variant="bigCardTitle" sx={{
                 color: "text.primary",
 
             }}>
                 ${price}
             </Typography>
-            <CustomButton onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                addToCart(item)
-            }}>
+            <AddToCartBtn 
+            item={item}
+            buttonSx={{
+                px:convert(8),
+                py:convert(5),
+            }}
+            typography="cardTitle">
                 Add to cart
-            </CustomButton>
+            </AddToCartBtn>
         </Stack>
     )
 }
@@ -70,33 +73,44 @@ export function FoodItem({ id, src, title, description, price, highlights = [], 
     const { addToCart } = useCart();
 
     return (
-        <Stack
-            component={RouteLink}
-            to={routePath}
-            state={{ id, src, title, description, price, highlights }}
-            direction="row" sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                gap: convert(10),
-                py: convert(5),
-                textDecoration: "none"
-            }}
-            onClick={(event) => {
-                if (isOpenMenu || isOpenCart ) {
-                    event.preventDefault(); //prevents the RouteLink from functioning
-                }
-            }}>
-            <Box component="img" src={src} alt={`An image of ${title}`} sx={{
-                minWidth: "113px",
-                maxWidth: "120px",
-                width: "25.68%",
-                aspectRatio: imageAspect,
-                objectFit: "cover",
-            }} />
-
-            <TitleBox title={title} description={description} />
-            <DetailsBox addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
-        
+        <Stack sx={{
+            width:"100%",
+            alignItems: "center"
+        }}>
+            <Stack
+                component={RouteLink}
+                to={routePath}
+                state={{ id, src, title, description, price, highlights }}
+                direction="row" 
+                sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: convert(10),
+                    py: convert(5),
+                    textDecoration: "none",
+                    width:"fit-content"
+                }}
+                onClick={(event) => {
+                    if (isOpenMenu || isOpenCart) {
+                        event.preventDefault(); //prevents the RouteLink from functioning
+                    }
+                }}>
+                <Box component="img" src={src} alt={`An image of ${title}`} sx={{
+                    minWidth: "113px",
+                    maxWidth: "200px",
+                    width: "194px",
+                    aspectRatio: imageAspect,
+                    objectFit: "cover",
+                    borderRadius: "6px"
+                }} />
+                <Stack sx={{
+                    width:"180px",
+                    gap: "10px",
+                }}>
+                    <TitleAndDescription title={title} description={description} />
+                    <PriceAndCTA addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+                </Stack>
+            </Stack>
         </Stack>
     )
 }

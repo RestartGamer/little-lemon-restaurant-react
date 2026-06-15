@@ -30,9 +30,13 @@ const sharedTypography = {
     fontWeight: 500, //medium
     fontSize: "22px"
   },
-  cardTitle: {
+   bigCardTitle: {
     fontWeight: 500, //medium
     fontSize: "18px"
+  },
+  cardTitle: {
+    fontWeight: 500, //medium
+    fontSize: "16px"
   },
   bodyLarge: {
     fontWeight: 400, //Regular -- 600 for semiBold
