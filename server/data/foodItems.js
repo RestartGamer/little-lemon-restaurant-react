@@ -4,7 +4,8 @@ export const foodItems = [
   {
     id: 0,
     type: "foodItem",
-    category: "chicken",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/grilledLemonChicken.jpg`,
     title: "Grilled Lemon Chicken",
     description: "Juicy grilled chicken with lemon, herbs, and a light garlic sauce.",
@@ -20,7 +21,8 @@ export const foodItems = [
   {
     id: 1,
     type: "foodItem",
-    category: "beef",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/slowCookedBeefBowl.jpg`,
     title: "Slow-Cooked Beef Bowl",
     description: "Tender beef with roasted vegetables and savory house sauce.",
@@ -37,6 +39,7 @@ export const foodItems = [
     id: 2,
     type: "foodItem",
     category: "fish",
+    categoryName: "Fish",
     src: `${imageBaseUrl}/herbCrustedWhiteFish.jpg`,
     title: "Herb-Crusted White Fish",
     description: "Fresh white fish baked with herbs and a hint of citrus.",
@@ -52,7 +55,8 @@ export const foodItems = [
   {
     id: 3,
     type: "foodItem",
-    category: "vegan",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/lemonVeggiePlate.jpg`,
     title: "Lemon Veggie Plate",
     description: "Roasted seasonal vegetables, chickpeas, and tahini drizzle.",
@@ -68,7 +72,8 @@ export const foodItems = [
   {
     id: 4,
     type: "foodItem",
-    category: "vegan",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/greenPowerBowl.jpg`,
     title: "Green Power Bowl",
     description: "Quinoa, mixed greens, grilled vegetables, and lemon dressing.",
@@ -84,7 +89,8 @@ export const foodItems = [
   {
     id: 5,
     type: "foodItem",
-    category: "salad",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/greekSalad.jpg`,
     title: "Greek Salad",
     description: "A deliciously seasoned Greek Salad",
@@ -100,7 +106,8 @@ export const foodItems = [
   {
     id: 6,
     type: "foodItem",
-    category: "appetizer",
+    category: "meat",
+    categoryName: "Meat",
     src: `${imageBaseUrl}/springRolls.jpg`,
     title: "Spring Rolls",
     description: "Carefully prepared Spring Rolls",
@@ -116,7 +123,8 @@ export const foodItems = [
   {
     id: 7,
     type: "foodItem",
-    category: "beverage",
+    category: "drink",
+    categoryName: "Drink",
     src: `${imageBaseUrl}/waterBottle.jpg`,
     title: "Water 500ml",
     description: "",

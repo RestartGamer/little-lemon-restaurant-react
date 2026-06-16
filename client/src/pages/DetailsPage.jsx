@@ -28,6 +28,7 @@ export function DetailsPage() {
             </HeaderExt>
             <ItemDetails src={src} title={title} description={description} descriptionLong={descriptionLong} price={price} highlights={highlights} />
             <AddOrReserveSection />
+            <SectionTitle title="Menu"/>
 
         </>
     )
