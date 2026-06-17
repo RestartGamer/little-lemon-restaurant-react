@@ -1,4 +1,4 @@
-import { Navbar, ItemDetails, CustomButton, SectionTitle, HeaderExt, BackBtn } from "../components"
+import { Navbar, ItemDetails, CustomButton, SectionTitle, HeaderExt, BackBtn, RestaurantMenu } from "../components"
 import { FoodItemSection, AddOrReserveSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"
@@ -17,7 +17,7 @@ export function DetailsPage() {
         );
     }
 
-    const { src, title, description, descriptionLong, price, highlights } = state;
+    const { items, src, title, description, descriptionLong, price, highlights } = state;
 
     return (
         <>
@@ -29,6 +29,7 @@ export function DetailsPage() {
             <ItemDetails src={src} title={title} description={description} descriptionLong={descriptionLong} price={price} highlights={highlights} />
             <AddOrReserveSection />
             <SectionTitle title="Menu"/>
+            <RestaurantMenu items={items}/>
 
         </>
     )

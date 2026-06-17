@@ -23,6 +23,7 @@ export function FoodItemSection({ items, isOpenMenu, isOpenCart }) {
                             isOpenMenu={isOpenMenu} 
                             isOpenCart={isOpenCart} 
                             id={id} src={src} 
+                            items={items}
                             title={title} 
                             description={description} 
                             descriptionLong={descriptionLong}

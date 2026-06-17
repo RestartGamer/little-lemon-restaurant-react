@@ -55,8 +55,8 @@ export const foodItems = [
   {
     id: 3,
     type: "foodItem",
-    category: "meat",
-    categoryName: "Meat",
+    category: "vegan",
+    categoryName: "Vegan",
     src: `${imageBaseUrl}/lemonVeggiePlate.jpg`,
     title: "Lemon Veggie Plate",
     description: "Roasted seasonal vegetables, chickpeas, and tahini drizzle.",

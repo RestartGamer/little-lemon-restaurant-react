@@ -70,7 +70,7 @@ function PriceAndCTA({ addToCart = undefined, id, src, title, description, price
     )
 }
 
-export function FoodItem({ id, src, title, description, descriptionLong, price, highlights = [], isOpenMenu, isOpenCart }) {
+export function FoodItem({ items, id, src, title, description, descriptionLong, price, highlights = [], isOpenMenu, isOpenCart }) {
     const { addToCart } = useCart();
 
     return (
@@ -81,7 +81,7 @@ export function FoodItem({ id, src, title, description, descriptionLong, price, 
             <Stack
                 component={RouteLink}
                 to={routePath}
-                state={{ id, src, title, description, descriptionLong, price, highlights }}
+                state={{ items, id, src, title, description, descriptionLong, price, highlights }}
                 direction="row" 
                 sx={{
                     justifyContent: "center",

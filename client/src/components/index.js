@@ -13,6 +13,8 @@ export { BottomInfo } from "./layout/BottomInfo"
 export { Footer } from "./layout/Footer"
 export { HeaderExt } from "./layout/HeaderExt"
 export { BackBtn } from "./layout/BackBtn"
+export { NavigationBtn } from "./layout/NavigationBtn"
+export { RestaurantMenu } from "./layout/RestaurantMenu"
 
 
 export { CustomButton } from "./ui/CustomButton"
