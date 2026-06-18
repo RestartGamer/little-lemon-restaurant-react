@@ -11,6 +11,8 @@ export function InfoBanner() {
             justifyContent: "flex-start",
             py: convert(7),
             pl: convert(27),
+            bgcolor: "custom.yellowSpecial",
+            mb:convert(14)
         }}>
             <Typography variant="bodyLarge" sx={{
                 color: "text.primary",

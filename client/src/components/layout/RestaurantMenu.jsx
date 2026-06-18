@@ -4,15 +4,20 @@ import { NavigationBtn } from "../../components"
 import { useState, useEffect } from "react"
 
 function MenuBook({ items, catState }) {
-    const itemsFiltered = items.filter((item) => item.category == catState)
+    const itemsFiltered = items?.filter((item) => item.category == catState)
     const categoryName = itemsFiltered[0]?.categoryName ?? "Meats";
 
     return (
         <Stack sx={{
-            width: "50%",
+            width: "70%",
+            bgcolor: "custom.yellowSpecial",
+            px: convert(21),
+            py: convert(15),
+
         }}>
             <Stack sx={{
                 width: "100%",
+                gap: convert(17)
             }}>
                 <Box sx={{
                     display: "flex",
@@ -23,6 +28,7 @@ function MenuBook({ items, catState }) {
                     <Typography variant="sectionTitle" sx={{
                         color: "text.primary",
                         textAlign: "center",
+                        fontFamily: `"Markazi Text, sans-serif`
                     }}>
                         {categoryName}
                     </Typography>
@@ -54,7 +60,7 @@ function MenuBook({ items, catState }) {
                                     color: "text.primary",
                                     textAlign: "start"
                                 }}>
-                                    {price}
+                                    ${price}
                                 </Typography>
                             </Box>
                         </Stack>
@@ -72,25 +78,35 @@ function MenuBookSelection({ setCatState }) {
     const menuOptions = ["fish", "vegan", "drink", "meat"];
     return (
         <Stack sx={{
-            width: "50%"
+            width: "30%",
+            alignItems: "stretch",
         }}>
             {menuOptions.map((menuOption) => {
                 return (
-                    <Box>
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        px: convert(20),
+                        py: convert(42),
+                        border: "1px solid",
+                        borderColor: "background.paper",
+                    }}>
                         <ButtonBase
                             onClick={() => setCatState(menuOption)}
                             sx={{
                                 display: "flex",
-                                justifyContent: "center",
+                                justifyContent: "flex-start",
+                                gap: convert(15),
                                 alignItems: "center",
+                                width: "100%",
                             }}>
                             <Box>
                                 <NavigationBtn orientationSx={{
-                                    transform: "translate(45deg)",
+                                    transform: "rotate(135deg)",
                                 }} />
                             </Box>
                             <Typography>
-                                {menuOption}
+                                {menuOption.charAt(0).toUpperCase() + menuOption.slice(1)}
                             </Typography>
                         </ButtonBase>
                     </Box>
@@ -117,10 +133,9 @@ export function RestaurantMenu({ items }) {
 
         }}>
             <Stack direction="row" sx={{
-                alignItems: "center",
+                alignItems: "stretch",
                 justifyContent: "center",
                 width: "100%",
-
             }}>
                 <MenuBook catState={catState} items={items} />
                 <MenuBookSelection setCatState={setCatState} />
