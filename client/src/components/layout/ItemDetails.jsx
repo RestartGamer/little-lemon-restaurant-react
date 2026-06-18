@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
-import { useLocation } from "react-router-dom"
 
 const imageAspect = 244 / 265;
 const yellowAspect = 196 / 265;

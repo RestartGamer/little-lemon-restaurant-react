@@ -40,10 +40,6 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
 
 
     useEffect(() => {
-        console.log(cartItems);
-    }, [cartItems])
-
-    useEffect(() => {
         function offClickHandler(e) {
             if (!hamButtonRef.current?.contains(e.target) &&
                 !cartButtonRef.current?.contains(e.target) &&

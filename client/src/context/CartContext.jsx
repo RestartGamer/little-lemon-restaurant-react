@@ -6,8 +6,7 @@ export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]); //Receives objects
 
   function addToCart(item) {
-    setCartItems((currentCartItems) => {  /*Note that this is the "functional state update pattern"
-       where React automatically passes the current state as a parameter into the function*/
+    setCartItems((currentCartItems) => {  
       const existingItem = currentCartItems.find(
         (cartItem) => cartItem.id === item.id
       );

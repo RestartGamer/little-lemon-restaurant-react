@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { CustomButton } from "../../components"
+import { CustomButton, CheckoutBtn } from "../../components"
 import { convert } from "../../utils/muiConverter"
 import { trashIcon } from "../../assets"
 
@@ -209,20 +209,12 @@ export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef 
                 alignSelf: "center",
             }}>
                 <TotalPrice cartItems={cartItems} />
+                {
+                    cartItems.length > 0
+                        ? <CheckoutBtn cartItems={cartItems} />
+                        : null
+                }
 
-                <CustomButton textVariant="bodyLarge" buttonSx={{
-                    alignSelf: "center",
-                    bgcolor: "custom.backgroundSpecial",
-                    border: "1px solid",
-                    borderColor: "black",
-                    px: convert(14),
-                    py: convert(5),
-                }}
-                    textSx={{
-                        fontWeight: 500,
-                    }}>
-                    Go to checkout
-                </CustomButton>
             </Stack>
 
         </Stack>

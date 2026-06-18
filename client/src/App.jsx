@@ -5,7 +5,7 @@ import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, InfoBanner, CategorySelection, BottomInfo, Footer } from "./components"
 import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
-import { HomePage, DetailsPage, ReservationPage } from "./pages"
+import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
 import { convert } from "./utils/muiConverter"
 import './App.css'
 
@@ -68,6 +68,7 @@ const themeSettings = {
       yellowSpecial: "#EAE1B2",
       yellowSpecial2: "#FBF5D2",
       yellowSpecial3: "#ebd463",
+      greenSpecial: "#B5CCA1",
       borderSpecial2: "#FECE14",
       borderGrey: "#A2A2A2",
       borderGrey1: "#818181",
@@ -112,6 +113,7 @@ function App() {
                 <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
                 <Route path="/details" element={<DetailsPage />} />
                 <Route path="/reservation" element={<ReservationPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
               </Routes>
 
             </Stack>
