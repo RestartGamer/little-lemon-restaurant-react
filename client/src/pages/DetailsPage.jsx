@@ -22,12 +22,10 @@ export function DetailsPage() {
     return (
         <>
             <HeaderExt>
-                <BackBtn orientationSx={{
-                    transform: "rotate(-45deg)",
-                }} />
+                <BackBtn />
             </HeaderExt>
             <ItemDetails src={src} title={title} description={description} descriptionLong={descriptionLong} price={price} highlights={highlights} />
-            <AddOrReserveSection />
+            <AddOrReserveSection src={src} title={title} description={description} price={price} highlights={highlights} />
             <SectionTitle title="Menu"/>
             <RestaurantMenu items={items}/>
 

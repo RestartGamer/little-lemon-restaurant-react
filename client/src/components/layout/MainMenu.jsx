@@ -46,7 +46,14 @@ export function MainMenu({ orientation, forwardRef, email, password, logoutUser,
             {mainMenuOptions.map(({ id, name, route, action = null }) => {
                 return action === null ? (
 
-                    <ButtonBase key={id} component={RouteLink} to={route}
+                    <ButtonBase 
+                    key={id} 
+                    component={RouteLink} 
+                    to={route}
+                    onClick={()=> {
+                        setIsOpenMenu(false);
+                        setIsOpenCart(false);
+                    }}
                         sx={{
                             bgcolor: "background.paper",
                             px: convert(7),

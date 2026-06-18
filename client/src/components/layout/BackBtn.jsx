@@ -1,9 +1,13 @@
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
+import { Link as RouteLink } from "react-router-dom"
 
 export function BackBtn({ orientationSx = {} }) {
     return (
-        <Box sx={{
+        <ButtonBase 
+        component={RouteLink}
+        to="/"
+        sx={{
             "--border-width": "4px",
             display: "flex",
             justifyContent: "center",
@@ -15,6 +19,7 @@ export function BackBtn({ orientationSx = {} }) {
             borderColor: "black",
             px: convert(2),
             py: convert(2),
+            transform: "rotate(-45deg)",
             ...orientationSx,
         }}>
             <Box sx={{
@@ -26,6 +31,6 @@ export function BackBtn({ orientationSx = {} }) {
                 borderLeft: "4px solid",
                 borderColor: "custom.borderGrey",
             }} />
-        </Box>
+        </ButtonBase>
     )
 }

@@ -1,4 +1,4 @@
-import { SectionTitle as PageTitle } from "../components"
+import { SectionTitle as PageTitle, BackBtn, HeaderExt } from "../components"
 import {
   Stack,
   InputLabel,
@@ -114,6 +114,9 @@ export function ReservationPage() {
 
   return (
     <>
+      <HeaderExt>
+                      <BackBtn />
+                  </HeaderExt>
       <PageTitle title={pageTitle} route="/" />
 
       <Stack sx={{ justifyContent: "flex-start", px: convert(28), mt: convert(27) }}>

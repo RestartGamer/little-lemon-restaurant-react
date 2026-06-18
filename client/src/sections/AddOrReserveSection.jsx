@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { AddToCartBtn, ReserveTableBtn } from "../components"
+import { AddToCartBtn, ReserveTableBtnWhite } from "../components"
 import { convert } from "../utils/muiConverter"
 
 const containerBox = {
@@ -9,8 +9,15 @@ const containerBox = {
     width: "100%",
 }
 
-export function AddOrReserveSection() {
-
+export function AddOrReserveSection({ id, src, title, description, price, highlights }) {
+    const item = {
+        id,
+        src,
+        title,
+        description,
+        price,
+        highlights,
+    };
     return (
         <Box sx={{
             display: "flex",
@@ -28,6 +35,7 @@ export function AddOrReserveSection() {
                     ...containerBox
                 }}>
                     <AddToCartBtn
+                        item={item}
                         typography="bigButtonTitle"
                         buttonSx={{
                             px: convert(31),
@@ -46,7 +54,7 @@ export function AddOrReserveSection() {
                 <Box sx={{
                     ...containerBox,
                 }}>
-                    <ReserveTableBtn />
+                    <ReserveTableBtnWhite />
                 </Box>
             </Stack>
 

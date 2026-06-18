@@ -1,9 +1,9 @@
 import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { alpha } from "@mui/material/styles"
+
 import { Link as RouteLink } from "react-router-dom"
 import { heroImage2 } from "../assets"
 import { convert } from "../utils/muiConverter"
-import { CustomButton } from "../components"
+import { CustomButton, ReserveTableBtnBlack } from "../components"
 
 const title = "Little Lemon"
 const subTitle = "Chicago"
@@ -47,23 +47,7 @@ export function HeroSection() {
                 position: "absolute",
                 bottom: 30,
             }}>
-                <ButtonBase sx={(theme) => ({
-                    bgcolor: alpha(theme.palette.custom.buttonSpecial2, 0.92),
-                    px: convert(17),
-                    py: convert(12),
-                    borderRadius: "7px",
-                    border: "1.5px solid",
-                    borderColor: "custom.borderGrey1",
-                })}>
-                    <Typography variant="sectionTitle" component="span" sx={{
-                        lineHeight: 1,
-                        color: "text.secondary",
-                        fontWeight: 400,
-                        letterSpacing: "2px",
-                    }}>
-                        Reserve a table
-                    </Typography>
-                </ButtonBase>
+                <ReserveTableBtnBlack />
             </Box>
 
         </Stack>
