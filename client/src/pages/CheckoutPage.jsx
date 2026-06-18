@@ -4,7 +4,9 @@ import { useLocation } from "react-router-dom"
 
 export function CheckoutPage() {
     const { state } = useLocation();
-    const { cartItems } = state;
+
+    const cartItems = state?.cartItems ?? [];
+
     return (
         <>
             <HeaderExt>

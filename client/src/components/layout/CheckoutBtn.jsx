@@ -3,7 +3,7 @@ import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 
 
-export function CheckoutBtn({ cartItems = [{}] }) {
+export function CheckoutBtn({ cartItems = [], setIsOpenMenu, setIsOpenCart }) {
 
     return (
         <Box sx={{
@@ -15,7 +15,11 @@ export function CheckoutBtn({ cartItems = [{}] }) {
             <ButtonBase
                 component={RouteLink}
                 to="/checkout"
-                state={cartItems}
+                state={{cartItems}}
+                onClick={()=> {
+                    setIsOpenMenu(false);
+                    setIsOpenCart(false);
+                }}
                 sx={{
                     display: "flex",
                     justifyContent: "center",

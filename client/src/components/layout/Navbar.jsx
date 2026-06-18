@@ -103,7 +103,13 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                 {
                     isOpenCart && (
                         isAuthenticated
-                            ? <ShoppingCart forwardRef={cartDropdownRef} cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                            ? <ShoppingCart 
+                            forwardRef={cartDropdownRef} 
+                            cartItems={cartItems} 
+                            addToCart={addToCart} 
+                            removeFromCart={removeFromCart}
+                            setIsOpenMenu={setIsOpenMenu}
+                            setIsOpenCart={setIsOpenCart} />
                             : <LoginWindow loginWindowRef={loginWindowRef} />
 
                     )

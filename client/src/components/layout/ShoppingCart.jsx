@@ -141,7 +141,7 @@ function TotalPrice({ cartItems }) {
     )
 }
 
-export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
+export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef, setIsOpenMenu, setIsOpenCart }) {
     return (
         <Stack ref={forwardRef} sx={{
             position: "absolute",
@@ -211,7 +211,7 @@ export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef 
                 <TotalPrice cartItems={cartItems} />
                 {
                     cartItems.length > 0
-                        ? <CheckoutBtn cartItems={cartItems} />
+                        ? <CheckoutBtn cartItems={cartItems} setIsOpenMenu={setIsOpenMenu} setIsOpenCart={setIsOpenCart} />
                         : null
                 }
 
