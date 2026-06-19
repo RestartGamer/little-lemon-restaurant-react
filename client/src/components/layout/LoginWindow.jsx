@@ -63,17 +63,6 @@ export function LoginWindow({ loginWindowRef }) {
                 Enter here
             </Typography>
 
-            <FormControl error={Boolean(errors.name)}>
-                <TextField
-                    label="Name"
-                    {...register("name")}
-                    error={Boolean(errors.name)}
-                />
-                <FormHelperText>
-                    {errors.name?.message}
-                </FormHelperText>
-            </FormControl>
-
             <FormControl error={Boolean(errors.email)}>
                 <TextField
                     label="Email"
