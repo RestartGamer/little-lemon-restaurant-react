@@ -18,6 +18,7 @@ export { BackBtn } from "./layout/BackBtn"
 export { NavigationBtn } from "./layout/NavigationBtn"
 export { RestaurantMenu } from "./layout/RestaurantMenu"
 export { CheckoutFoodList } from "./layout/CheckoutFoodList"
+export { PaymentMethod } from "./layout/PaymentMethod"
 
 
 export { CustomButton } from "./ui/CustomButton"

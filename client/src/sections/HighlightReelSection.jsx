@@ -13,6 +13,7 @@ export function HighlightReelSection({ items, isOpenMenu, isOpenCart }) {
             justifyContent: "center",
             alignItems: "center",
             width: "100vw",
+            height: "fit-content",
         }}>
             <Box sx={{
                 width: "100%",

@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { HeaderExt, BackBtn, CheckoutFoodList, SectionTitle } from "../components"
+import { HeaderExt, BackBtn, CheckoutFoodList, SectionTitle, PaymentMethod } from "../components"
 import { HighlightReelSection } from "../sections"
 import { useLocation } from "react-router-dom"
 import { foodItems } from "../../../server/data/foodItems"
@@ -27,6 +27,7 @@ export function CheckoutPage() {
             <SectionTitle title="Checkout" />
             <CheckoutFoodList cartItems={cartItems} />
             <HighlightReelSection items={highlightList} />
+            <PaymentMethod cartItems={cartItems}/>
         </>
     )
 }
