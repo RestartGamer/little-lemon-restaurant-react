@@ -17,7 +17,6 @@ export function SlideShowSection() {
                     alignItems: "center",
                     width: "fit-content",
                     height: "fit-content",
-                    overflowX: "auto",
                 }}>
                     {foodItems.map(({ id, title, price, src }) => {
                         return (

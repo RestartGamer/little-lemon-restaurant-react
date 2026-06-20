@@ -3,6 +3,7 @@ const imageBaseUrl = "http://localhost:5000/images";
 export const foodItems = [
   {
     id: 0,
+    keyName: "grilledLemonChicken",
     type: "foodItem",
     category: "meat",
     categoryName: "Meat",
@@ -20,6 +21,7 @@ export const foodItems = [
   },
   {
     id: 1,
+    keyName: "slowCookedBeefBowl",
     type: "foodItem",
     category: "meat",
     categoryName: "Meat",
@@ -37,6 +39,7 @@ export const foodItems = [
   },
   {
     id: 2,
+    keyName: "herbCrustedWhiteFish",
     type: "foodItem",
     category: "fish",
     categoryName: "Fish",
@@ -54,6 +57,7 @@ export const foodItems = [
   },
   {
     id: 3,
+    keyName: "lemonVeggiePlate",
     type: "foodItem",
     category: "vegan",
     categoryName: "Vegan",
@@ -71,6 +75,7 @@ export const foodItems = [
   },
   {
     id: 4,
+    keyName: "greenPowerBowl",
     type: "foodItem",
     category: "meat",
     categoryName: "Meat",
@@ -88,6 +93,7 @@ export const foodItems = [
   },
   {
     id: 5,
+    keyName: "greekSalad",
     type: "foodItem",
     category: "meat",
     categoryName: "Meat",
@@ -105,6 +111,7 @@ export const foodItems = [
   },
   {
     id: 6,
+    keyName: "springRolls",
     type: "foodItem",
     category: "meat",
     categoryName: "Meat",
@@ -122,6 +129,7 @@ export const foodItems = [
   },
   {
     id: 7,
+    keyName: "water500ml",
     type: "foodItem",
     category: "drink",
     categoryName: "Drink",
