@@ -17,6 +17,7 @@ function TitleAndDescription({ title, description }) {
             width: "100%",
             maxWidth: "1080px",
             gap: "6px",
+
         }}>
             <Typography variant="cardTitle" sx={{
                 color: "text.primary",
@@ -57,13 +58,13 @@ function PriceAndCTA({ addToCart = undefined, id, src, title, description, price
             }}>
                 ${price}
             </Typography>
-            <AddToCartBtn 
-            item={item}
-            buttonSx={{
-                px:convert(8),
-                py:convert(5),
-            }}
-            typography="cardTitle">
+            <AddToCartBtn
+                item={item}
+                buttonSx={{
+                    px: convert(8),
+                    py: convert(5),
+                }}
+                typography="cardTitle">
                 Add to cart
             </AddToCartBtn>
         </Stack>
@@ -75,26 +76,27 @@ export function FoodItem({ items, id, src, title, description, descriptionLong, 
 
     return (
         <Stack sx={{
-            width:"100%",
+            width: "100%",
             alignItems: "center"
         }}>
             <Stack
                 component={RouteLink}
                 to={routePath}
                 state={{ items, id, src, title, description, descriptionLong, price, highlights }}
-                direction="row" 
+                direction="row"
                 sx={{
                     justifyContent: "center",
                     alignItems: "center",
                     gap: convert(10),
                     py: convert(5),
                     textDecoration: "none",
-                    width:"fit-content"
+                    width: "fit-content"
                 }}
                 onClick={(event) => {
                     if (isOpenMenu || isOpenCart) {
                         event.preventDefault(); //prevents the RouteLink from functioning
                     }
+                    window.scrollTo(0, 0)
                 }}>
                 <Box component="img" src={src} alt={`An image of ${title}`} sx={{
                     minWidth: "113px",
@@ -105,7 +107,7 @@ export function FoodItem({ items, id, src, title, description, descriptionLong, 
                     borderRadius: "6px"
                 }} />
                 <Stack sx={{
-                    width:"180px",
+                    width: "180px",
                     gap: "10px",
                 }}>
                     <TitleAndDescription title={title} description={description} />

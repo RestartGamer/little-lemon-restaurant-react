@@ -17,12 +17,12 @@ function Highlights({ highlights }) {
             py: convert(9),
             bgcolor: "custom.heroTitleBg",
         }}>
-            <Stack direction="row" 
-            sx={{
-                width:"100%",
-                maxWidth: "700px",
-                justifyContent: "space-between",
-            }}>
+            <Stack direction="row"
+                sx={{
+                    width: "100%",
+                    maxWidth: "700px",
+                    justifyContent: "space-between",
+                }}>
                 {highlights.map((highlight) => {
                     return (
                         <Typography variant="bodyMedium" sx={{
@@ -59,6 +59,8 @@ export function ItemDetails({ src, title, description, descriptionLong, price, h
                     objectFit: "cover",
                 }} />
                 <Typography variant="sectionTitle" sx={{
+                    "--outline-width": "0.5px",
+                    "--outline-color": "white",
                     position: "absolute",
                     left: "50%",
                     top: "5%",
@@ -66,6 +68,16 @@ export function ItemDetails({ src, title, description, descriptionLong, price, h
                     textAlign: "end",
                     color: "text.primary",
                     lineHeight: 1.3,
+                    textShadow: `
+                    var(--outline-width) var(--outline-width) 0 var(--outline-color),
+                    calc(var(--outline-width) * -1) var(--outline-width) 0 var(--outline-color),
+                    var(--outline-width) calc(var(--outline-width) * -1) 0 var(--outline-color),
+                    calc(var(--outline-width) * -1) calc(var(--outline-width) * -1) 0 var(--outline-color),
+                    0 var(--outline-width) 0 var(--outline-color),
+                    0 calc(var(--outline-width) * -1) 0 var(--outline-color),
+                    var(--outline-width) 0 0 var(--outline-color),
+                    calc(var(--outline-width) * -1) 0 0 var(--outline-color)
+                    `,
                 }}>
                     {title}
                 </Typography>

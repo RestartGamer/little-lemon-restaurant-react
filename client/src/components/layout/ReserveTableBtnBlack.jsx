@@ -25,7 +25,11 @@ export function ReserveTableBtnBlack() {
                 "&:visited": {
                     color: "inherit",
                 },
-            })}>
+            })}
+            onClick={(event) => {
+                event.preventDefault();
+                window.scrollTo(0, 0)
+            }}>
             <Typography variant="sectionTitle" component="span" sx={{
                 lineHeight: 1,
                 color: "text.secondary",
