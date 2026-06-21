@@ -2,6 +2,7 @@ import { Navbar, ItemDetails, CustomButton, SectionTitle, HeaderExt, BackBtn, Re
 import { FoodItemSection, AddOrReserveSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"
+import { Stack } from "@mui/material"
 
 
 const reservationBtnText = "Reserve a table"
@@ -20,7 +21,9 @@ export function DetailsPage() {
     const { items, src, title, description, descriptionLong, price, highlights } = state;
 
     return (
-        <>
+        <Stack sx={{
+            position: "relative",
+        }}>
             <BackBtn />
             <HeaderExt />
 
@@ -29,6 +32,7 @@ export function DetailsPage() {
             <SectionTitle title="Menu" />
             <RestaurantMenu items={items} />
 
-        </>
+        </Stack>
+
     )
 }

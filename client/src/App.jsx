@@ -86,16 +86,7 @@ const themeSettings = {
 
 }
 
-function PageSection({ children }) {
 
-  return (
-    <Stack sx={{
-      position: "relative",
-    }}>
-      {children}
-    </Stack>
-  )
-}
 
 function App() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -118,14 +109,13 @@ function App() {
 
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
-              <PageSection>
-                <Routes>
-                  <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
-                  <Route path="/details" element={<DetailsPage />} />
-                  <Route path="/reservation" element={<ReservationPage />} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
-                </Routes>
-              </PageSection>
+
+              <Routes>
+                <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
+                <Route path="/details" element={<DetailsPage />} />
+                <Route path="/reservation" element={<ReservationPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+              </Routes>
 
             </Stack>
             <BottomInfo />
