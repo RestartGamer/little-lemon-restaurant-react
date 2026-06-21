@@ -9,6 +9,53 @@ import { AuthSchema } from "../../../../shared/config/schema"
 
 import { useLoading, useAuth } from "../../context";
 
+function CustomInput({ children, errors, register }) {
+    const subject = children.toLowerCase()
+    return (
+        <FormControl error={Boolean(errors[subject])}>
+            <Typography variant="bodyMedium" sx={{
+                color: "text.primary",
+                textAlign: "start"
+            }}>
+                {children}
+            </Typography>
+            <TextField
+                {...register(subject)}
+                error={Boolean(errors[subject])}
+            />
+            <FormHelperText>
+                {errors[subject]?.message}
+            </FormHelperText>
+        </FormControl>
+    )
+}
+
+function CustomBtn({ children, onClick }) {
+
+    return (
+        <ButtonBase
+            onClick={onClick}
+            sx={{
+                px: convert(30),
+                py: convert(7),
+                border: "1px solid",
+                borderColor: "black",
+                borderRadius: "4px",
+                width: "50%",
+                maxWidth: "300px"
+            }}>
+            <Typography variant="cardTitle" sx={{
+                color: "text.primary",
+            }}>
+                {children}
+            </Typography>
+
+        </ButtonBase>
+    )
+}
+
+
+
 export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
     const {
         register,
@@ -72,47 +119,47 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
                 left: "50%",
                 transform: "translateX(-50%)",
                 bgcolor: "background.paper",
+                width: "374px",
+                gap: convert(30),
+                px: convert(45),
+                pt: convert(48),
+                pb: convert(76),
+                border: "1px solid",
+                borderColor: "black",
+                borderRadius: "7px",
             }}
         >
             <Typography variant="bigButtonTitle">
                 Enter here
             </Typography>
+            <Stack
+                sx={{
+                    gap: convert(20),
+                }}>
+                <CustomInput errors={errors} register={register}>
+                    Email
+                </CustomInput>
 
-            <FormControl error={Boolean(errors.email)}>
-                <TextField
-                    label="Email"
-                    {...register("email")}
-                    error={Boolean(errors.email)}
-                />
-                <FormHelperText>
-                    {errors.email?.message}
-                </FormHelperText>
-            </FormControl>
+                <CustomInput errors={errors} register={register}>
+                    Password
+                </CustomInput>
+            </Stack>
 
-            <FormControl error={Boolean(errors.password)}>
-                <TextField
-                    label="Password"
-                    type="password"
-                    {...register("password")}
-                    error={Boolean(errors.password)}
-                />
-                <FormHelperText>
-                    {errors.password?.message}
-                </FormHelperText>
-            </FormControl>
 
-            <Stack>
-                <ButtonBase onClick={handleSubmit(handleLogin)}>
+            <Stack sx={{
+                alignItems: "center",
+
+            }}>
+                <CustomBtn onClick={handleSubmit(handleLogin)}>
                     Login
-                </ButtonBase>
-
+                </CustomBtn>
                 <Typography variant="bodyLarge">
                     or
                 </Typography>
-
-                <ButtonBase onClick={handleSubmit(handleRegister)}>
+                <CustomBtn onClick={handleSubmit(handleRegister)}>
                     Register
-                </ButtonBase>
+                </CustomBtn>
+
                 {
                     serverError && (
                         <Typography sx={{ color: "error.main" }}>
