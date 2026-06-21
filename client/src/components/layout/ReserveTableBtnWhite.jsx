@@ -25,6 +25,10 @@ export function ReserveTableBtnWhite() {
                 "&:visited": {
                     color: "inherit",
                 },
+            }}
+            onClick={(event)=> {
+                event.preventDefault();
+                window.scrollTo(0, 0)
             }}>
             <Typography variant="bigButtonTitle" sx={{
                 color: "text.primary",

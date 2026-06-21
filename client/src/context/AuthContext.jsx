@@ -34,7 +34,6 @@ export function AuthProvider({ children }) {
         setUser(data.user);
 
         localStorage.setItem("token", data.token);
-
         return data.user;
     }
 
@@ -62,7 +61,6 @@ export function AuthProvider({ children }) {
 
         setUser(data.user);
         localStorage.setItem("token", data.token);
-
         return data.user;
 
 

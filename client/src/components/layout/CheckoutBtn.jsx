@@ -19,6 +19,7 @@ export function CheckoutBtn({ cartItems = [], setIsOpenMenu, setIsOpenCart }) {
                 onClick={()=> {
                     setIsOpenMenu(false);
                     setIsOpenCart(false);
+                    window.scrollTo(0,0)
                 }}
                 sx={{
                     display: "flex",

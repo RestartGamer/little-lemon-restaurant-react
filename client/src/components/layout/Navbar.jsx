@@ -71,7 +71,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     bgcolor: "background.paper",
                     px: convert(20),
                     py: convert(1),
-                    zIndex: 9999,
+                    zIndex: 900,
                     borderBottom: "0.5px solid",
                     borderColor: "black",
 
@@ -110,7 +110,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                             removeFromCart={removeFromCart}
                             setIsOpenMenu={setIsOpenMenu}
                             setIsOpenCart={setIsOpenCart} />
-                            : <LoginWindow loginWindowRef={loginWindowRef} />
+                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart}/>
 
                     )
                 }

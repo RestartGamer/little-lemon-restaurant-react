@@ -8,6 +8,9 @@ export function BackBtn({ orientationSx = {} }) {
         component={RouteLink}
         to="/"
         sx={{
+            position: "fixed",
+            top: "95px",
+            left: "2%",
             "--border-width": "4px",
             display: "flex",
             justifyContent: "center",
@@ -20,7 +23,9 @@ export function BackBtn({ orientationSx = {} }) {
             px: convert(2),
             py: convert(2),
             transform: "rotate(-45deg)",
+            zIndex: 999,
             ...orientationSx,
+
         }}>
             <Box sx={{
                 "--size": "15px",

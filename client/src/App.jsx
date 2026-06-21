@@ -30,7 +30,7 @@ const sharedTypography = {
     fontWeight: 500, //medium
     fontSize: "22px"
   },
-   bigCardTitle: {
+  bigCardTitle: {
     fontWeight: 500, //medium
     fontSize: "18px"
   },
@@ -85,6 +85,7 @@ const themeSettings = {
   }
 
 }
+
 
 
 function App() {
