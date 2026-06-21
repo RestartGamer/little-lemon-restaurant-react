@@ -8,6 +8,9 @@ export function BackBtn({ orientationSx = {} }) {
         component={RouteLink}
         to="/"
         sx={{
+            position: "sticky",
+            top: 0,
+            left: 0,
             "--border-width": "4px",
             display: "flex",
             justifyContent: "center",

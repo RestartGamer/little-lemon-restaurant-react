@@ -15,9 +15,7 @@ export function HeaderExt({ children }) {
             bgcolor: "background.paper",
             borderBottom: "0.5px solid",
             borderColor: "black",
-        }}>
-            {children}
-        </Box>
+        }} />
     )
 
 }

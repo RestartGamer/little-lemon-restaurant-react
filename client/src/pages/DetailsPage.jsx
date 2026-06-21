@@ -21,13 +21,13 @@ export function DetailsPage() {
 
     return (
         <>
-            <HeaderExt>
-                <BackBtn />
-            </HeaderExt>
+            <BackBtn />
+            <HeaderExt />
+
             <ItemDetails src={src} title={title} description={description} descriptionLong={descriptionLong} price={price} highlights={highlights} />
             <AddOrReserveSection src={src} title={title} description={description} price={price} highlights={highlights} />
-            <SectionTitle title="Menu"/>
-            <RestaurantMenu items={items}/>
+            <SectionTitle title="Menu" />
+            <RestaurantMenu items={items} />
 
         </>
     )
