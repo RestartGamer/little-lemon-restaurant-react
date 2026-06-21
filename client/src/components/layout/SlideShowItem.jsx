@@ -4,7 +4,7 @@ import { AddToCartBtn } from "../../components"
 
 const aspectRatio = 420 / 260
 
-export function SlideShowItem({ title, price, src, children }) {
+export function SlideShowItem({ item, title, price, src, children }) {
     return (
         <Stack sx={{
             position: "relative",
@@ -84,7 +84,7 @@ export function SlideShowItem({ title, price, src, children }) {
                         })}>
                             {price}
                         </Typography>
-                        <AddToCartBtn />
+                        <AddToCartBtn item={item} />
                     </Stack>
                 </Box>
             </Stack>

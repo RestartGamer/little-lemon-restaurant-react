@@ -27,7 +27,6 @@ export function ReserveTableBtnWhite() {
                 },
             }}
             onClick={(event)=> {
-                event.preventDefault();
                 window.scrollTo(0, 0)
             }}>
             <Typography variant="bigButtonTitle" sx={{

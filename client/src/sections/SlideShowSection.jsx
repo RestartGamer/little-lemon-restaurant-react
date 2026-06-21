@@ -18,16 +18,24 @@ export function SlideShowSection() {
                     width: "fit-content",
                     height: "fit-content",
                 }}>
-                    {foodItems.map(({ id, title, price, src }) => {
+                    {foodItems.map((foodItem) => {
+                        const { id, title, price, src } = foodItem;
+
                         return (
-                            <SlideShowItem key={id} title={title} price={price} src={src}>
+                            <SlideShowItem
+                                key={id}
+                                item={foodItem}
+                                title={title}
+                                price={price}
+                                src={src}
+                            >
                                 <ButtonBase>
                                     <Typography>
                                         Add to cart
                                     </Typography>
                                 </ButtonBase>
                             </SlideShowItem>
-                        )
+                        );
                     })}
                 </Stack>
             </Box>
