@@ -67,7 +67,10 @@ export function MainMenu({ orientation, forwardRef, email, password, logoutUser,
 
                 )
                     : action === "logout" && isAuthenticated ? (
-                        <ButtonBase key={id} onClick={() => {
+                        <ButtonBase key={id} 
+                        component={RouteLink}
+                        to="/"
+                        onClick={() => {
                             logoutUser();
                             setIsOpenMenu(false);
                             setIsOpenCart(false);

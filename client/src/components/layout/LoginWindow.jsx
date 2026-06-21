@@ -7,9 +7,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema } from "../../../../shared/config/schema"
 
-import { useAuth } from "../../context/AuthContext";
+import { useLoading, useAuth } from "../../context";
 
-export function LoginWindow({ loginWindowRef }) {
+export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
     const {
         register,
         handleSubmit,
@@ -24,15 +24,26 @@ export function LoginWindow({ loginWindowRef }) {
         },
     });
 
-    const { loginUser, registerUser } = useAuth();
+    const {
+        isPageLoading,
+        loadingMessage,
+        startLoading,
+        stopLoading,
+    } = useLoading();
+
+    const { loginUser, registerUser, checkAuth } = useAuth();
     const [serverError, setServerError] = useState("")
 
     async function handleLogin(data) {
         try {
             setServerError("")
+            startLoading();
             await loginUser(data.email, data.password);
+            setIsOpenCart(false)
+            checkAuth()
         } catch (error) {
             setServerError(error.message)
+            checkAuth();
         }
 
     }
@@ -40,9 +51,13 @@ export function LoginWindow({ loginWindowRef }) {
     async function handleRegister(data) {
         try {
             setServerError("")
+            startLoading();
             await registerUser(data.email, data.password);
+            setIsOpenCart(false)
+            checkAuth();
         } catch (error) {
             setServerError(error.message)
+            checkAuth();
         }
     }
 
