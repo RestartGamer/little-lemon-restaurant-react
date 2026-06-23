@@ -31,9 +31,9 @@ export function SlideShowSection() {
                     xs: "17px",
                     md: "60px",
                     lg: "80px",
-                    xl: "100px",
+                    xl: "200px",
                 },
-                "--gap": "10px",
+                "--gap": "0px",
                 "--visible-items": {
                     xs: 1,
                     md: 2,
@@ -48,7 +48,7 @@ export function SlideShowSection() {
                 px: "var(--container-lateral-padding)",
                 boxSizing: "border-box",
                 alignItems: "center",
-                gap: convert(50),
+                gap: "var(--gap)",
                 position: "relative",
             }}
         >
@@ -57,7 +57,7 @@ export function SlideShowSection() {
                     position: "absolute",
                     left: "1.5%",
                     top: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
                     zIndex: 5,
                 }}
             >
@@ -120,7 +120,7 @@ export function SlideShowSection() {
                     position: "absolute",
                     right: "1.5%",
                     top: "50%",
-                    transform: "translate(50%, -50%)",
+                    transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
                     zIndex: 5,
                 }}
             >

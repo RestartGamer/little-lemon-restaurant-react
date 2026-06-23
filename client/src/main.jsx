@@ -3,13 +3,12 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"
 import './index.css'
 import App from './App.jsx'
+import { BGPattern } from "./assets"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App sx={{
-        width:"100vw",
-      }}/>
+      <App />
     </BrowserRouter>
   </StrictMode>,
 )

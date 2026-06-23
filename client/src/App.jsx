@@ -126,6 +126,7 @@ function App() {
                   <Route path="/reservation" element={<ReservationPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                 </Routes>
+                
               </Stack>
             </Stack>
             <BottomInfo />
