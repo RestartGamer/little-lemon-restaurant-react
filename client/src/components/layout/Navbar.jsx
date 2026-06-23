@@ -70,7 +70,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     height: "fit-content",
                     bgcolor: "background.paper",
                     px: convert(20),
-                    py: convert(1),
+                    py: convert(10),
                     zIndex: 900,
                     borderBottom: "0.5px solid",
                     borderColor: "black",
