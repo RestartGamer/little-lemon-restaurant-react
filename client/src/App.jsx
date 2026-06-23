@@ -86,7 +86,10 @@ const themeSettings = {
 
 }
 
-
+const lateralMargin= {
+  "--lateral-margin": {md:"0vw" , xs: "0vw"},
+  paddingInline: "var(--lateral-margin)",
+}
 
 function App() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -102,15 +105,17 @@ function App() {
         <AuthProvider>
 
           <CartProvider>
-            <Stack sx={{
+            <Stack className="PageFull" sx={{
               position: "relative",
               pb: convert(30),
+              ...lateralMargin,
             }}>
 
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
-                
-              <Stack sx={{
+
+              <Stack className="PageContent" sx={{
+                width:"100%",
                 position: "relative",
                 justifyContent: "flex-start",
                 alignItems: "center",

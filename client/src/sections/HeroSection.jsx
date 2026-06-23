@@ -15,8 +15,6 @@ const reservationBtnText = "Reserve a table"
 
 
 
-
-
 export function HeroSection() {
 
     return (
@@ -27,7 +25,7 @@ export function HeroSection() {
                 position: "relative",
                 bgcolor: "grey",
                 overflow: "clip",
-                maxHeight: "218px",
+                maxHeight: {md: "800px", xs: "258px"},
             }}
         >
             <Box component="img" src={heroImage2} alt={imageAlt} sx={{
