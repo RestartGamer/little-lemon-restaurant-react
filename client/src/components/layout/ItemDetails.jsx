@@ -45,6 +45,7 @@ export function ItemDetails({ src, title, description, descriptionLong, price, h
             justifyContent: "flex-start",
             alignItems: "center",
             width: "100%",
+            maxWidth: "800px"
         }}>
             <Stack direction="row" sx={{
                 width: "100%",

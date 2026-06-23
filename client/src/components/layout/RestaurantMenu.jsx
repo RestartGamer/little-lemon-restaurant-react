@@ -128,7 +128,8 @@ export function RestaurantMenu({ items }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            width: "100%",
+            width: "100vw",
+            maxWidth: "500px",
             px: convert(30),
 
         }}>

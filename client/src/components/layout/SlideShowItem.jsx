@@ -6,14 +6,13 @@ const aspectRatio = 420 / 260
 
 export function SlideShowItem({ item, title, price, src, children }) {
     return (
-        <Stack sx={{
+        <Stack className="SlideShowItem" sx={{
             position: "relative",
             "--max-width": "800px",
             "--width": "min(93vw, var(--max-width))",
             width: "var(--width)",
             maxWidth: "var(--max-width)",
             aspectRatio: aspectRatio,
-            ml: "calc((100vw - var(--width)) / 2)",
         }}>
             <Stack sx={{
                 position: "absolute",

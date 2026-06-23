@@ -4,13 +4,13 @@ import { HeroSection, FoodItemSection, SlideShowSection } from "../sections"
 import { foodItems } from "../../../server/data/foodItems.js"
 
 
-export function HomePage({isOpenMenu, isOpenCart}) {
-    
+export function HomePage({ isOpenMenu, isOpenCart }) {
+
 
     return (
         <>
             <HeroSection />
-            <SectionTitle title="Order Takeout"/>
+            <SectionTitle title="Order Takeout" />
             <InfoBanner />
             <SlideShowSection />
             <CategorySelection />

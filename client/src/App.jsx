@@ -109,14 +109,19 @@ function App() {
 
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
-
-              <Routes>
-                <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
-                <Route path="/details" element={<DetailsPage />} />
-                <Route path="/reservation" element={<ReservationPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-              </Routes>
-
+                
+              <Stack sx={{
+                position: "relative",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}>
+                <Routes>
+                  <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
+                  <Route path="/details" element={<DetailsPage />} />
+                  <Route path="/reservation" element={<ReservationPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                </Routes>
+              </Stack>
             </Stack>
             <BottomInfo />
             <Footer />

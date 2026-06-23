@@ -21,9 +21,7 @@ export function DetailsPage() {
     const { items, src, title, description, descriptionLong, price, highlights } = state;
 
     return (
-        <Stack sx={{
-            position: "relative",
-        }}>
+        <>
             <BackBtn />
             <HeaderExt />
 
@@ -31,8 +29,6 @@ export function DetailsPage() {
             <AddOrReserveSection src={src} title={title} description={description} price={price} highlights={highlights} />
             <SectionTitle title="Menu" />
             <RestaurantMenu items={items} />
-
-        </Stack>
-
+        </>
     )
 }

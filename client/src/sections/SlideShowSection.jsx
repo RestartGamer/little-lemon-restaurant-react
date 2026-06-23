@@ -4,42 +4,56 @@ import { foodItems } from "../../../server/data/foodItems"
 
 
 export function SlideShowSection() {
-    return (
-        <Box sx={{
-            width: "100%",
-            overflow: "clip",
-        }}>
-            <Box sx={{
-                overflowX: "auto"
-            }}>
-                <Stack direction="row" sx={{
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    width: "fit-content",
-                    height: "fit-content",
-                }}>
-                    {foodItems.map((foodItem) => {
-                        const { id, title, price, src } = foodItem;
+  return (
+    <Box
+      className="SlideShowSection"
+      sx={{
+        width: "100%",
+        overflow: "clip",
+      }}
+    >
+      <Box
+        className="SlideShowSection__scrollBox"
+        sx={{
+          overflowX: "auto",
+          width: "100%",
+          scrollSnapType: "x mandatory",
+        }}
+      >
+        <Stack
+          className="SlideShowSection__track"
+          direction="row"
+          sx={{
+            width: "fit-content",
+            height: "fit-content",
+          }}
+        >
+          {foodItems.map((foodItem) => {
+            const { id, title, price, src } = foodItem;
 
-                        return (
-                            <SlideShowItem
-                                key={id}
-                                item={foodItem}
-                                title={title}
-                                price={price}
-                                src={src}
-                            >
-                                <ButtonBase>
-                                    <Typography>
-                                        Add to cart
-                                    </Typography>
-                                </ButtonBase>
-                            </SlideShowItem>
-                        );
-                    })}
-                </Stack>
-            </Box>
-
-        </Box>
-    )
+            return (
+              <Box
+                key={id}
+                className="SlideShowSection__slide"
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  scrollSnapAlign: "center",
+                }}
+              >
+                <SlideShowItem
+                  item={foodItem}
+                  title={title}
+                  price={price}
+                  src={src}
+                />
+              </Box>
+            );
+          })}
+        </Stack>
+      </Box>
+    </Box>
+  );
 }
