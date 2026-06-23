@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { convert } from "../../utils/muiConverter";
 import { AddToCartBtn } from "../../components";
 
-const aspectRatio = 420 / 260;
+const aspectRatio = 420 / 300;
 
 export function SlideShowItem({ item, title, price, src }) {
     return (
@@ -10,11 +10,9 @@ export function SlideShowItem({ item, title, price, src }) {
             className="SlideShowItem__Container"
             sx={{
                 position: "relative",
-
                 width: "100%",
                 maxWidth: "400px",
-                aspectRatio,
-
+                aspectRatio: aspectRatio,
                 borderRadius: "11px",
                 overflow: "clip",
                 //outline: "2px solid blue",
@@ -102,6 +100,7 @@ export function SlideShowItem({ item, title, price, src }) {
                         </Typography>
 
                         <AddToCartBtn item={item} />
+
                     </Stack>
                 </Box>
             </Stack>

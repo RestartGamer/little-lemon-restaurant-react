@@ -101,9 +101,7 @@ function MenuBookSelection({ setCatState }) {
                                 width: "100%",
                             }}>
                             <Box>
-                                <NavigationBtn orientationSx={{
-                                    transform: "rotate(135deg)",
-                                }} />
+                                <NavigationBtn orientation="right" />
                             </Box>
                             <Typography>
                                 {menuOption.charAt(0).toUpperCase() + menuOption.slice(1)}
