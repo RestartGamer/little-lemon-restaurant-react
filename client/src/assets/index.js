@@ -20,6 +20,8 @@ export { default as waterBottle } from "./images/waterBottle.jpg"
 
 export { default as BGPattern } from "./background-images/LittleLemon_BGPattern.png"
 export { default as BGPatternDark } from "./background-images/LittleLemon_BGPattern_Dark.png"
+export { default as TitleBGPencilBlack } from "./background-images/TitleBGPencil_Black.png"
+export { default as TitleBGPencilGreen } from "./background-images/TitleBGPencil_Green.png"
 
 //Utils
 export { default as hamBtnIcon } from "./utils/hamBtnIcon.png"

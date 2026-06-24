@@ -121,7 +121,6 @@ function App() {
                 position: "relative",
                 justifyContent: "flex-start",
                 alignItems: "center",
-                bgcolor: "background.default"
               }}>
                 <Routes>
                   <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />

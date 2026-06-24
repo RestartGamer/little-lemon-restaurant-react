@@ -60,7 +60,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
 
     return (
         <>
-            <Stack component="nav" direction="row"
+            <Stack component="nav" className="Navbar" direction="row"
                 sx={{
                     justifyContent: "space-between",
                     alignItems: "center",

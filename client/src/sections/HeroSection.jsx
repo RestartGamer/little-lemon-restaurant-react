@@ -1,53 +1,71 @@
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
+import { useLayoutEffect, useState } from "react";
+import { Box, Stack } from "@mui/material";
 
-import { Link as RouteLink } from "react-router-dom"
-import { heroImage2 } from "../assets"
-import { convert } from "../utils/muiConverter"
-import { CustomButton, ReserveTableBtnBlack } from "../components"
+import { heroImage2 } from "../assets";
+import { ReserveTableBtnBlack } from "../components";
 
-const title = "Little Lemon"
-const subTitle = "Chicago"
-const imageAlt = "Image of a dish"
-
-const titleBgAspect = 316 / 134;
-
-const reservationBtnText = "Reserve a table"
-
-
+const imageAlt = "Image of a dish";
 
 export function HeroSection() {
+  const [navbarHeight, setNavbarHeight] = useState(0);
 
-    return (
-        <Stack
-            sx={{
-                width: "100vw",
-                justifyContent: "flex-start",
-                position: "relative",
-                bgcolor: "grey",
-                overflow: "clip",
-                maxHeight: {md: "800px", xs: "258px"},
-            }}
-        >
-            <Box component="img" src={heroImage2} alt={imageAlt} sx={{
+  useLayoutEffect(() => {
+    function updateNavbarHeight() {
+      const navbar = document.querySelector(".Navbar");
+      const height = navbar?.getBoundingClientRect().height ?? 0;
 
-                objectFit: "cover",
-                transform: "scaleX(-1)",
-                width: "100%",
-                height: "100%",
-                objectPosition: "30% 67%",
+      setNavbarHeight(height);
+    }
 
+    updateNavbarHeight();
 
-            }} />
-            <Box sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                position: "absolute",
-                bottom: 30,
-            }}>
-                <ReserveTableBtnBlack />
-            </Box>
+    window.addEventListener("resize", updateNavbarHeight);
 
-        </Stack>
-    )
+    return () => {
+      window.removeEventListener("resize", updateNavbarHeight);
+    };
+  }, []);
+
+  console.log(navbarHeight);
+
+  return (
+    <Stack
+      sx={{
+        width: "100%",
+        justifyContent: "flex-start",
+        position: "relative",
+        bgcolor: "grey",
+        overflow: "clip",
+        maxHeight: {
+          xs: "258px",
+          md: `calc(100vh - ${navbarHeight}px)`,
+        },
+      }}
+    >
+      <Box
+        component="img"
+        src={heroImage2}
+        alt={imageAlt}
+        sx={{
+          objectFit: "cover",
+          transform: "scaleX(-1)",
+          width: "100%",
+          height: "100%",
+          objectPosition: "30% 67%",
+        }}
+      />
+
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "absolute",
+          bottom: 30,
+        }}
+      >
+        <ReserveTableBtnBlack />
+      </Box>
+    </Stack>
+  );
 }
