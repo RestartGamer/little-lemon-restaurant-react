@@ -109,6 +109,8 @@ function App() {
               position: "relative",
               pb: convert(30),
               ...lateralMargin,
+              alignItems: "center",
+              justifyContent: "flex-start",
             }}>
 
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
@@ -119,6 +121,7 @@ function App() {
                 position: "relative",
                 justifyContent: "flex-start",
                 alignItems: "center",
+                bgcolor: "background.default"
               }}>
                 <Routes>
                   <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />

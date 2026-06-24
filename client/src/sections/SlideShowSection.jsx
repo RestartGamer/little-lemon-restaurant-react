@@ -31,9 +31,9 @@ export function SlideShowSection() {
                     xs: "17px",
                     md: "60px",
                     lg: "80px",
-                    xl: "200px",
+                    xl: "100px",
                 },
-                "--gap": "0px",
+                "--gap": "20px",
                 "--visible-items": {
                     xs: 1,
                     md: 2,

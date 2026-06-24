@@ -19,6 +19,7 @@ export { default as waterBottle } from "./images/waterBottle.jpg"
 //Background Images
 
 export { default as BGPattern } from "./background-images/LittleLemon_BGPattern.png"
+export { default as BGPatternDark } from "./background-images/LittleLemon_BGPattern_Dark.png"
 
 //Utils
 export { default as hamBtnIcon } from "./utils/hamBtnIcon.png"

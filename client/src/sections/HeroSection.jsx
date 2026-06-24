@@ -20,7 +20,7 @@ export function HeroSection() {
     return (
         <Stack
             sx={{
-                width: "100%",
+                width: "100vw",
                 justifyContent: "flex-start",
                 position: "relative",
                 bgcolor: "grey",
