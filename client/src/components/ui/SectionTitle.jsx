@@ -16,25 +16,42 @@ export function SectionTitle({ title }) {
             pb: convert(28),
         }}>
             <Box sx={{
+                bgcolor: "background.default",
+                opacity: 0.95,
+                width: "100%",
                 display: "flex",
                 justifyContent: "center",
+                alignItems: "center",
+                borderTop: "1px solid",
                 borderBottom: "1px solid",
                 borderColor: "black",
-                px: convert(42),
-                backgroundImage: `url(${TitleBGPencilGreen})`,
-                backgroundRepeat: "repeat",
-                backgroundSize: "300px",
-                backgroundPositionX: "43%",
-                backgroundPositionY: "10%",
             }}>
-                <Typography variant="headingTitle" sx={{
-                    fontWeight: 500,
-                    color: "text.primary",
+                <Box sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    /*borderBottom: "1px solid",
+                    borderColor: "black",*/
+                    px: convert(42),
+                    /*backgroundImage: `url(${TitleBGPencilGreen})`,
+                    backgroundRepeat: "repeat",
+                    backgroundSize: "300px",
+                    backgroundPositionX: "43%",
+                    backgroundPositionY: "10%",*/
+                    width: "fit-content",
+
+
                 }}>
-                    {title}
-                </Typography>
-            </Box>
-        </Box >
+                    <Typography variant="headingTitle" sx={{
+                        fontWeight: 500,
+                        color: "text.primary",
+                    }}>
+                        {title}
+                    </Typography>
+                </Box>
+            </Box >
+
+        </Box>
+
 
     )
 }
