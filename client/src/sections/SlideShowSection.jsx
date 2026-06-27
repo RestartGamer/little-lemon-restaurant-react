@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { SlideShowItem, NavigationBtn } from "../components";
 import { foodItems } from "../../../server/data/foodItems";
 import { convert } from "../utils/muiConverter"
@@ -22,6 +22,8 @@ export function SlideShowSection() {
         });
 
     }
+    const theme = useTheme();
+    const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
     return (
         <Stack direction="row"
@@ -52,21 +54,26 @@ export function SlideShowSection() {
                 position: "relative",
             }}
         >
-            <Box
-                sx={{
-                    position: "absolute",
-                    left: "1.5%",
-                    top: "50%",
-                    transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
-                    zIndex: 5,
-                }}
-            >
-                <NavigationBtn
-                    orientation="left"
-                    size="30px"
-                    onClick={() => handleScroll("left")}
-                />
-            </Box>
+            {
+                isMdUp &&
+                <Box
+                    sx={{
+                        position: "absolute",
+                        left: "1.5%",
+                        top: "50%",
+                        transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
+                        zIndex: 5,
+                    }}
+                >
+                    <NavigationBtn
+                        orientation="left"
+                        size="30px"
+                        onClick={() => handleScroll("left")}
+                    />
+                </Box>
+            }
+
+
             <Box
                 ref={scrollerRef}
                 className="SlideShowSection__Content SlideShowSection__Scroller"
@@ -115,21 +122,25 @@ export function SlideShowSection() {
                     })}
                 </Stack>
             </Box>
-            <Box
-                sx={{
-                    position: "absolute",
-                    right: "1.5%",
-                    top: "50%",
-                    transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
-                    zIndex: 5,
-                }}
-            >
-                <NavigationBtn
-                    orientation="right"
-                    size="30px"
-                    onClick={() => handleScroll("right")}
-                />
-            </Box>
+
+            {
+                isMdUp &&
+                <Box
+                    sx={{
+                        position: "absolute",
+                        right: "1.5%",
+                        top: "50%",
+                        transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
+                        zIndex: 5,
+                    }}
+                >
+                    <NavigationBtn
+                        orientation="right"
+                        size="30px"
+                        onClick={() => handleScroll("right")}
+                    />
+                </Box>
+            }
 
         </Stack>
     );

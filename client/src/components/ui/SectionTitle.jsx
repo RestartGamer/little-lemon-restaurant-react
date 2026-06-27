@@ -17,20 +17,19 @@ export function SectionTitle({ title }) {
         }}>
             <Box sx={{
                 bgcolor: "background.default",
-                opacity: 0.95,
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                borderTop: "1px solid",
+                /*borderTop: "1px solid",
                 borderBottom: "1px solid",
-                borderColor: "black",
+                borderColor: "black",*/
             }}>
                 <Box sx={{
                     display: "flex",
                     justifyContent: "center",
-                    /*borderBottom: "1px solid",
-                    borderColor: "black",*/
+                    borderBottom: "1px solid",
+                    borderColor: "black",
                     px: convert(42),
                     /*backgroundImage: `url(${TitleBGPencilGreen})`,
                     backgroundRepeat: "repeat",

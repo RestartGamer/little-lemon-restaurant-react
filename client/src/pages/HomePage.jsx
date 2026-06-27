@@ -19,13 +19,11 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
                 alignItems: "center",
                 justifyContent: "flex-start",
 
-                bgcolor: alpha(theme.palette.background.default, 0.95),
+                bgcolor: "background.default",
 
                 pt: convert(40),
                 pb: convert(70),
 
-                borderTop: "1px solid",
-                borderBottom: "1px solid",
                 borderColor: "black",
             })}>
                 <InfoBanner />
