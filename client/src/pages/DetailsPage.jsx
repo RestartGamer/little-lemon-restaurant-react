@@ -1,4 +1,4 @@
-import { Navbar, ItemDetails, CustomButton, SectionTitle, HeaderExt, BackBtn, RestaurantMenu } from "../components"
+import { Navbar, ItemDetails, CustomButton, SectionTitle, BackBtn, MenuBook } from "../components"
 import { FoodItemSection, AddOrReserveSection } from "../sections"
 import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
 import { useLocation } from "react-router-dom"
@@ -23,12 +23,11 @@ export function DetailsPage() {
     return (
         <>
             <BackBtn />
-            <HeaderExt />
 
             <ItemDetails src={src} title={title} description={description} descriptionLong={descriptionLong} price={price} highlights={highlights} />
             <AddOrReserveSection src={src} title={title} description={description} price={price} highlights={highlights} />
             <SectionTitle title="Menu" />
-            <RestaurantMenu items={items} />
+            <MenuBook items={items} />
         </>
     )
 }

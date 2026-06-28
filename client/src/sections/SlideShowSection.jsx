@@ -1,6 +1,6 @@
 import { useRef } from "react"
-import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { SlideShowItem, NavigationBtn } from "../components";
+import { Box, ButtonBase, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { SlideShowItem, NavBtnLayout } from "../components";
 import { foodItems } from "../../../server/data/foodItems";
 import { convert } from "../utils/muiConverter"
 
@@ -56,21 +56,21 @@ export function SlideShowSection() {
         >
             {
                 isMdUp &&
-                <Box
+                <ButtonBase
+                onClick={() => handleScroll("left")}
                     sx={{
                         position: "absolute",
                         left: "1.5%",
                         top: "50%",
                         transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
-                        zIndex: 5,
+                        zIndex: 0,
                     }}
                 >
-                    <NavigationBtn
+                    <NavBtnLayout
                         orientation="left"
                         size="30px"
-                        onClick={() => handleScroll("left")}
                     />
-                </Box>
+                </ButtonBase>
             }
 
 
@@ -125,7 +125,8 @@ export function SlideShowSection() {
 
             {
                 isMdUp &&
-                <Box
+                <ButtonBase
+                onClick={() => handleScroll("right")}
                     sx={{
                         position: "absolute",
                         right: "1.5%",
@@ -134,12 +135,12 @@ export function SlideShowSection() {
                         zIndex: 5,
                     }}
                 >
-                    <NavigationBtn
+                    <NavBtnLayout
                         orientation="right"
                         size="30px"
-                        onClick={() => handleScroll("right")}
+                        
                     />
-                </Box>
+                </ButtonBase>
             }
 
         </Stack>

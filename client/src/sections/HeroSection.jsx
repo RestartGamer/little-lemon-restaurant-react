@@ -26,7 +26,6 @@ export function HeroSection() {
     };
   }, []);
 
-  console.log(navbarHeight);
 
   return (
     <Stack

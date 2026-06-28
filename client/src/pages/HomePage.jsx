@@ -9,7 +9,6 @@ import { alpha } from "@mui/material/styles"
 
 export function HomePage({ isOpenMenu, isOpenCart }) {
 
-
     return (
         <>
             <HeroSection />
