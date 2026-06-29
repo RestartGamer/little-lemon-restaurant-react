@@ -12,26 +12,25 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
     return (
         <>
             <HeroSection />
-            <SectionTitle title="Order Takeout" />
-            <Stack sx={(theme) => ({
-                width: "100%",
+            <Stack sx={{
+                width:"80%",
                 alignItems: "center",
                 justifyContent: "flex-start",
-
                 bgcolor: "background.default",
-
-                pt: convert(40),
-                pb: convert(70),
-
+                borderRight: "1px solid",
+                borderLeft: "1px solid",
                 borderColor: "black",
-            })}>
+            }}>
+                <SectionTitle title="Order Takeout" />
+
+
                 <InfoBanner />
                 <SlideShowSection />
+                <CategorySelection />
+                <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
+
             </Stack>
 
-
-            <CategorySelection />
-            <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
         </>
     )
 }

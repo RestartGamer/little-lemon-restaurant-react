@@ -32,20 +32,20 @@ export function SlideShowSection() {
                 "--container-lateral-padding": {
                     xs: "17px",
                     md: "60px",
-                    lg: "80px",
+                    lg: "220px",
                     xl: "100px",
                 },
                 "--gap": "20px",
                 "--visible-items": {
                     xs: 1,
                     md: 2,
-                    lg: 3,
+                    lg: 2,
                     xl: 4,
                 },
                 "--frame-width":
                     "calc((100vw - var(--container-lateral-padding) * 2 - (var(--gap) * (var(--visible-items) - 1))) / var(--visible-items))",
 
-                width: "100%",
+                width: "100vw",
                 overflow: "clip",
                 px: "var(--container-lateral-padding)",
                 boxSizing: "border-box",

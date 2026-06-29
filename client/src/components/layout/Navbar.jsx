@@ -71,7 +71,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     bgcolor: "background.paper",
                     px: convert(20),
                     py: convert(10),
-                    zIndex: 2,
+                    zIndex: 3,
                     borderBottom: "0.5px solid",
                     borderColor: "black",
 

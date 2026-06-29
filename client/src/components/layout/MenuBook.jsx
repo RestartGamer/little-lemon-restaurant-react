@@ -10,6 +10,7 @@ function MenuBookContent({ items, catState }) {
     return (
         <Stack sx={{
             width: "70%",
+            minWidth: "251px",
             bgcolor: "custom.yellowSpecial",
             px: convert(21),
             py: convert(15),
@@ -95,13 +96,15 @@ function MenuBookSelection({ setCatState }) {
                             py: convert(42),
                             border: "1px solid",
                             borderColor: "background.paper",
-                            width: "100%"
+                            width: "100%",
+                            minWidth: "113px",
                         }}>
                             <ButtonBase className="MenuBook__SelectionBtnContent"
                                 onClick={() => setCatState(menuOption)}
                                 sx={{
                                     display: "flex",
                                     width: "60%",
+                                    minWidth: "70px",
                                     maxWidth: "100px",
                                     justifyContent: "stretch",
                                     alignItems: "center",
