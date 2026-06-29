@@ -109,7 +109,6 @@ function App() {
             <Stack className="PageFull" sx={{
               position: "relative",
               minHeight: "100vh",
-              pb: convert(30),
               ...lateralMargin,
               alignItems: "center",
               justifyContent: "flex-start",

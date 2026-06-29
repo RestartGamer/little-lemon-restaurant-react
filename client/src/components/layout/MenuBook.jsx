@@ -143,6 +143,7 @@ export function MenuBook({ items }) {
             width: "100vw",
             maxWidth: "500px",
             px: convert(30),
+            pb: convert(50)
 
         }}>
             <Stack className="MenuBook__Content" direction="row" sx={{

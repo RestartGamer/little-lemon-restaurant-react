@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material"
 import { Navbar, InfoBanner, CategorySelection, SectionTitle } from "../components"
-import { HeroSection, FoodItemSection, SlideShowSection } from "../sections"
+import { HeroSection, FoodItemSection, SlideShowSection, ContentSection } from "../sections"
 
 import { foodItems } from "../../../server/data/foodItems.js"
 import { convert } from "../utils/muiConverter.js"
@@ -12,15 +12,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
     return (
         <>
             <HeroSection />
-            <Stack sx={{
-                width:"80%",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                bgcolor: "background.default",
-                borderRight: "1px solid",
-                borderLeft: "1px solid",
-                borderColor: "black",
-            }}>
+            <ContentSection>
                 <SectionTitle title="Order Takeout" />
 
 
@@ -29,7 +21,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
                 <CategorySelection />
                 <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
 
-            </Stack>
+            </ContentSection>
 
         </>
     )
