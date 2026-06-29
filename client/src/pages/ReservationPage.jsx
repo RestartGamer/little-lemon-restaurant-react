@@ -1,4 +1,5 @@
-import { SectionTitle as PageTitle, BackBtn, HeaderExt } from "../components"
+import { SectionTitle as PageTitle, BackBtn } from "../components"
+import { ContentSection } from "../sections"
 import {
   Stack,
   InputLabel,
@@ -114,56 +115,56 @@ export function ReservationPage() {
 
   return (
     <>
-      <HeaderExt>
-                      <BackBtn />
-                  </HeaderExt>
-      <PageTitle title={pageTitle} route="/" />
+      <BackBtn />
+      <ContentSection>
+        <PageTitle title={pageTitle} route="/" />
 
-      <Stack sx={{ justifyContent: "flex-start", px: convert(28), mt: convert(27) }}>
-        <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
-          <InputBox label="Full Name" placeholder="Your Full Name" zodId="name" register={register} error={errors.name} />
-          <InputBox label="Phone number" placeholder="Your phone number" zodId="phoneNumber" register={register} error={errors.phoneNumber} />
-          <InputBox label="Email" placeholder="Your Email" zodId="email" register={register} error={errors.email} />
+        <Stack sx={{ justifyContent: "flex-start", px: convert(28), mt: convert(27) }}>
+          <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
+            <InputBox label="Full Name" placeholder="Your Full Name" zodId="name" register={register} error={errors.name} />
+            <InputBox label="Phone number" placeholder="Your phone number" zodId="phoneNumber" register={register} error={errors.phoneNumber} />
+            <InputBox label="Email" placeholder="Your Email" zodId="email" register={register} error={errors.email} />
 
-          <DateField register={register} error={errors.date} dispatch={dispatch} />
+            <DateField register={register} error={errors.date} dispatch={dispatch} />
 
-          <TimeField register={register} error={errors.time} availableTimes={availableTimes} />
+            <TimeField register={register} error={errors.time} availableTimes={availableTimes} />
 
-          <InputBox label="Number of People" zodId="numberOfPeople" register={register} error={errors.numberOfPeople} />
+            <InputBox label="Number of People" zodId="numberOfPeople" register={register} error={errors.numberOfPeople} />
 
-          <InputBox
-            label="Additional Notes"
-            zodId="message"
-            register={register}
-            error={errors.message}
-            textFieldProps={{
-              multiline: true,
-              rows: 4,
-              fullWidth: true,
-            }}
-          />
+            <InputBox
+              label="Additional Notes"
+              zodId="message"
+              register={register}
+              error={errors.message}
+              textFieldProps={{
+                multiline: true,
+                rows: 4,
+                fullWidth: true,
+              }}
+            />
 
-          <Box
-            component="button"
-            type="submit"
-            sx={{
-              bgcolor: "custom.backgroundSpecial",
-              border: "2px solid",
-              borderColor: "custom.heroTitleBg",
-              borderRadius: "5px",
-              width: "100%",
-              alignSelf: "center",
-              py: convert(10),
-              mt: convert(30),
-              cursor: "pointer",
-            }}
-          >
-            <Typography variant="cardTitle" sx={{ color: "text.primary" }}>
-              Finish Booking
-            </Typography>
-          </Box>
+            <Box
+              component="button"
+              type="submit"
+              sx={{
+                bgcolor: "custom.backgroundSpecial",
+                border: "2px solid",
+                borderColor: "custom.heroTitleBg",
+                borderRadius: "5px",
+                width: "100%",
+                alignSelf: "center",
+                py: convert(10),
+                mt: convert(30),
+                cursor: "pointer",
+              }}
+            >
+              <Typography variant="cardTitle" sx={{ color: "text.primary" }}>
+                Finish Booking
+              </Typography>
+            </Box>
+          </Stack>
         </Stack>
-      </Stack>
+      </ContentSection>
     </>
   )
 }

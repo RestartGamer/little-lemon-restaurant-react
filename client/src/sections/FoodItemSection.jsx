@@ -13,6 +13,8 @@ export function FoodItemSection({ items, isOpenMenu, isOpenCart }) {
             justifyContent: "space-between",
             gap: convert(7),
             pt: convert(15),
+            pb: convert(35),
+            bgcolor: "background.default"
         }}>
             {
                 items.map(({ id, type, src, title, description, descriptionLong, price, highlights = [] }) => {

@@ -6,19 +6,3 @@ body,
   margin: 0;
 }
 
-#root {
-  position: relative;
-  min-height: 100vh;
-}
-
-#root::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("./assets/background-images/LittleLemon_BGPattern_White.png");
-  background-repeat: repeat;
-  background-size: 900px auto;
-  opacity: 0.80;
-  pointer-events: none;
-  z-index: -1;
-}

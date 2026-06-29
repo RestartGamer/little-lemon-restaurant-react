@@ -1,6 +1,6 @@
 import { useRef } from "react"
-import { Box, Stack } from "@mui/material";
-import { SlideShowItem, NavigationBtn } from "../components";
+import { Box, ButtonBase, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { SlideShowItem, NavBtnLayout } from "../components";
 import { foodItems } from "../../../server/data/foodItems";
 import { convert } from "../utils/muiConverter"
 
@@ -22,6 +22,8 @@ export function SlideShowSection() {
         });
 
     }
+    const theme = useTheme();
+    const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
     return (
         <Stack direction="row"
@@ -30,20 +32,20 @@ export function SlideShowSection() {
                 "--container-lateral-padding": {
                     xs: "17px",
                     md: "60px",
-                    lg: "80px",
+                    lg: "220px",
                     xl: "100px",
                 },
                 "--gap": "20px",
                 "--visible-items": {
                     xs: 1,
                     md: 2,
-                    lg: 3,
+                    lg: 2,
                     xl: 4,
                 },
                 "--frame-width":
                     "calc((100vw - var(--container-lateral-padding) * 2 - (var(--gap) * (var(--visible-items) - 1))) / var(--visible-items))",
 
-                width: "100%",
+                width: "100vw",
                 overflow: "clip",
                 px: "var(--container-lateral-padding)",
                 boxSizing: "border-box",
@@ -52,21 +54,26 @@ export function SlideShowSection() {
                 position: "relative",
             }}
         >
-            <Box
-                sx={{
-                    position: "absolute",
-                    left: "1.5%",
-                    top: "50%",
-                    transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
-                    zIndex: 5,
-                }}
-            >
-                <NavigationBtn
-                    orientation="left"
-                    size="30px"
-                    onClick={() => handleScroll("left")}
-                />
-            </Box>
+            {
+                isMdUp &&
+                <ButtonBase
+                onClick={() => handleScroll("left")}
+                    sx={{
+                        position: "absolute",
+                        left: "1.5%",
+                        top: "50%",
+                        transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
+                        zIndex: 0,
+                    }}
+                >
+                    <NavBtnLayout
+                        orientation="left"
+                        size="30px"
+                    />
+                </ButtonBase>
+            }
+
+
             <Box
                 ref={scrollerRef}
                 className="SlideShowSection__Content SlideShowSection__Scroller"
@@ -115,21 +122,26 @@ export function SlideShowSection() {
                     })}
                 </Stack>
             </Box>
-            <Box
-                sx={{
-                    position: "absolute",
-                    right: "1.5%",
-                    top: "50%",
-                    transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
-                    zIndex: 5,
-                }}
-            >
-                <NavigationBtn
-                    orientation="right"
-                    size="30px"
-                    onClick={() => handleScroll("right")}
-                />
-            </Box>
+
+            {
+                isMdUp &&
+                <ButtonBase
+                onClick={() => handleScroll("right")}
+                    sx={{
+                        position: "absolute",
+                        right: "1.5%",
+                        top: "50%",
+                        transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
+                        zIndex: 5,
+                    }}
+                >
+                    <NavBtnLayout
+                        orientation="right"
+                        size="30px"
+                        
+                    />
+                </ButtonBase>
+            }
 
         </Stack>
     );

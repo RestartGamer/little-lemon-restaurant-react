@@ -7,6 +7,7 @@ import { HeroSection, FoodItemSection } from "./sections"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
 import { convert } from "./utils/muiConverter"
+import { BGPattern } from "./assets"
 import './App.css'
 
 const sharedTypography = {
@@ -86,8 +87,8 @@ const themeSettings = {
 
 }
 
-const lateralMargin= {
-  "--lateral-margin": {md:"0vw" , xs: "0vw"},
+const lateralMargin = {
+  "--lateral-margin": { md: "0vw", xs: "0vw" },
   paddingInline: "var(--lateral-margin)",
 }
 
@@ -107,17 +108,34 @@ function App() {
           <CartProvider>
             <Stack className="PageFull" sx={{
               position: "relative",
-              pb: convert(30),
+              minHeight: "100vh",
               ...lateralMargin,
               alignItems: "center",
               justifyContent: "flex-start",
+
+              "&::before": {
+                content: `""`,
+                position: "fixed",
+                inset: 0,
+                backgroundImage: {
+                  md: `url(${BGPattern})`,
+                  xs: null,
+
+                },
+                backgroundRepeat: "repeat",
+                backgroundSize: "900px auto",
+                opacity: 0.80,
+                pointerEvents: "none",
+                zIndex: -1,
+              }
+
             }}>
 
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
               <Stack className="PageContent" sx={{
-                width:"100%",
+                width: "100%",
                 position: "relative",
                 justifyContent: "flex-start",
                 alignItems: "center",
@@ -128,7 +146,7 @@ function App() {
                   <Route path="/reservation" element={<ReservationPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                 </Routes>
-                
+
               </Stack>
             </Stack>
             <BottomInfo />
@@ -137,7 +155,7 @@ function App() {
 
         </AuthProvider>
       </LoadingProvider>
-    </ThemeProvider>
+    </ThemeProvider >
   )
 }
 
