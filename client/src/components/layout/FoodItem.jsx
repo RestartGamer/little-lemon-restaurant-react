@@ -1,9 +1,6 @@
-import { Fragment } from "react"
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { alpha } from "@mui/material/styles"
+import { Box, Stack, Typography } from "@mui/material"
 import { Link as RouteLink } from "react-router-dom"
 import { convert } from "../../utils/muiConverter"
-import { useCart } from "../../context/CartContext";
 import { AddToCartBtn } from "../../components"
 
 const imageAspect = 194 / 113;
@@ -36,7 +33,7 @@ function TitleAndDescription({ title, description }) {
     )
 }
 
-function PriceAndCTA({ addToCart = undefined, id, src, title, description, price, highlights }) {
+function PriceAndCTA({ id, src, title, description, price, highlights }) {
     const item = {
         id,
         src,
@@ -72,8 +69,6 @@ function PriceAndCTA({ addToCart = undefined, id, src, title, description, price
 }
 
 export function FoodItem({ items, id, src, title, description, descriptionLong, price, highlights = [], isOpenMenu, isOpenCart }) {
-    const { addToCart } = useCart();
-
     return (
         <Stack sx={{
             width: "100%",
@@ -111,7 +106,7 @@ export function FoodItem({ items, id, src, title, description, descriptionLong, 
                     gap: "10px",
                 }}>
                     <TitleAndDescription title={title} description={description} />
-                    <PriceAndCTA addToCart={addToCart} id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
+                    <PriceAndCTA id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
                 </Stack>
             </Stack>
         </Stack>

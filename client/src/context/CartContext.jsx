@@ -1,12 +1,13 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext(null);
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]); //Receives objects
+  const [cartItems, setCartItems] = useState([]); // Receives objects
 
   function addToCart(item) {
-    setCartItems((currentCartItems) => {  
+    setCartItems((currentCartItems) => {
       const existingItem = currentCartItems.find(
         (cartItem) => cartItem.id === item.id
       );
@@ -29,9 +30,8 @@ export function CartProvider({ children }) {
     });
   }
 
-  function removeFromCart(item, quantity=1) {
-    setCartItems((currentCartItems) => {  /*Note that this is the "functional state update pattern"
-       where React automatically passes the current state as a parameter into the function*/
+  function removeFromCart(item, quantity = 1) {
+    setCartItems((currentCartItems) => {
       const existingItem = currentCartItems.find(
         (cartItem) => cartItem.id === item.id
       );
@@ -43,17 +43,19 @@ export function CartProvider({ children }) {
               ? { ...currentCartItem, quantity: currentCartItem.quantity - quantity }
               : currentCartItem
           )
-          .filter((currentCartItem) => currentCartItem.quantity > 0)
+          .filter((currentCartItem) => currentCartItem.quantity > 0);
       }
 
-      return [
-        ...currentCartItems
-      ];
+      return [...currentCartItems];
     });
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

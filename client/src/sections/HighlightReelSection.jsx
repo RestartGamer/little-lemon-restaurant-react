@@ -1,7 +1,4 @@
-import { Fragment } from "react"
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { alpha } from "@mui/material/styles"
-import { Link as RouteLink } from "react-router-dom"
+import { Box, Stack, Typography } from "@mui/material"
 import { convert } from "../utils/muiConverter"
 import { FoodItem } from "../components"
 

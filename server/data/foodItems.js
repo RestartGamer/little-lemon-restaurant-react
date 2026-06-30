@@ -1,4 +1,4 @@
-const imageBaseUrl = "http://localhost:5000/images";
+const imageBaseUrl = process.env.IMAGE_BASE_URL || "http://localhost:5000/images";
 
 export const foodItems = [
   {

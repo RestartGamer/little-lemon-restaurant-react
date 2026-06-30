@@ -11,14 +11,9 @@ const mainMenuOptions = [
     { id: optionId++, name: "Logout", action: "logout" },
 ]
 
-export function MainMenu({ orientation, forwardRef, email, password, logoutUser, setIsOpenMenu, setIsOpenCart }) {
+export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, setIsOpenCart }) {
 
-    const {
-        isPageLoading,
-        loadingMessage,
-        startLoading,
-        stopLoading,
-    } = useLoading();
+    const { startLoading } = useLoading();
 
     const {
         checkAuth,

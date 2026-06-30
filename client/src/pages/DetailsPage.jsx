@@ -1,13 +1,6 @@
-import { Navbar, ItemDetails, CustomButton, SectionTitle, BackBtn, MenuBook } from "../components"
-import { FoodItemSection, AddOrReserveSection, ContentSection } from "../sections"
-import { grilledLemonChicken, slowCookedBeefBowl, herbCrustedWhiteFish, lemonVeggiePlate, greenPowerBowl } from "../assets"
+import { ItemDetails, SectionTitle, BackBtn, MenuBook } from "../components"
+import { AddOrReserveSection, ContentSection } from "../sections"
 import { useLocation } from "react-router-dom"
-import { Stack } from "@mui/material"
-
-
-const reservationBtnText = "Reserve a table"
-
-
 export function DetailsPage() {
     const { state } = useLocation();
     if (!state) {

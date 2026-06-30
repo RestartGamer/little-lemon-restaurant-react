@@ -25,7 +25,7 @@ function Highlights({ highlights }) {
                 }}>
                 {highlights.map((highlight) => {
                     return (
-                        <Typography variant="bodyMedium" sx={{
+                        <Typography key={highlight} variant="bodyMedium" sx={{
                             color: "text.secondary",
                         }}>
                             {highlight}
@@ -37,14 +37,15 @@ function Highlights({ highlights }) {
     )
 }
 
-export function ItemDetails({ src, title, description, descriptionLong, price, highlights }) {
+export function ItemDetails({ src, title, descriptionLong, highlights }) {
     return (
         <Box sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "center",
-            width: "100%",
+            width: "100vw",
+            minWidth: "392px",
             maxWidth: "800px"
         }}>
             <Stack direction="row" sx={{

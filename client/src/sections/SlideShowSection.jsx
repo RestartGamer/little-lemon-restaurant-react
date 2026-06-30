@@ -1,15 +1,11 @@
-import { useRef } from "react"
+import { useRef } from "react";
 import { Box, ButtonBase, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { SlideShowItem, NavBtnLayout } from "../components";
-import { foodItems } from "../../../server/data/foodItems";
-import { convert } from "../utils/muiConverter"
 
-export function SlideShowSection() {
-
+export function SlideShowSection({ items = [] }) {
     const scrollerRef = useRef(null);
 
     function handleScroll(direction) {
-
         const scroller = scrollerRef.current;
 
         if (!scroller) return;
@@ -20,8 +16,8 @@ export function SlideShowSection() {
             left: direction === "right" ? scrollAmount : -scrollAmount,
             behavior: "smooth",
         });
-
     }
+
     const theme = useTheme();
     const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -33,14 +29,14 @@ export function SlideShowSection() {
                     xs: "17px",
                     md: "60px",
                     lg: "220px",
-                    xl: "100px",
+                    xl: "200px",
                 },
                 "--gap": "20px",
                 "--visible-items": {
                     xs: 1,
                     md: 2,
                     lg: 2,
-                    xl: 4,
+                    xl: 3,
                 },
                 "--frame-width":
                     "calc((100vw - var(--container-lateral-padding) * 2 - (var(--gap) * (var(--visible-items) - 1))) / var(--visible-items))",
@@ -57,7 +53,7 @@ export function SlideShowSection() {
             {
                 isMdUp &&
                 <ButtonBase
-                onClick={() => handleScroll("left")}
+                    onClick={() => handleScroll("left")}
                     sx={{
                         position: "absolute",
                         left: "1.5%",
@@ -72,7 +68,6 @@ export function SlideShowSection() {
                     />
                 </ButtonBase>
             }
-
 
             <Box
                 ref={scrollerRef}
@@ -93,7 +88,7 @@ export function SlideShowSection() {
                         gap: "var(--gap)",
                     }}
                 >
-                    {foodItems.map((foodItem) => {
+                    {items.map((foodItem) => {
                         const { id, title, price, src } = foodItem;
 
                         return (
@@ -104,11 +99,9 @@ export function SlideShowSection() {
                                     flex: "0 0 var(--frame-width)",
                                     width: "var(--frame-width)",
                                     scrollSnapAlign: "start",
-
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    //outline: "1px solid red",
                                 }}
                             >
                                 <SlideShowItem
@@ -126,7 +119,7 @@ export function SlideShowSection() {
             {
                 isMdUp &&
                 <ButtonBase
-                onClick={() => handleScroll("right")}
+                    onClick={() => handleScroll("right")}
                     sx={{
                         position: "absolute",
                         right: "1.5%",
@@ -138,11 +131,9 @@ export function SlideShowSection() {
                     <NavBtnLayout
                         orientation="right"
                         size="30px"
-                        
                     />
                 </ButtonBase>
             }
-
         </Stack>
     );
 }

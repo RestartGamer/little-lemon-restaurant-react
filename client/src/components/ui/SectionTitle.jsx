@@ -1,10 +1,5 @@
-import { backBtn } from "../../assets"
-import { Stack, Box, Typography, ButtonBase } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
-import { Link as RouteLink } from "react-router-dom"
-import { TitleBGPencilGreen } from "../../assets"
-
-const imageAspect = 46 / 32;
 export function SectionTitle({ title }) {
 
     return (

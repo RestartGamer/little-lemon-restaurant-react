@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { SectionTitle as PageTitle, BackBtn } from "../components"
 import { ContentSection } from "../sections"
 import {
@@ -12,7 +13,7 @@ import {
 import { useReducer } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Schema } from "../../../shared/config/schema"
+import { Schema } from "../config/schema"
 import { convert } from "../utils/muiConverter"
 
 const pageTitle = "Reservation Page"
@@ -108,9 +109,7 @@ export function ReservationPage() {
   function onSubmit(data) {
     const success = window.submitAPI ? window.submitAPI(data) : false
 
-    if (success) {
-      console.log("Booking submitted:", data)
-    }
+    return success;
   }
 
   return (
