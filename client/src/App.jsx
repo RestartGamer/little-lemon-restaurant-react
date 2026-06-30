@@ -6,6 +6,7 @@ import { Navbar, BottomInfo, Footer } from "./components"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
 import { BGPattern } from "./assets"
+import { convert } from "./utils/muiConverter"
 import './App.css'
 
 const sharedTypography = {

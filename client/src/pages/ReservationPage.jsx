@@ -40,6 +40,7 @@ function InputBox({ label, placeholder, zodId, register, error, textFieldProps =
         error={!!error}
         helperText={error?.message}
         {...textFieldProps}
+        
       />
     </>
   )
@@ -118,7 +119,16 @@ export function ReservationPage() {
       <ContentSection>
         <PageTitle title={pageTitle} route="/" />
 
-        <Stack sx={{ justifyContent: "flex-start", px: convert(28), mt: convert(27) }}>
+        <Stack sx={{ 
+          justifyContent: "flex-start", 
+          alignItems: "stretch",
+          px: convert(28), 
+          mt: convert(27),
+          width: "100%",
+          maxWidth: "600px"
+
+          }}>
+
           <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
             <InputBox label="Full Name" placeholder="Your Full Name" zodId="name" register={register} error={errors.name} />
             <InputBox label="Phone number" placeholder="Your phone number" zodId="phoneNumber" register={register} error={errors.phoneNumber} />
