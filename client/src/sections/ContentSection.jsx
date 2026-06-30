@@ -1,12 +1,12 @@
 import { Stack } from "@mui/material"
-
+import { convert } from "../utils/muiConverter"
 
 
 
 export function ContentSection({ children }) {
 
     return (
-        <Stack sx={{
+        <Stack className="ContentSection" sx={{
             "--border": {
                 xs: "0", md: "1px"
             },
@@ -17,6 +17,7 @@ export function ContentSection({ children }) {
             borderRight: "var(--border) solid",
             borderLeft: "var(--border) solid",
             borderColor: "black",
+            pb: convert(50),
         }}>
             {children}
         </Stack>

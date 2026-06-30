@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { SectionTitle as PageTitle, BackBtn } from "../components"
 import { ContentSection } from "../sections"
 import {
@@ -12,7 +13,7 @@ import {
 import { useReducer } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Schema } from "../../../shared/config/schema"
+import { Schema } from "../config/schema"
 import { convert } from "../utils/muiConverter"
 
 const pageTitle = "Reservation Page"
@@ -39,6 +40,7 @@ function InputBox({ label, placeholder, zodId, register, error, textFieldProps =
         error={!!error}
         helperText={error?.message}
         {...textFieldProps}
+        
       />
     </>
   )
@@ -108,9 +110,7 @@ export function ReservationPage() {
   function onSubmit(data) {
     const success = window.submitAPI ? window.submitAPI(data) : false
 
-    if (success) {
-      console.log("Booking submitted:", data)
-    }
+    return success;
   }
 
   return (
@@ -119,7 +119,16 @@ export function ReservationPage() {
       <ContentSection>
         <PageTitle title={pageTitle} route="/" />
 
-        <Stack sx={{ justifyContent: "flex-start", px: convert(28), mt: convert(27) }}>
+        <Stack sx={{ 
+          justifyContent: "flex-start", 
+          alignItems: "stretch",
+          px: convert(28), 
+          mt: convert(27),
+          width: "100%",
+          maxWidth: "600px"
+
+          }}>
+
           <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
             <InputBox label="Full Name" placeholder="Your Full Name" zodId="name" register={register} error={errors.name} />
             <InputBox label="Phone number" placeholder="Your phone number" zodId="phoneNumber" register={register} error={errors.phoneNumber} />

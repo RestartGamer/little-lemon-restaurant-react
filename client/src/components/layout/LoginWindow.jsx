@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react"
-import { Box, Stack, Typography, ButtonBase, FormControl, TextField, FormHelperText, InputLabel } from "@mui/material"
+import { useState } from "react"
+import { Stack, Typography, ButtonBase, FormControl, TextField, FormHelperText } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthSchema } from "../../../../shared/config/schema"
+import { AuthSchema } from "../../config/schema"
 
 import { useLoading, useAuth } from "../../context";
 
@@ -71,12 +70,7 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
         },
     });
 
-    const {
-        isPageLoading,
-        loadingMessage,
-        startLoading,
-        stopLoading,
-    } = useLoading();
+    const { startLoading } = useLoading();
 
     const { loginUser, registerUser, checkAuth } = useAuth();
     const [serverError, setServerError] = useState("")
@@ -84,7 +78,6 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
     async function handleLogin(data) {
         try {
             setServerError("")
-            startLoading();
             await loginUser(data.email, data.password);
             setIsOpenCart(false)
             checkAuth()

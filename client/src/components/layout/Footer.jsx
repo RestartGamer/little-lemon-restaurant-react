@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, ButtonBase } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { convert } from "../../utils/muiConverter"
 import { logoNew } from "../../assets"
 
@@ -23,12 +23,12 @@ export function Footer() {
                 gap: convert(19),
             }}>
 
-                {options.map(({ id, name, route }) => {
+                {options.map(({ id, name }) => {
                     return (
-                        <Stack direction="row" sx={{
+                        <Stack key={id} direction="row" sx={{
                             gap: convert(10)
                         }}>
-                            <Typography key={id} variant="bigButtonTitle" sx={{
+                            <Typography variant="bigButtonTitle" sx={{
                                 lineHeight: 1,
                                 color: "text.primary",
                             }}>

@@ -46,48 +46,63 @@ export function BackBtn({ orientationSx = {} }) {
         <>
             {
                 hasScrolledDown ? (
-                    <Box sx={{
-                        position: "fixed",
-                        top: navbarHeight,
-                        left: 0,
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        width: "100%",
-                        height: "49px",
-                        pl: convert(10),
-                        zIndex: 1,
-                    }}>
-                        <ButtonBase
-                            component={RouteLink}
-                            to="/"
-                            sx={{
-                                "--border-width": "4px",
-                                display: "flex",
-                                justifyContent: "center",
-                                width: "fit-content",
-                                height: "fit-content",
-                                bgcolor: "white",
-                                borderTop: "var(--border-width) solid",
-                                borderLeft: "var(--border-width) solid",
-                                borderColor: "black",
-                                px: convert(2),
-                                py: convert(2),
-                                transform: "rotate(-45deg)",
-                                ...orientationSx,
+                    <>
+                        <Box sx={{
 
-                            }}>
-                            <Box sx={{
-                                "--size": "15px",
-                                width: "var(--size)",
-                                height: "var(--size)",
-                                bgcolor: "custom.yellowSpecial3",
-                                borderTop: "4px solid",
-                                borderLeft: "4px solid",
-                                borderColor: "custom.borderGrey",
-                            }} />
-                        </ButtonBase>
-                    </Box>
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            width: "100%",
+                            height: "49px",
+                            bgcolor: "background.paper",
+                            borderBottom: "0.5px solid",
+                            borderColor: "black",
+                            pl: convert(10),
+                            zIndex: 1,
+                        }}/>
+                        <Box sx={{
+                            position: "fixed",
+                            top: navbarHeight,
+                            left: 0,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            width: "100%",
+                            height: "49px",
+                            pl: convert(10),
+                            zIndex: 1,
+                        }}>
+                            <ButtonBase
+                                component={RouteLink}
+                                to="/"
+                                sx={{
+                                    "--border-width": "4px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "fit-content",
+                                    height: "fit-content",
+                                    bgcolor: "white",
+                                    borderTop: "var(--border-width) solid",
+                                    borderLeft: "var(--border-width) solid",
+                                    borderColor: "black",
+                                    px: convert(2),
+                                    py: convert(2),
+                                    transform: "rotate(-45deg)",
+                                    ...orientationSx,
+
+                                }}>
+                                <Box sx={{
+                                    "--size": "15px",
+                                    width: "var(--size)",
+                                    height: "var(--size)",
+                                    bgcolor: "custom.yellowSpecial3",
+                                    borderTop: "4px solid",
+                                    borderLeft: "4px solid",
+                                    borderColor: "custom.borderGrey",
+                                }} />
+                            </ButtonBase>
+                        </Box>
+                    </>
                 ) : (
                     <Box sx={{
 

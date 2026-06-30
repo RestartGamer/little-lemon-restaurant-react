@@ -11,7 +11,6 @@ const textStyle = {
 }
 
 export function CheckoutFoodList({ cartItems }) {
-    console.log("cartItems:", cartItems ?? null)
     return (
         <Box sx={{
             display: "flex",

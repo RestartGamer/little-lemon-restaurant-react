@@ -1,7 +1,7 @@
 import { orders } from "../data/orders.js";
 
 export function createOrder(req, res) {
-  const { items, totalPrice } = req.body;
+  const { items, totalPrice, paymentMethod } = req.body;
 
   if (!Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ message: "Order needs at least one item" });
@@ -12,6 +12,7 @@ export function createOrder(req, res) {
     userId: req.user.id,
     items,
     totalPrice: Number(totalPrice) || 0,
+    paymentMethod: paymentMethod || "Not selected",
     status: "pending",
     createdAt: new Date().toISOString(),
   };

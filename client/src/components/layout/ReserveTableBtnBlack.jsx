@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
+import { Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
@@ -26,7 +26,7 @@ export function ReserveTableBtnBlack() {
                     color: "inherit",
                 },
             })}
-            onClick={(event) => {
+            onClick={() => {
                 window.scrollTo(0, 0)
             }}>
             <Typography variant="sectionTitle" component="span" sx={{

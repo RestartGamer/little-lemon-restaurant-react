@@ -1,18 +1,16 @@
-import { useState, useEffect, useRef } from "react"
-import { Box, Stack, ButtonBase, Typography, FormControl, InputLabel, TextField, FormHelperText } from "@mui/material"
-import { CustomButton, ShoppingCart, LoginWindow, MainMenu } from "../../components"
-import { logoNew, hamBtnIcon, infoIcon, cartIcon } from "../../assets"
+import { useEffect, useRef } from "react"
+import { Box, Stack, ButtonBase } from "@mui/material"
+import { ShoppingCart, LoginWindow, MainMenu } from "../../components"
+import { logoNew, hamBtnIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
-import { Link as RouteLink } from "react-router-dom"
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
+import { Link as RouteLink } from "react-router-dom"
 
-
-const iconHeight = "57px"
 let iconId = 0;
 const icons = [
     { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "24px", sx: {} },
-    { id: iconId++, type: "link", src: logoNew, height: "75px", sx: {  } },
+    { id: iconId++, type: "link", action: "home", src: logoNew, height: "75px", sx: {} },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "35px", sx: { aspectRatio: "1 / 1" } },
 ]
 
@@ -27,6 +25,9 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
             setIsOpenMenu(prev => !prev)
             setIsOpenCart(false)
         },
+        home: () => {
+            return "/"
+        }
     }
     const { cartItems, addToCart, removeFromCart } = useCart()
 
@@ -36,7 +37,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
     const cartDropdownRef = useRef(null)
     const loginWindowRef = useRef(null)
 
-    const { loginUser, logoutUser, registerUser, checkAuth, isAuthenticated } = useAuth();
+    const { logoutUser, isAuthenticated } = useAuth();
 
 
     useEffect(() => {
@@ -76,15 +77,15 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     borderColor: "black",
 
                 }}>
-                {icons.map(({ id, type, action, src, height, sx, onClick }) => {
+                {icons.map(({ id, type, action, src, height, sx }) => {
                     return (
                         type === "button" ? (
-                            <ButtonBase ref={action === "menu" ? hamButtonRef : action === "cart" ? cartButtonRef : null} onClick={buttonActions[action]}>
-                                <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
+                            <ButtonBase key={id} ref={action === "menu" ? hamButtonRef : action === "cart" ? cartButtonRef : null} onClick={buttonActions[action]}>
+                                <Box component="img" src={src} height={height} sx={{ ...sx }} />
                             </ButtonBase>
                         ) : type === "link" && (
-                            <Box component="RouteLink">
-                                <Box component="img" key={id} src={src} height={height} sx={{ ...sx }} />
+                            <Box key={id} component={RouteLink} to={buttonActions[action]()}>
+                                <Box component="img" src={src} height={height} sx={{ ...sx }} />
                             </Box>
                         )
                     )
@@ -103,14 +104,14 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                 {
                     isOpenCart && (
                         isAuthenticated
-                            ? <ShoppingCart 
-                            forwardRef={cartDropdownRef} 
-                            cartItems={cartItems} 
-                            addToCart={addToCart} 
-                            removeFromCart={removeFromCart}
-                            setIsOpenMenu={setIsOpenMenu}
-                            setIsOpenCart={setIsOpenCart} />
-                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart}/>
+                            ? <ShoppingCart
+                                forwardRef={cartDropdownRef}
+                                cartItems={cartItems}
+                                addToCart={addToCart}
+                                removeFromCart={removeFromCart}
+                                setIsOpenMenu={setIsOpenMenu}
+                                setIsOpenCart={setIsOpenCart} />
+                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart} />
 
                     )
                 }

@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react"
 import { Box, Stack, Typography, ButtonBase } from "@mui/material"
 import { CustomButton, CheckoutBtn } from "../../components"
 import { convert } from "../../utils/muiConverter"
 import { trashIcon } from "../../assets"
 
 
-function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCart, cartItem }) {
+function CartFoodItem({ src, title, quantity, price, addToCart, removeFromCart, cartItem }) {
     return (
         <Stack direction="row" sx={{
             justifyContent: "flex-end",
@@ -187,7 +186,6 @@ export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef,
                                             cartItem={cartItem}
                                             addToCart={addToCart}
                                             removeFromCart={removeFromCart}
-                                            id={id}
                                             src={src}
                                             title={title}
                                             price={price}

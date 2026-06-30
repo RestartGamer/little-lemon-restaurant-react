@@ -1,9 +1,8 @@
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { Link as RouteLink } from "react-router-dom"
+import { Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 
 
-export function CustomButton({ children, onClick = undefined, to = "/", text, buttonSx = {}, textVariant = "bodyLarge", textSx = {} }) {
+export function CustomButton({ children, onClick = undefined, buttonSx = {}, textVariant = "bodyLarge", textSx = {} }) {
     return (
         <ButtonBase onClick={onClick}
             sx={{

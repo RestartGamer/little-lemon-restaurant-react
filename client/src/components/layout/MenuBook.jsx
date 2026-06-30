@@ -132,7 +132,6 @@ function MenuBookSelection({ setCatState }) {
 export function MenuBook({ items }) {
     const [catState, setCatState] = useState("meat");
     useEffect(() => {
-        console.log(catState)
     }, [catState])
 
     return (

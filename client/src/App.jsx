@@ -2,12 +2,11 @@ import { useState, useMemo } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
-import { Navbar, InfoBanner, CategorySelection, BottomInfo, Footer } from "./components"
-import { HeroSection, FoodItemSection } from "./sections"
+import { Navbar, BottomInfo, Footer } from "./components"
 import { Routes, Route } from "react-router-dom"
 import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
-import { convert } from "./utils/muiConverter"
 import { BGPattern } from "./assets"
+import { convert } from "./utils/muiConverter"
 import './App.css'
 
 const sharedTypography = {

@@ -1,22 +1,18 @@
+/* eslint-disable react-refresh/only-export-components, react-hooks/set-state-in-effect */
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLoading } from "."
+import { useLoading } from ".";
+import { API_BASE_URL, getAuthHeaders } from "../config/api";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const {
-        isPageLoading,
-        loadingMessage,
-        startLoading,
-        stopLoading
-    } = useLoading();
-
+    const { stopLoading } = useLoading();
 
     const isAuthenticated = user !== null;
 
     async function login(email, password) {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -25,15 +21,15 @@ export function AuthProvider({ children }) {
         });
 
         if (!response.ok) {
-            const errorData = await response.json()
+            const errorData = await response.json();
             throw new Error(errorData.message || "Login failed");
         }
 
         const data = await response.json();
 
         setUser(data.user);
-
         localStorage.setItem("token", data.token);
+
         return data.user;
     }
 
@@ -43,8 +39,7 @@ export function AuthProvider({ children }) {
     }
 
     async function register(email, password) {
-
-        const response = await fetch("http://localhost:5000/api/auth/register", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +48,7 @@ export function AuthProvider({ children }) {
         });
 
         if (!response.ok) {
-            const errorData = await response.json()
+            const errorData = await response.json();
             throw new Error(errorData.message || "Register failed");
         }
 
@@ -61,9 +56,8 @@ export function AuthProvider({ children }) {
 
         setUser(data.user);
         localStorage.setItem("token", data.token);
+
         return data.user;
-
-
     }
 
     async function checkAuth() {
@@ -75,10 +69,8 @@ export function AuthProvider({ children }) {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/me", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+                headers: getAuthHeaders(),
             });
 
             if (!response.ok) {
@@ -87,9 +79,8 @@ export function AuthProvider({ children }) {
             }
 
             const data = await response.json();
-
             setUser(data.user);
-        } catch (error) {
+        } catch {
             logout();
         } finally {
             stopLoading();

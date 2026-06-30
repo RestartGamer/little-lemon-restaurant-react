@@ -1,5 +1,4 @@
-import { Box, Stack, Typography, ButtonBase, Button } from "@mui/material"
-import { Link as RouteLink } from "react-router-dom"
+import { Stack, Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 
 let optionsId = 0;
@@ -60,7 +59,7 @@ export function CategorySelection() {
                 borderColor: "black",
                 py: convert(11)
             }}>
-                {options.map(({ id, name, filter }) => {
+                {options.map(({ id, name }) => {
                     return (
                         <CategoryBtn key={id}>
                             {name}

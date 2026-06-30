@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, ButtonBase } from "@mui/material"
+import { Typography, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 
@@ -12,7 +12,7 @@ export function ReserveTableBtnWhite() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                px: convert(99),
+                px: convert(50),
                 py: convert(12),
                 border: "1px solid",
                 borderColor: "black",
@@ -25,13 +25,16 @@ export function ReserveTableBtnWhite() {
                 "&:visited": {
                     color: "inherit",
                 },
+                maxWidth: "90vw",
+                minWidth: "200px"
             }}
-            onClick={(event)=> {
+            onClick={() => {
                 window.scrollTo(0, 0)
             }}>
-            <Typography variant="bigButtonTitle" sx={{
+            <Typography variant="bigButtonTitle" component="span" sx={{
                 color: "text.primary",
                 lineHeight: 1.2,
+                whiteSpace: "nowrap"
             }}>
                 Reserve a table
             </Typography>
