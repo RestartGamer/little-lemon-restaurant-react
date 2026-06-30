@@ -3,6 +3,23 @@ import { Box, ButtonBase } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 import { Link as RouteLink } from "react-router-dom"
 
+
+const buttonBGSx = {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%",
+    height: "69px",
+    bgcolor: "background.paper",
+    borderBottom: "0.5px solid",
+    borderColor: "black",
+    pl: convert(10),
+    zIndex: 1,
+}
+const buttonInnerSize = "25px";
+const buttonOuterSize = 4;
+
+
 export function BackBtn({ orientationSx = {} }) {
     const [scrollY, setScrollY] = useState(null)
 
@@ -49,17 +66,8 @@ export function BackBtn({ orientationSx = {} }) {
                     <>
                         <Box sx={{
 
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                            width: "100%",
-                            height: "49px",
-                            bgcolor: "background.paper",
-                            borderBottom: "0.5px solid",
-                            borderColor: "black",
-                            pl: convert(10),
-                            zIndex: 1,
-                        }}/>
+                            ...buttonBGSx,
+                        }} />
                         <Box sx={{
                             position: "fixed",
                             top: navbarHeight,
@@ -85,14 +93,14 @@ export function BackBtn({ orientationSx = {} }) {
                                     borderTop: "var(--border-width) solid",
                                     borderLeft: "var(--border-width) solid",
                                     borderColor: "black",
-                                    px: convert(2),
-                                    py: convert(2),
+                                    px: convert(buttonOuterSize),
+                                    py: convert(buttonOuterSize),
                                     transform: "rotate(-45deg)",
                                     ...orientationSx,
 
                                 }}>
                                 <Box sx={{
-                                    "--size": "15px",
+                                    "--size": buttonInnerSize,
                                     width: "var(--size)",
                                     height: "var(--size)",
                                     bgcolor: "custom.yellowSpecial3",
@@ -106,16 +114,7 @@ export function BackBtn({ orientationSx = {} }) {
                 ) : (
                     <Box sx={{
 
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        width: "100%",
-                        height: "49px",
-                        bgcolor: "background.paper",
-                        borderBottom: "0.5px solid",
-                        borderColor: "black",
-                        pl: convert(10),
-                        zIndex: 1,
+                        ...buttonBGSx
                     }}>
                         <ButtonBase
                             component={RouteLink}
@@ -126,25 +125,36 @@ export function BackBtn({ orientationSx = {} }) {
                                 justifyContent: "center",
                                 width: "fit-content",
                                 height: "fit-content",
-                                bgcolor: "white",
                                 borderTop: "var(--border-width) solid",
                                 borderLeft: "var(--border-width) solid",
                                 borderColor: "black",
-                                px: convert(2),
-                                py: convert(2),
+                                px: convert(buttonOuterSize),
+                                py: convert(buttonOuterSize),
                                 transform: "rotate(-45deg)",
                                 ...orientationSx,
 
                             }}>
                             <Box sx={{
-                                "--size": "15px",
+                                "--size": buttonInnerSize,
                                 width: "var(--size)",
                                 height: "var(--size)",
                                 bgcolor: "custom.yellowSpecial3",
-                                borderTop: "4px solid",
-                                borderLeft: "4px solid",
-                                borderColor: "custom.borderGrey",
-                            }} />
+                                border: "2px solid",
+                                borderLeft: "2px solid",
+                                borderColor: "black",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}>
+                                <Box sx={{
+                                    "--sub-size": "calc(var(--size) / 3)",
+                                    width: "var(--sub-size)",
+                                    height: "var(--sub-size)",
+                                    bgcolor: "white"
+                                }}>
+
+                                </Box>
+                            </Box>
                         </ButtonBase>
                     </Box>
                 )
