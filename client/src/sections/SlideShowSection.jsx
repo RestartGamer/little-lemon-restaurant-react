@@ -89,7 +89,7 @@ export function SlideShowSection({ items = [] }) {
                     }}
                 >
                     {items.map((foodItem) => {
-                        const { id, title, price, src } = foodItem;
+                        const { id, title, price, src, description, highlights, descriptionLong } = foodItem;
 
                         return (
                             <Box
@@ -105,10 +105,15 @@ export function SlideShowSection({ items = [] }) {
                                 }}
                             >
                                 <SlideShowItem
+                                    items={items}
+                                    id={id}
                                     item={foodItem}
                                     title={title}
                                     price={price}
                                     src={src}
+                                    description={description}
+                                    descriptionLong={descriptionLong}
+                                    highlights={highlights}
                                 />
                             </Box>
                         );

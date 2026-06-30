@@ -14,7 +14,6 @@ function TitleAndDescription({ title, description }) {
             width: "100%",
             maxWidth: "1080px",
             gap: "6px",
-
         }}>
             <Typography variant="cardTitle" sx={{
                 color: "text.primary",
@@ -22,6 +21,7 @@ function TitleAndDescription({ title, description }) {
             }}>
                 {title}
             </Typography>
+
             <Typography variant="bodyLarge" sx={{
                 color: "text.primary",
                 textAlign: "start",
@@ -29,6 +29,7 @@ function TitleAndDescription({ title, description }) {
             }}>
                 {description}
             </Typography>
+            
         </Stack>
     )
 }

@@ -5,11 +5,12 @@ import { logoNew, hamBtnIcon, cartIcon } from "../../assets"
 import { convert } from "../../utils/muiConverter"
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
+import { Link as RouteLink } from "react-router-dom"
 
 let iconId = 0;
 const icons = [
     { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "24px", sx: {} },
-    { id: iconId++, type: "link", src: logoNew, height: "75px", sx: {  } },
+    { id: iconId++, type: "link", action: "home", src: logoNew, height: "75px", sx: {} },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "35px", sx: { aspectRatio: "1 / 1" } },
 ]
 
@@ -24,6 +25,9 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
             setIsOpenMenu(prev => !prev)
             setIsOpenCart(false)
         },
+        home: () => {
+            return "/"
+        }
     }
     const { cartItems, addToCart, removeFromCart } = useCart()
 
@@ -80,7 +84,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                                 <Box component="img" src={src} height={height} sx={{ ...sx }} />
                             </ButtonBase>
                         ) : type === "link" && (
-                            <Box key={id}>
+                            <Box key={id} component={RouteLink} to={buttonActions[action]()}>
                                 <Box component="img" src={src} height={height} sx={{ ...sx }} />
                             </Box>
                         )
@@ -100,14 +104,14 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                 {
                     isOpenCart && (
                         isAuthenticated
-                            ? <ShoppingCart 
-                            forwardRef={cartDropdownRef} 
-                            cartItems={cartItems} 
-                            addToCart={addToCart} 
-                            removeFromCart={removeFromCart}
-                            setIsOpenMenu={setIsOpenMenu}
-                            setIsOpenCart={setIsOpenCart} />
-                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart}/>
+                            ? <ShoppingCart
+                                forwardRef={cartDropdownRef}
+                                cartItems={cartItems}
+                                addToCart={addToCart}
+                                removeFromCart={removeFromCart}
+                                setIsOpenMenu={setIsOpenMenu}
+                                setIsOpenCart={setIsOpenCart} />
+                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart} />
 
                     )
                 }
