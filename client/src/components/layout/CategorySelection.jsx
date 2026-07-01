@@ -29,6 +29,8 @@ function CategoryBtn({ children }) {
             borderColor: "custom.borderNormal",
             borderRadius: "3px",
 
+            width: {md: "100%", xs: "auto"}
+
         }}>
             <Typography variant="cardTitle" sx={{
                 color: "text.primary",
@@ -47,17 +49,20 @@ export function CategorySelection() {
             px: convert(21),
             py: convert(21),
         }}>
-            <Stack direction="row" sx={{
+            <Stack sx={{
                 justifyContent: "flex-start",
                 alignItems: "center",
                 overflowX: "auto",
                 scrollbarWidth: "none",
-                
+
                 gap: convert(35),
                 borderLeft: "1px solid",
                 borderRight: "1px solid",
                 borderColor: "black",
-                py: convert(11)
+                py: convert(11),
+                px: { md: convert(20), xs: null },
+
+                flexDirection: { md: "column", xs: "row" }
             }}>
                 {options.map(({ id, name }) => {
                     return (

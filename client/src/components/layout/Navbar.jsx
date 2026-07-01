@@ -10,7 +10,7 @@ import { Link as RouteLink } from "react-router-dom"
 let iconId = 0;
 const icons = [
     { id: iconId++, type: "button", action: "menu", src: hamBtnIcon, height: "24px", sx: {} },
-    { id: iconId++, type: "link", action: "home", src: logoNew, height: "75px", sx: {} },
+    { id: iconId++, type: "link", action: "home", src: logoNew, height: "70px", sx: {} },
     { id: iconId++, type: "button", action: "cart", src: cartIcon, height: "35px", sx: { aspectRatio: "1 / 1" } },
 ]
 
@@ -71,10 +71,10 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                     height: "fit-content",
                     bgcolor: "background.paper",
                     px: convert(20),
-                    py: convert(10),
                     zIndex: 3,
                     borderBottom: "0.5px solid",
                     borderColor: "black",
+                    background: "linear-gradient(90deg, #a1a1a1, #ffffff)",
 
                 }}>
                 {icons.map(({ id, type, action, src, height, sx }) => {
@@ -90,30 +90,28 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart })
                         )
                     )
                 })}
+
+                <MainMenu
+                    forwardRef={hamDropdownRef}
+                    orientation="left"
+                    logoutUser={logoutUser}
+                    setIsOpenMenu={setIsOpenMenu}
+                    setIsOpenCart={setIsOpenCart}
+                    isOpenMenu={isOpenMenu} />
+
+
                 {
-                    isOpenMenu && (
-                        <MainMenu
-                            forwardRef={hamDropdownRef}
-                            orientation="left"
-                            logoutUser={logoutUser}
+                    isAuthenticated
+                        ? <ShoppingCart
+                            forwardRef={cartDropdownRef}
+                            cartItems={cartItems}
+                            addToCart={addToCart}
+                            removeFromCart={removeFromCart}
                             setIsOpenMenu={setIsOpenMenu}
-                            setIsOpenCart={setIsOpenCart} />
-                    )
-                }
+                            setIsOpenCart={setIsOpenCart}
+                            isOpenCart={isOpenCart} />
+                        : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart} isOpenCart={isOpenCart} />
 
-                {
-                    isOpenCart && (
-                        isAuthenticated
-                            ? <ShoppingCart
-                                forwardRef={cartDropdownRef}
-                                cartItems={cartItems}
-                                addToCart={addToCart}
-                                removeFromCart={removeFromCart}
-                                setIsOpenMenu={setIsOpenMenu}
-                                setIsOpenCart={setIsOpenCart} />
-                            : <LoginWindow loginWindowRef={loginWindowRef} setIsOpenCart={setIsOpenCart} />
-
-                    )
                 }
             </Stack>
 

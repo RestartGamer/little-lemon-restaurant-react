@@ -39,7 +39,7 @@ function CustomBtn({ children, onClick }) {
                 py: convert(7),
                 border: "1px solid",
                 borderColor: "black",
-                borderRadius: "4px",
+                borderRadius: "7px",
                 width: "50%",
                 maxWidth: "300px"
             }}>
@@ -55,7 +55,7 @@ function CustomBtn({ children, onClick }) {
 
 
 
-export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
+export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
     const {
         register,
         handleSubmit,
@@ -72,7 +72,7 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
 
     const { startLoading } = useLoading();
 
-    const { loginUser, registerUser, checkAuth } = useAuth();
+    const { loginUser, registerUser, checkAuth, isAuthenticated } = useAuth();
     const [serverError, setServerError] = useState("")
 
     async function handleLogin(data) {
@@ -110,16 +110,33 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart }) {
                 position: "fixed",
                 top: "20%",
                 left: "50%",
-                transform: "translateX(-50%)",
-                bgcolor: "background.paper",
                 width: "374px",
                 gap: convert(30),
                 px: convert(45),
                 pt: convert(48),
                 pb: convert(76),
-                border: "1px solid",
-                borderColor: "black",
-                borderRadius: "7px",
+                border: "4px solid",
+                borderColor: "custom.yellowSpecial",
+                borderRadius: "20px",
+                background: "linear-gradient(90deg, #d1d1d1, #ffffff)",
+                
+
+                ...(!isAuthenticated &&
+                {
+                    transform: isOpenCart
+                        ? "translateY(0) translateX(-50%)"
+                        : "translateY(20%) translateX(-50%)",
+                    opacity: isOpenCart
+                        ? 0.98
+                        : 0,
+                    pointerEvents: isOpenCart
+                        ? "auto"
+                        : "none"
+                }
+                ),
+
+                transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+
             }}
         >
             <Typography variant="bigButtonTitle">
