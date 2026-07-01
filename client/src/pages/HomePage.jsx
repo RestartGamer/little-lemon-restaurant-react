@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import { InfoBanner, CategorySelection, SectionTitle } from "../components";
 import { HeroSection, FoodItemSection, SlideShowSection, ContentSection } from "../sections";
 import { API_BASE_URL } from "../config/api";
@@ -63,8 +63,14 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
                 ) : (
                     <>
                         <SlideShowSection items={foodItems} />
-                        <CategorySelection />
-                        <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
+                        <Stack sx={{
+                            width: { md: "auto", xs: "100%" },
+                            flexDirection: { md: "row", xs: "column" },
+                        }}>
+                            <CategorySelection />
+                            <FoodItemSection items={foodItems} isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />
+                        </Stack>
+
                     </>
                 )}
             </ContentSection>

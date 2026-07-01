@@ -140,7 +140,7 @@ function TotalPrice({ cartItems }) {
     )
 }
 
-export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef, setIsOpenMenu, setIsOpenCart }) {
+export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef, setIsOpenMenu, setIsOpenCart, isOpenCart }) {
     return (
         <Stack ref={forwardRef} sx={{
             position: "absolute",
@@ -156,7 +156,16 @@ export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef,
             borderRadius: "0px 0px 0px 26px",
             px: convert(30),
             py: convert(29),
-            alignItems: "flex-end"
+            alignItems: "flex-end",
+
+            transform: isOpenCart ? "transformY(0)" : "transformY(-100%)",
+
+            opacity: isOpenCart ? 1 : 0.5,
+            pointerEvents: isOpenCart ? "auto" : "none",
+            transition: "transform 300ms ease-out, opacity 300ms ease-out",
+
+
+
         }}>
             <Stack sx={{  //item mask
                 overflow: "hidden",

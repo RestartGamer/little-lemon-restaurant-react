@@ -1,7 +1,7 @@
 
 //Icons
 export { default as logo } from "./icons/logo.png"
-export { default as logoNew } from "./icons/logoNew.png"
+export { default as logoNew } from "./icons/logoNew2.png"
 
 
 //Images

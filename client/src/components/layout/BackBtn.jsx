@@ -20,7 +20,7 @@ const buttonInnerSize = "25px";
 const buttonOuterSize = 4;
 
 
-export function BackBtn({ orientationSx = {} }) {
+export function BackBtn() {
     const [scrollY, setScrollY] = useState(null)
 
     useEffect(() => {
@@ -96,7 +96,6 @@ export function BackBtn({ orientationSx = {} }) {
                                     px: convert(buttonOuterSize),
                                     py: convert(buttonOuterSize),
                                     transform: "rotate(-45deg)",
-                                    ...orientationSx,
 
                                 }}>
                                 <Box sx={{
@@ -131,7 +130,6 @@ export function BackBtn({ orientationSx = {} }) {
                                 px: convert(buttonOuterSize),
                                 py: convert(buttonOuterSize),
                                 transform: "rotate(-45deg)",
-                                ...orientationSx,
 
                             }}>
                             <Box sx={{
