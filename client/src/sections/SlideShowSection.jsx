@@ -27,9 +27,9 @@ export function SlideShowSection({ items = [] }) {
             sx={{
                 "--container-lateral-padding": {
                     xs: "17px",
-                    md: "60px",
+                    md: "150px",
                     lg: "220px",
-                    xl: "200px",
+                    xl: "300px",
                 },
                 "--gap": "20px",
                 "--visible-items": {

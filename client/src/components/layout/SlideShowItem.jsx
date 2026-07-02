@@ -45,7 +45,7 @@ function AddToCartSection({ price, item }) {
 export function SlideShowItem({ items, item, id, description, descriptionLong, highlights, title, price, src }) {
     return (
         <Box sx={{
-            width: "100%",
+            width: "fit-content",
             position: "relative",
         }}>
             <ButtonBase
@@ -60,6 +60,7 @@ export function SlideShowItem({ items, item, id, description, descriptionLong, h
                     position: "relative",
                     width: "100%",
                     maxWidth: "400px",
+                    minWidth: "314px",
                     aspectRatio: aspectRatio,
                     borderRadius: "11px",
                     overflow: "clip",
