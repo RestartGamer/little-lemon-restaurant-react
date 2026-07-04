@@ -31,12 +31,11 @@ export function SlideShowSection({ items = [] }) {
           xs: 1,
           md: 2,
           lg: 3,
-          xl: 4,
         },
+
         "--frame-width": `calc(
           (
-            100vw
-            - var(--carousel-padding) * 2
+            100%
             - var(--carousel-gap) * (var(--visible-items) - 1)
           )
           / var(--visible-items)
@@ -90,7 +89,8 @@ export function SlideShowSection({ items = [] }) {
           className="SlideShowSection__ScrollContent"
           direction="row"
           sx={{
-            width: "max-content",
+            width: "100%",
+            minWidth: "100%",
             gap: "var(--carousel-gap)",
           }}
         >

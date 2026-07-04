@@ -15,13 +15,13 @@ export function SlideShowItem({
   price,
   src,
 }) {
-  
   function handleClick() {
     window.scrollTo(0, 0);
   }
 
   return (
     <Stack
+      className="SlideShowItem__Container"
       direction="row"
       sx={{
         width: "100%",
@@ -34,6 +34,7 @@ export function SlideShowItem({
       }}
     >
       <ButtonBase
+        className="SlideShowItem__ImageLink"
         component={RouteLink}
         to="/details"
         state={{
@@ -54,6 +55,7 @@ export function SlideShowItem({
         }}
       >
         <Box
+          className="SlideShowItem__Image"
           component="img"
           src={src}
           alt={title}
@@ -68,6 +70,7 @@ export function SlideShowItem({
       </ButtonBase>
 
       <Stack
+        className="SlideShowItem__Content"
         sx={{
           width: "52%",
           p: 2,
@@ -76,6 +79,7 @@ export function SlideShowItem({
         }}
       >
         <Typography
+          className="SlideShowItem__Title"
           variant="bigCardTitle"
           sx={{
             lineHeight: 1.02,
@@ -86,6 +90,7 @@ export function SlideShowItem({
         </Typography>
 
         <Typography
+          className="SlideShowItem__Price"
           variant="bodyLarge"
           sx={{
             fontWeight: 600,
@@ -94,13 +99,15 @@ export function SlideShowItem({
           ${Number(price).toFixed(2)}
         </Typography>
 
-        <AddToCartBtn
-          item={item}
-          typography="bodyMedium"
-          buttonSx={{
-            width: "100%",
-          }}
-        />
+        <Box className="SlideShowItem__AddToCart">
+          <AddToCartBtn
+            item={item}
+            typography="bodyMedium"
+            buttonSx={{
+              width: "100%",
+            }}
+          />
+        </Box>
       </Stack>
     </Stack>
   );
