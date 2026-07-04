@@ -118,6 +118,7 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
                 border: "4px solid",
                 borderColor: "custom.yellowSpecial",
                 borderRadius: "20px",
+                outline: "1px solid yellowSpecial2",
                 background: "linear-gradient(90deg, #d1d1d1, #ffffff)",
                 
 
