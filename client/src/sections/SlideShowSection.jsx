@@ -20,6 +20,7 @@ export function SlideShowSection({ items = [] }) {
 
   return (
     <Box
+      className="SlideShowSection__Container SlideShowSection__Clipper"
       sx={{
         "--carousel-padding": {
           xs: "22px",
@@ -32,16 +33,14 @@ export function SlideShowSection({ items = [] }) {
           lg: 3,
           xl: 4,
         },
-        "--frame-width": `
-          calc(
-            (
-              100vw
-              - var(--carousel-padding) * 2
-              - var(--carousel-gap) * (var(--visible-items) - 1)
-            )
-            / var(--visible-items)
+        "--frame-width": `calc(
+          (
+            100vw
+            - var(--carousel-padding) * 2
+            - var(--carousel-gap) * (var(--visible-items) - 1)
           )
-        `,
+          / var(--visible-items)
+        )`,
 
         width: "100%",
         position: "relative",
@@ -51,6 +50,7 @@ export function SlideShowSection({ items = [] }) {
       }}
     >
       <ButtonBase
+        className="SlideShowSection__NavigationButton SlideShowSection__NavigationButton--Left"
         onClick={() => handleScroll("left")}
         sx={{
           position: "absolute",
@@ -74,6 +74,7 @@ export function SlideShowSection({ items = [] }) {
 
       <Box
         ref={scrollerRef}
+        className="SlideShowSection__Content SlideShowSection__Scroller"
         sx={{
           width: "100%",
           overflowX: "auto",
@@ -86,6 +87,7 @@ export function SlideShowSection({ items = [] }) {
         }}
       >
         <Stack
+          className="SlideShowSection__ScrollContent"
           direction="row"
           sx={{
             width: "max-content",
@@ -95,11 +97,11 @@ export function SlideShowSection({ items = [] }) {
           {items.map((foodItem) => (
             <Box
               key={foodItem.id}
+              className="SlideShowSection__ItemFrame"
               sx={{
                 flex: "0 0 var(--frame-width)",
                 width: "var(--frame-width)",
                 scrollSnapAlign: "start",
-
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -116,6 +118,7 @@ export function SlideShowSection({ items = [] }) {
       </Box>
 
       <ButtonBase
+        className="SlideShowSection__NavigationButton SlideShowSection__NavigationButton--Right"
         onClick={() => handleScroll("right")}
         sx={{
           position: "absolute",
@@ -138,6 +141,7 @@ export function SlideShowSection({ items = [] }) {
       </ButtonBase>
 
       <Stack
+        className="SlideShowSection__Pagination"
         direction="row"
         justifyContent="center"
         gap={1}
@@ -146,6 +150,11 @@ export function SlideShowSection({ items = [] }) {
         {[0, 1, 2, 3].map((index) => (
           <Box
             key={index}
+            className={`SlideShowSection__PaginationDot ${
+              index === 0
+                ? "SlideShowSection__PaginationDot--Active"
+                : ""
+            }`}
             sx={{
               width: index === 0 ? 18 : 9,
               height: 9,
