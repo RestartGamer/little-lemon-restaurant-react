@@ -1,68 +1,22 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { BackBtn } from "../../components"
-import { convert } from "../../utils/muiConverter"
 
-
-const textStyle = {
-    variant:"bodyLarge",
-    sx:{
-        color: "text.primary"
-    }
-}
-
-export function CheckoutFoodList({ cartItems }) {
-    return (
-        <Box sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            width: "100%",
-        }}>
-            <Stack sx={{
-                justifyContent: "flex-start",
-                alignItems: "center",
-                bgcolor: "custom.yellowSpecial",
-                width: "100%",
-                px: convert(45),
-                py: convert(28),
-                gap: convert(6),
-            }}>
-
-                {cartItems?.map(({ id, title, price, quantity }) => {
-                    return (
-                        <Stack
-                            key={id}
-                            direction="row"
-                            sx={{
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                borderBottom: "1px solid",
-                                borderColor: "black",
-                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
-                                width: "100%",
-                                borderRadius: "9px",
-                                px: convert(6),
-                                py: convert(4),
-                                bgcolor: "background.default",
-                            }}>
-                            <Typography {...textStyle}>
-                                {title}
-                            </Typography>
-                            <Typography {...textStyle}>
-                                Qt: {quantity} x {price}
-                            </Typography>
-                            <Typography {...textStyle} sx={{
-                                fontWeight: 500,
-                            }}>
-                                total: {price * quantity}
-                            </Typography>
-                        </Stack>
-                    )
-                })}
-
-
-
-            </Stack>
-        </Box>
-    )
+export function CheckoutFoodList({ cartItems = [] }) {
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  return (
+    <Box sx={{ width: "calc(100% - 32px)", maxWidth: 760, px: { xs: 2, md: 3 }, py: 2.5, borderRadius: 2.5,
+      bgcolor: "rgba(255,248,220,.92)", border: "1px solid rgba(233,198,107,.55)", boxShadow: "0 8px 24px rgba(38,43,35,.07)" }}>
+      <Stack gap={0}>
+        {cartItems.map(({ id, title, price, quantity }) => (
+          <Stack key={id} direction="row" sx={{ justifyContent: "space-between", alignItems: "center", gap: 2, py: 1.4, borderBottom: "1px solid rgba(188,158,76,.35)" }}>
+            <Typography variant="bodyLarge" sx={{ flex: 1 }}>{title}{quantity > 1 ? ` × ${quantity}` : ""}</Typography>
+            <Typography variant="bodyLarge" sx={{ fontWeight: 600 }}>${(price * quantity).toFixed(2)}</Typography>
+          </Stack>
+        ))}
+        <Stack direction="row" sx={{ justifyContent: "space-between", pt: 2 }}>
+          <Typography variant="bigCardTitle">Total</Typography>
+          <Typography variant="bigCardTitle">${total.toFixed(2)}</Typography>
+        </Stack>
+      </Stack>
+    </Box>
+  )
 }

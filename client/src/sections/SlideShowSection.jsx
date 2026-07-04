@@ -1,144 +1,163 @@
 import { useRef } from "react";
-import { Box, ButtonBase, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { SlideShowItem, NavBtnLayout } from "../components";
+import { Box, ButtonBase, Stack } from "@mui/material";
+import { SlideShowItem } from "../components";
 
 export function SlideShowSection({ items = [] }) {
-    const scrollerRef = useRef(null);
+  const scrollerRef = useRef(null);
 
-    function handleScroll(direction) {
-        const scroller = scrollerRef.current;
+  function handleScroll(direction) {
+    const scroller = scrollerRef.current;
 
-        if (!scroller) return;
+    if (!scroller) return;
 
-        const scrollAmount = scroller.clientWidth;
+    const scrollAmount = scroller.clientWidth * 0.85;
 
-        scroller.scrollBy({
-            left: direction === "right" ? scrollAmount : -scrollAmount,
-            behavior: "smooth",
-        });
-    }
+    scroller.scrollBy({
+      left: direction === "right" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  }
 
-    const theme = useTheme();
-    const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  return (
+    <Box
+      sx={{
+        "--carousel-padding": {
+          xs: "22px",
+          md: "40px",
+        },
+        "--carousel-gap": "18px",
+        "--visible-items": {
+          xs: 1,
+          md: 2,
+          lg: 3,
+          xl: 4,
+        },
+        "--frame-width": `
+          calc(
+            (
+              100vw
+              - var(--carousel-padding) * 2
+              - var(--carousel-gap) * (var(--visible-items) - 1)
+            )
+            / var(--visible-items)
+          )
+        `,
 
-    return (
-        <Stack direction="row"
-            className="SlideShowSection__Container SlideShowSection__Clipper"
-            sx={{
-                "--container-lateral-padding": {
-                    xs: "17px",
-                    md: "60px",
-                    lg: "220px",
-                    xl: "200px",
-                },
-                "--gap": "20px",
-                "--visible-items": {
-                    xs: 1,
-                    md: 2,
-                    lg: 2,
-                    xl: 3,
-                },
-                "--frame-width":
-                    "calc((100vw - var(--container-lateral-padding) * 2 - (var(--gap) * (var(--visible-items) - 1))) / var(--visible-items))",
+        width: "100%",
+        position: "relative",
+        px: "var(--carousel-padding)",
+        pb: 3,
+        boxSizing: "border-box",
+      }}
+    >
+      <ButtonBase
+        onClick={() => handleScroll("left")}
+        sx={{
+          position: "absolute",
+          left: {
+            xs: 5,
+            md: 20,
+          },
+          top: "44%",
+          transform: "translateY(-50%)",
+          zIndex: 5,
+          width: 42,
+          height: 42,
+          borderRadius: "50%",
+          bgcolor: "rgba(255, 255, 255, 0.95)",
+          boxShadow: "0 4px 14px rgba(0, 0, 0, 0.12)",
+          fontSize: 30,
+        }}
+      >
+        ‹
+      </ButtonBase>
 
-                width: "100vw",
-                overflow: "clip",
-                px: "var(--container-lateral-padding)",
-                boxSizing: "border-box",
-                alignItems: "center",
-                gap: "var(--gap)",
-                position: "relative",
-            }}
+      <Box
+        ref={scrollerRef}
+        sx={{
+          width: "100%",
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
+
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
+        <Stack
+          direction="row"
+          sx={{
+            width: "max-content",
+            gap: "var(--carousel-gap)",
+          }}
         >
-            {
-                isMdUp &&
-                <ButtonBase
-                    onClick={() => handleScroll("left")}
-                    sx={{
-                        position: "absolute",
-                        left: "1.5%",
-                        top: "50%",
-                        transform: "translate(calc(50% - var(--container-lateral-margin) / 2), -50%)",
-                        zIndex: 0,
-                    }}
-                >
-                    <NavBtnLayout
-                        orientation="left"
-                        size="30px"
-                    />
-                </ButtonBase>
-            }
-
+          {items.map((foodItem) => (
             <Box
-                ref={scrollerRef}
-                className="SlideShowSection__Content SlideShowSection__Scroller"
-                sx={{
-                    width: "100%",
-                    overflowX: "auto",
-                    scrollSnapType: "x mandatory",
-                }}
+              key={foodItem.id}
+              sx={{
+                flex: "0 0 var(--frame-width)",
+                width: "var(--frame-width)",
+                scrollSnapAlign: "start",
+
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-                <Stack
-                    className="SlideShowSection__ScrollContent"
-                    direction="row"
-                    sx={{
-                        width: "max-content",
-                        height: "fit-content",
-                        alignItems: "center",
-                        gap: "var(--gap)",
-                    }}
-                >
-                    {items.map((foodItem) => {
-                        const { id, title, price, src, description, highlights, descriptionLong } = foodItem;
-
-                        return (
-                            <Box
-                                key={id}
-                                className="SlideShowSection__ItemFrame"
-                                sx={{
-                                    flex: "0 0 var(--frame-width)",
-                                    width: "var(--frame-width)",
-                                    scrollSnapAlign: "start",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <SlideShowItem
-                                    items={items}
-                                    id={id}
-                                    item={foodItem}
-                                    title={title}
-                                    price={price}
-                                    src={src}
-                                    description={description}
-                                    descriptionLong={descriptionLong}
-                                    highlights={highlights}
-                                />
-                            </Box>
-                        );
-                    })}
-                </Stack>
+              <SlideShowItem
+                items={items}
+                item={foodItem}
+                {...foodItem}
+              />
             </Box>
-
-            {
-                isMdUp &&
-                <ButtonBase
-                    onClick={() => handleScroll("right")}
-                    sx={{
-                        position: "absolute",
-                        right: "1.5%",
-                        top: "50%",
-                        transform: "translate(calc(50% + var(--container-lateral-margin) / 2), -50%)",
-                        zIndex: 5,
-                    }}
-                >
-                    <NavBtnLayout
-                        orientation="right"
-                        size="30px"
-                    />
-                </ButtonBase>
-            }
+          ))}
         </Stack>
-    );
+      </Box>
+
+      <ButtonBase
+        onClick={() => handleScroll("right")}
+        sx={{
+          position: "absolute",
+          right: {
+            xs: 5,
+            md: 20,
+          },
+          top: "44%",
+          transform: "translateY(-50%)",
+          zIndex: 5,
+          width: 42,
+          height: 42,
+          borderRadius: "50%",
+          bgcolor: "rgba(255, 255, 255, 0.95)",
+          boxShadow: "0 4px 14px rgba(0, 0, 0, 0.12)",
+          fontSize: 30,
+        }}
+      >
+        ›
+      </ButtonBase>
+
+      <Stack
+        direction="row"
+        justifyContent="center"
+        gap={1}
+        mt={2}
+      >
+        {[0, 1, 2, 3].map((index) => (
+          <Box
+            key={index}
+            sx={{
+              width: index === 0 ? 18 : 9,
+              height: 9,
+              borderRadius: 9,
+              bgcolor:
+                index === 0
+                  ? "custom.yellowSpecial3"
+                  : "#d9d5cc",
+            }}
+          />
+        ))}
+      </Stack>
+    </Box>
+  );
 }

@@ -1,115 +1,182 @@
-import { Box, Stack, Typography } from "@mui/material"
-import { Link as RouteLink } from "react-router-dom"
-import { convert } from "../../utils/muiConverter"
-import { AddToCartBtn } from "../../components"
+import { Box, Stack, Typography } from "@mui/material";
+import { Link as RouteLink } from "react-router-dom";
+import { AddToCartBtn } from "../../components";
 
-const imageAspect = 194 / 113;
-const routePath = "/details";
 
-function TitleAndDescription({ title, description }) {
-    return (
-        <Stack sx={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            width: "100%",
-            maxWidth: "1080px",
-            gap: "6px",
-        }}>
-            <Typography variant="cardTitle" sx={{
-                color: "text.primary",
-                textAlign: "start",
-            }}>
-                {title}
-            </Typography>
+const imageRatio = 194 / 147;
 
-            <Typography variant="bodyLarge" sx={{
-                color: "text.primary",
-                textAlign: "start",
-                lineHeight: 1
-            }}>
-                {description}
-            </Typography>
-            
-        </Stack>
-    )
-}
+export function FoodItem({
+  items,
+  id,
+  src,
+  title,
+  description,
+  descriptionLong,
+  price,
+  highlights = [],
+  isOpenMenu,
+  isOpenCart,
+}) {
+  const item = {
+    id,
+    src,
+    title,
+    description,
+    price,
+    highlights,
+  };
 
-function PriceAndCTA({ id, src, title, description, price, highlights }) {
-    const item = {
+  function handleClick(event) {
+    if (isOpenMenu || isOpenCart) {
+      event.preventDefault();
+      return;
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  return (
+    <Stack
+      component={RouteLink}
+      to="/details"
+      state={{
+        items,
         id,
         src,
         title,
         description,
+        descriptionLong,
         price,
         highlights,
-    };
+      }}
+      direction="row"
+      onClick={handleClick}
+      sx={{
+        width: "100%",
+        minHeight: {
+          xs: 130,
+          md: 145,
+        },
+        textDecoration: "none",
+        bgcolor: "rgba(255, 255, 255, 0.96)",
+        border: "1px solid rgba(233, 198, 107, 0.35)",
+        borderRadius: 2,
+        overflow: "hidden",
+        boxShadow: "0 5px 16px rgba(27, 42, 35, 0.06)",
+        transition: "transform 0.18s ease, box-shadow 0.18s ease",
 
-    return (
-        <Stack direction="row" sx={{
+        "&:hover": {
+          transform: "translateY(-2px)",
+          boxShadow: "0 8px 22px rgba(27, 42, 35, 0.1)",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative",
+          width: {
+            xs: 135,
+            md: 180,
+          },
+          flexShrink: 0,
+        }}
+      >
+        <Box
+          component="img"
+          src={src}
+          alt={title}
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            aspectRatio: imageRatio,
+          }}
+        />
+
+        {id === 0 && (
+          <Typography
+            sx={{
+              position: "absolute",
+              top: 8,
+              left: 8,
+              px: 1,
+              py: 0.45,
+              bgcolor: "custom.yellowSpecial3",
+              color: "white",
+              borderRadius: 1,
+              fontSize: 11,
+              fontWeight: 700,
+            }}
+          >
+            TODAY&apos;S SPECIAL
+          </Typography>
+        )}
+      </Box>
+
+      <Stack
+        sx={{
+          flex: 1,
+          p: {
+            xs: 1.4,
+            md: 2,
+          },
+          gap: 0.6,
+          minWidth: 0,
+        }}
+      >
+        <Typography
+          variant="bigCardTitle"
+          sx={{
+            lineHeight: 1.05,
+          }}
+        >
+          {title}
+        </Typography>
+
+        <Typography
+          variant="bodyMedium"
+          sx={{
+            lineHeight: 1.25,
+            color: "#4b514e",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {description}
+        </Typography>
+
+        <Stack
+          direction="row"
+          sx={{
+            mt: "auto",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: convert(9),
-        }}>
-            <Typography variant="bigCardTitle" sx={{
-                color: "text.primary",
+            gap: 1,
+          }}
+        >
+          <Typography
+            variant="bodyLarge"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            ${Number(price).toFixed(2)}
+          </Typography>
 
-            }}>
-                ${price}
-            </Typography>
-            <AddToCartBtn
-                item={item}
-                buttonSx={{
-                    px: convert(8),
-                    py: convert(5),
-                }}
-                typography="cardTitle">
-                Add to cart
-            </AddToCartBtn>
+          <AddToCartBtn
+            item={item}
+            typography="bodyMedium"
+            buttonSx={{
+              px: {
+                xs: 1.4,
+                md: 2.3,
+              },
+            }}
+          />
         </Stack>
-    )
-}
-
-export function FoodItem({ items, id, src, title, description, descriptionLong, price, highlights = [], isOpenMenu, isOpenCart }) {
-    return (
-        <Stack sx={{
-            width: "100%",
-            alignItems: "center"
-        }}>
-            <Stack
-                component={RouteLink}
-                to={routePath}
-                state={{ items, id, src, title, description, descriptionLong, price, highlights }}
-                direction="row"
-                sx={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: convert(10),
-                    py: convert(5),
-                    textDecoration: "none",
-                    width: "fit-content"
-                }}
-                onClick={(event) => {
-                    if (isOpenMenu || isOpenCart) {
-                        event.preventDefault(); //prevents the RouteLink from functioning
-                    }
-                    window.scrollTo(0, 0)
-                }}>
-                <Box component="img" src={src} alt={`An image of ${title}`} sx={{
-                    minWidth: "113px",
-                    maxWidth: "200px",
-                    width: "194px",
-                    aspectRatio: imageAspect,
-                    objectFit: "cover",
-                    borderRadius: "6px"
-                }} />
-                <Stack sx={{
-                    width: "180px",
-                    gap: "10px",
-                }}>
-                    <TitleAndDescription title={title} description={description} />
-                    <PriceAndCTA id={id} src={src} title={title} description={description} price={price} highlights={highlights} />
-                </Stack>
-            </Stack>
-        </Stack>
-    )
+      </Stack>
+    </Stack>
+  );
 }

@@ -64,158 +64,31 @@ export function PaymentMethod({ cartItems = [] }) {
     }
 
     return (
-        <Box sx={{
-            width: "100%",
-            minHeight: "331px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            mt: convert(10),
-        }}>
-            <Stack direction="row" sx={{
-                width: "100%",
-                maxWidth: "370px",
-                minHeight: "331px",
-                justifyContent: "space-between",
-                border: "1px solid",
-                borderColor: "custom.borderGrey1",
-                borderRadius: "9px"
-            }}>
-                <Box sx={{
-                    flex: "0 0 76px",
-                    minHeight: "100%",
-                    bgcolor: "custom.greenSpecial",
-                }} />
-                <Box sx={{
-                    width: "100%",
-                    maxWidth: "300px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    py: convert(8),
-                }}>
-                    <Stack sx={{
-                        width: "55%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: convert(5),
-                    }}>
-                        <Typography variant="bigCardTitle"
-                            sx={{
-                                fontWeight: 600,
-                                textDecoration: "underline",
-                                overflowWrap: "break-word",
-                            }}>
-                            Payment Method
-                        </Typography>
-                        <Stack sx={{
-                            width: "100%",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: convert(6),
-                        }}>
-                            {paymentOptions.map((paymentOption) => {
-                                return (
-                                    <Stack key={paymentOption} direction="row" sx={{
-                                        width: "100%",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}>
-                                        <Typography>
-                                            {paymentOption}
-                                        </Typography>
-                                        <Radio
-                                            checked={paymentMethod === paymentOption}
-                                            onChange={() => setPaymentMethod(paymentOption)}
-                                            icon={
-                                                <Box
-                                                    sx={{
-                                                        width: "var(--size)",
-                                                        height: "var(--size)",
-                                                        borderRadius: "50%",
-                                                        bgcolor: "custom.borderGrey",
-                                                        border: "1px solid",
-                                                        borderColor: "text.primary",
-                                                        boxSizing: "border-box",
-                                                    }}
-                                                />
-                                            }
-                                            checkedIcon={
-                                                <Box
-                                                    sx={{
-                                                        width: "var(--size)",
-                                                        height: "var(--size)",
-                                                        borderRadius: "50%",
-                                                        bgcolor: "custom.borderGrey1",
-                                                        border: "1px solid",
-                                                        borderColor: "text.primary",
-                                                        boxSizing: "border-box",
-                                                        display: "flex",
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={{
-                                                            width: "7px",
-                                                            height: "7px",
-                                                            borderRadius: "50%",
-                                                            bgcolor: "custom.greenSpecial",
-                                                        }}
-                                                    />
-                                                </Box>
-                                            }
-                                            sx={{
-                                                "--size": "15px",
-                                                p: 0,
-
-                                                "&.Mui-disabled": {
-                                                    opacity: 0.4,
-                                                },
-                                            }}
-                                        />
-                                    </Stack>
-                                );
-                            })}
-
-                            <Typography variant="cardTitle" sx={{
-                                fontWeight: 600,
-                                overflowWrap: "break-word",
-                            }}>
-                                Total: ${totalPrice.toFixed(2)}
-                            </Typography>
-
-                            <ButtonBase
-                                onClick={handleSubmitOrder}
-                                disabled={isSubmittingOrder || cartItems.length === 0}
-                                sx={{
-                                    px: convert(6),
-                                    py: convert(3),
-                                    bgcolor: "custom.greenSpecial",
-                                    borderRadius: "4px",
-                                    opacity: isSubmittingOrder || cartItems.length === 0 ? 0.5 : 1,
-                                }}
-                            >
-                                <Typography variant="bodyLarge">
-                                    {isSubmittingOrder ? "Placing order..." : "Place order"}
-                                </Typography>
-                            </ButtonBase>
-
-                            {orderError ? (
-                                <Typography variant="bodyMedium" sx={{ color: "error.main", textAlign: "center" }}>
-                                    {orderError}
-                                </Typography>
-                            ) : null}
-
-                            {orderSuccess ? (
-                                <Typography variant="bodyMedium" sx={{ color: "success.main", textAlign: "center" }}>
-                                    {orderSuccess}
-                                </Typography>
-                            ) : null}
-                        </Stack>
+        <Stack sx={{ width: "calc(100% - 32px)", maxWidth: "760px", mt: 3, mb: 2, alignItems: "center" }}>
+            <Stack direction={{ xs: "column", sm: "row" }} sx={{ width: "100%", minHeight: 300, border: "1px solid rgba(24,62,50,.25)", borderRadius: 3, overflow: "hidden", bgcolor: "rgba(255,255,255,.97)", boxShadow: "0 8px 26px rgba(32,45,38,.08)" }}>
+                <Box sx={{ width: { xs: "100%", sm: 140 }, minHeight: { xs: 70, sm: "100%" }, bgcolor: "custom.greenSpecial", display: "grid", placeItems: "center", color: "custom.deepGreen", fontSize: 42 }}>▣</Box>
+                <Stack sx={{ flex: 1, p: { xs: 3, md: 4 }, alignItems: "center" }}>
+                    <Typography variant="sectionTitle" sx={{ color: "custom.deepGreen" }}>Payment Method</Typography>
+                    <Box sx={{ width: 170, height: 1, bgcolor: "custom.softGold", my: 1.5 }} />
+                    <Stack sx={{ width: "100%", maxWidth: 390, gap: 1.2, mt: 1 }}>
+                        {paymentOptions.map((paymentOption) => (
+                            <Stack key={paymentOption} direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
+                                <Typography variant="bodyLarge">{paymentOption.replace(":", "")}</Typography>
+                                <Radio checked={paymentMethod === paymentOption} onChange={() => setPaymentMethod(paymentOption)} size="small" sx={{ color: "custom.deepGreen", "&.Mui-checked": { color: "custom.deepGreen" } }} />
+                            </Stack>
+                        ))}
                     </Stack>
-                </Box>
+                    <Box sx={{ width: "100%", borderTop: "1px solid rgba(233,198,107,.5)", mt: 2.5, pt: 2.5, textAlign: "center" }}>
+                        <Typography variant="sectionTitle">Total: ${totalPrice.toFixed(2)}</Typography>
+                    </Box>
+                </Stack>
             </Stack>
-        </Box>
+            <ButtonBase onClick={handleSubmitOrder} disabled={isSubmittingOrder || cartItems.length === 0} sx={{ width: "100%", mt: 3, py: 1.8, borderRadius: 2, bgcolor: "custom.yellowSpecial3", boxShadow: "0 7px 18px rgba(244,195,22,.25)", opacity: isSubmittingOrder || cartItems.length === 0 ? .55 : 1 }}>
+                <Typography sx={{ mr: 1.2, fontSize: 21 }}>▢</Typography>
+                <Typography variant="bigButtonTitle" sx={{ color: "custom.deepGreen" }}>{isSubmittingOrder ? "Placing order..." : "Confirm Order"}</Typography>
+            </ButtonBase>
+            {orderError ? <Typography variant="bodyMedium" sx={{ color: "error.main", mt: 1.5 }}>{orderError}</Typography> : null}
+            {orderSuccess ? <Typography variant="bodyMedium" sx={{ color: "success.main", mt: 1.5 }}>{orderSuccess}</Typography> : null}
+        </Stack>
     );
 }

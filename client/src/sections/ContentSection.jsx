@@ -1,25 +1,18 @@
 import { Stack } from "@mui/material"
-import { convert } from "../utils/muiConverter"
-
-
 
 export function ContentSection({ children }) {
-
-    return (
-        <Stack className="ContentSection" sx={{
-            "--border": {
-                xs: "0", md: "1px"
-            },
-            width: "80%",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            bgcolor: "background.default",
-            borderRight: "var(--border) solid",
-            borderLeft: "var(--border) solid",
-            borderColor: "black",
-            pb: convert(50),
-        }}>
-            {children}
-        </Stack>
-    )
+  return (
+    <Stack className="ContentSection" sx={{
+      width: { xs: "100%", md: "min(1120px, 86%)" },
+      alignItems: "center",
+      justifyContent: "flex-start",
+      bgcolor: "rgba(255,253,248,0.94)",
+      borderLeft: { md: "1px solid rgba(233,198,107,.35)" },
+      borderRight: { md: "1px solid rgba(233,198,107,.35)" },
+      pb: { xs: 4, md: 7 },
+      minHeight: "60vh",
+    }}>
+      {children}
+    </Stack>
+  )
 }

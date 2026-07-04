@@ -1,8 +1,7 @@
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Markazi+Text:wght@500;600;700&display=swap');
 
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; min-height: 100%; margin: 0; }
+body { overflow-x: hidden; background: #fffdf8; }
+a { color: inherit; }
+* { scrollbar-color: #d7b94c transparent; scrollbar-width: thin; }

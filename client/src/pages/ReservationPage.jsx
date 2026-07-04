@@ -1,179 +1,45 @@
 /* eslint-disable react-refresh/only-export-components */
 import { SectionTitle as PageTitle, BackBtn } from "../components"
 import { ContentSection } from "../sections"
-import {
-  Stack,
-  InputLabel,
-  TextField,
-  Box,
-  Typography,
-  MenuItem,
-} from "@mui/material"
-
+import { Stack, InputLabel, TextField, Box, Typography, MenuItem } from "@mui/material"
 import { useReducer } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Schema } from "../config/schema"
-import { convert } from "../utils/muiConverter"
 
-const pageTitle = "Reservation Page"
+export function initializeTimes() { return window.fetchAPI ? window.fetchAPI(new Date()) : [] }
+export function updateTimes(state, action) { return window.fetchAPI ? window.fetchAPI(new Date(action.date)) : [] }
 
-export function initializeTimes() {
-  return window.fetchAPI ? window.fetchAPI(new Date()) : []
-}
-
-export function updateTimes(state, action) {
-  return window.fetchAPI ? window.fetchAPI(new Date(action.date)) : []
-}
-
-function InputBox({ label, placeholder, zodId, register, error, textFieldProps = {} }) {
-  return (
-    <>
-      <InputLabel htmlFor={zodId} sx={{ typography: "cardTitle", color: "text.primary" }}>
-        {label}
-      </InputLabel>
-
-      <TextField
-        id={zodId}
-        {...register(zodId)}
-        placeholder={placeholder ?? ""}
-        error={!!error}
-        helperText={error?.message}
-        {...textFieldProps}
-        
-      />
-    </>
-  )
-}
-
-function DateField({ register, error, dispatch }) {
-  const dateRegister = register("date")
-
-  return (
-    <Stack spacing={1}>
-      <InputLabel htmlFor="date">Date</InputLabel>
-
-      <TextField
-        id="date"
-        type="date"
-        size="small"
-        error={!!error}
-        helperText={error?.message}
-        {...dateRegister}
-        onChange={(e) => {
-          dateRegister.onChange(e)
-          dispatch({ date: e.target.value })
-        }}
-        sx={{ width: "170px" }}
-      />
-    </Stack>
-  )
-}
-
-function TimeField({ register, error, availableTimes }) {
-  return (
-    <Stack spacing={1}>
-      <InputLabel htmlFor="time">Time</InputLabel>
-
-      <TextField
-        id="time"
-        select
-        size="small"
-        defaultValue=""
-        error={!!error}
-        helperText={error?.message}
-        {...register("time")}
-        sx={{ width: "170px" }}
-      >
-        {availableTimes.map((time) => (
-          <MenuItem key={time} value={time}>
-            {time}
-          </MenuItem>
-        ))}
-      </TextField>
-    </Stack>
-  )
+function Field({ label, children }) {
+  return <Stack spacing={1}><InputLabel sx={{ color: "text.primary", fontWeight: 600, fontSize: 16 }}>{label}</InputLabel>{children}</Stack>
 }
 
 export function ReservationPage() {
   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(Schema),
-    mode: "onChange",
-  })
-
-  function onSubmit(data) {
-    const success = window.submitAPI ? window.submitAPI(data) : false
-
-    return success;
-  }
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(Schema), mode: "onChange" })
+  function onSubmit(data) { return window.submitAPI ? window.submitAPI(data) : false }
+  const common = { fullWidth: true, error: false }
 
   return (
-    <>
-      <BackBtn />
-      <ContentSection>
-        <PageTitle title={pageTitle} route="/" />
-
-        <Stack sx={{ 
-          justifyContent: "flex-start", 
-          alignItems: "stretch",
-          px: convert(28), 
-          mt: convert(27),
-          width: "100%",
-          maxWidth: "600px"
-
-          }}>
-
-          <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
-            <InputBox label="Full Name" placeholder="Your Full Name" zodId="name" register={register} error={errors.name} />
-            <InputBox label="Phone number" placeholder="Your phone number" zodId="phoneNumber" register={register} error={errors.phoneNumber} />
-            <InputBox label="Email" placeholder="Your Email" zodId="email" register={register} error={errors.email} />
-
-            <DateField register={register} error={errors.date} dispatch={dispatch} />
-
-            <TimeField register={register} error={errors.time} availableTimes={availableTimes} />
-
-            <InputBox label="Number of People" zodId="numberOfPeople" register={register} error={errors.numberOfPeople} />
-
-            <InputBox
-              label="Additional Notes"
-              zodId="message"
-              register={register}
-              error={errors.message}
-              textFieldProps={{
-                multiline: true,
-                rows: 4,
-                fullWidth: true,
-              }}
-            />
-
-            <Box
-              component="button"
-              type="submit"
-              sx={{
-                bgcolor: "custom.backgroundSpecial",
-                border: "2px solid",
-                borderColor: "custom.heroTitleBg",
-                borderRadius: "5px",
-                width: "100%",
-                alignSelf: "center",
-                py: convert(10),
-                mt: convert(30),
-                cursor: "pointer",
-              }}
-            >
-              <Typography variant="cardTitle" sx={{ color: "text.primary" }}>
-                Finish Booking
-              </Typography>
-            </Box>
-          </Stack>
+    <><BackBtn /><ContentSection><PageTitle title="Reservation Page" />
+      <Stack component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: "calc(100% - 32px)", maxWidth: 760, p: { xs: 2.5, md: 5 }, gap: 3,
+        bgcolor: "rgba(255,249,234,.93)", border: "1px solid rgba(233,198,107,.5)", borderRadius: 3, boxShadow: "0 10px 30px rgba(36,46,40,.08)" }}>
+        <Field label="Full Name"><TextField {...common} placeholder="Enter your full name" {...register("name")} error={!!errors.name} helperText={errors.name?.message} /></Field>
+        <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
+          <Box sx={{ flex: 1 }}><Field label="Phone Number"><TextField {...common} placeholder="Enter your phone number" {...register("phoneNumber")} error={!!errors.phoneNumber} helperText={errors.phoneNumber?.message} /></Field></Box>
+          <Box sx={{ flex: 1 }}><Field label="Email"><TextField {...common} placeholder="Enter your email address" {...register("email")} error={!!errors.email} helperText={errors.email?.message} /></Field></Box>
         </Stack>
-      </ContentSection>
-    </>
+        <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
+          <Box sx={{ flex: 1 }}><Field label="Date"><TextField {...common} type="date" {...register("date")} error={!!errors.date} helperText={errors.date?.message} onChange={(e) => { register("date").onChange(e); dispatch({ date: e.target.value }) }} /></Field></Box>
+          <Box sx={{ flex: 1 }}><Field label="Time"><TextField {...common} select defaultValue="" {...register("time")} error={!!errors.time} helperText={errors.time?.message}>{availableTimes.map(time => <MenuItem key={time} value={time}>{time}</MenuItem>)}</TextField></Field></Box>
+        </Stack>
+        <Field label="Number of People"><TextField {...common} placeholder="Select number of guests" {...register("numberOfPeople")} error={!!errors.numberOfPeople} helperText={errors.numberOfPeople?.message} /></Field>
+        <Field label="Additional Notes"><TextField {...common} multiline rows={4} placeholder="Any special requests or notes?" {...register("message")} error={!!errors.message} helperText={errors.message?.message} /></Field>
+        <Box component="button" type="submit" sx={{ border: 0, width: "100%", py: 1.8, mt: 1, bgcolor: "custom.yellowSpecial3", borderRadius: 2,
+          cursor: "pointer", boxShadow: "0 7px 18px rgba(244,195,22,.25)", color: "custom.deepGreen" }}>
+          <Typography variant="bigButtonTitle">▣ &nbsp; Submit Booking</Typography>
+        </Box>
+      </Stack>
+    </ContentSection></>
   )
 }

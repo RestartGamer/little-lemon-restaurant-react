@@ -1,110 +1,30 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { convert } from "../../utils/muiConverter"
 
-const imageAspect = 244 / 265;
-const yellowAspect = 196 / 265;
-const maxHeight = "326px";
-
-function Highlights({ highlights }) {
-
-    return (
-        <Box sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            px: convert(33),
-            py: convert(9),
-            bgcolor: "custom.heroTitleBg",
-        }}>
-            <Stack direction="row"
-                sx={{
-                    width: "100%",
-                    maxWidth: "700px",
-                    justifyContent: "space-between",
-                }}>
-                {highlights.map((highlight) => {
-                    return (
-                        <Typography key={highlight} variant="bodyMedium" sx={{
-                            color: "text.secondary",
-                        }}>
-                            {highlight}
-                        </Typography>
-                    )
-                })}
-            </Stack>
+function Highlights({ highlights = [] }) {
+  return (
+    <Stack direction={{ xs: "column", sm: "row" }} sx={{ width: "100%", justifyContent: "center", gap: 1.5, mt: 2.5 }}>
+      {highlights.map((highlight) => (
+        <Box key={highlight} sx={{ px: 2.2, py: 1.1, borderRadius: 999, bgcolor: "#F0F2DA", border: "1px solid rgba(120,137,75,.16)" }}>
+          <Typography variant="bodyMedium" sx={{ color: "#34422f", fontWeight: 600 }}>{highlight}</Typography>
         </Box>
-    )
+      ))}
+    </Stack>
+  )
 }
 
-export function ItemDetails({ src, title, descriptionLong, highlights }) {
-    return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            width: "100vw",
-            minWidth: "392px",
-            maxWidth: "800px"
-        }}>
-            <Stack direction="row" sx={{
-                width: "100%",
-                position: "relative",
-                justifyContent: "center",
-            }}>
-                <Box component="img" src={src} alt={`An image of ${title}`} sx={{
-                    width: "55%",
-                    maxWidth: "436px",
-                    maxHeight: maxHeight,
-                    aspectRatio: imageAspect,
-                    objectFit: "cover",
-                }} />
-                <Typography variant="sectionTitle" sx={{
-                    "--outline-width": "0.5px",
-                    "--outline-color": "white",
-                    position: "absolute",
-                    left: "50%",
-                    top: "5%",
-                    transform: "translateX(-50%)",
-                    textAlign: "end",
-                    color: "text.primary",
-                    lineHeight: 1.3,
-                    textShadow: `
-                    var(--outline-width) var(--outline-width) 0 var(--outline-color),
-                    calc(var(--outline-width) * -1) var(--outline-width) 0 var(--outline-color),
-                    var(--outline-width) calc(var(--outline-width) * -1) 0 var(--outline-color),
-                    calc(var(--outline-width) * -1) calc(var(--outline-width) * -1) 0 var(--outline-color),
-                    0 var(--outline-width) 0 var(--outline-color),
-                    0 calc(var(--outline-width) * -1) 0 var(--outline-color),
-                    var(--outline-width) 0 0 var(--outline-color),
-                    calc(var(--outline-width) * -1) 0 0 var(--outline-color)
-                    `,
-                }}>
-                    {title}
-                </Typography>
-
-                <Stack sx={{
-                    width: "45%",
-                    maxHeight: maxHeight,
-                    aspectRatio: yellowAspect,
-                    bgcolor: "custom.yellowSpecial2",
-                    px: convert(14),
-                    pt: convert(110),
-                    pb: convert(15),
-                    alignItems: "flex-start",
-                }}>
-
-                    <Typography variant="bodyLarge" sx={{
-                        maxWidth: "200px",
-                        textAlign: "start",
-                        lineHeight: 1.1,
-                    }}>
-                        {descriptionLong}
-                    </Typography>
-                </Stack>
-            </Stack>
-            <Highlights highlights={highlights} />
-        </Box>
-    )
+export function ItemDetails({ src, title, descriptionLong, price, highlights }) {
+  return (
+    <Stack sx={{ width: "calc(100% - 32px)", maxWidth: 980, mt: { xs: 2, md: 4 }, p: { xs: 2, md: 3 }, borderRadius: 3,
+      bgcolor: "rgba(255,255,255,.96)", boxShadow: "0 10px 30px rgba(28,45,37,.09)", border: "1px solid rgba(233,198,107,.28)" }}>
+      <Stack direction={{ xs: "column", md: "row" }} gap={{ xs: 2.5, md: 4 }}>
+        <Box component="img" src={src} alt={title} sx={{ width: { xs: "100%", md: "48%" }, aspectRatio: "1 / 1", objectFit: "cover", borderRadius: 2.5 }} />
+        <Stack sx={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}>
+          <Typography variant="headingTitle" sx={{ color: "text.primary", lineHeight: 1 }}>{title}</Typography>
+          <Typography sx={{ fontFamily: `"Markazi Text", serif`, fontSize: 34, mt: 1 }}>${Number(price || 0).toFixed(2)}</Typography>
+          <Typography variant="bodyLarge" sx={{ mt: 1.5, lineHeight: 1.45, color: "#404743" }}>{descriptionLong}</Typography>
+        </Stack>
+      </Stack>
+      <Highlights highlights={highlights} />
+    </Stack>
+  )
 }

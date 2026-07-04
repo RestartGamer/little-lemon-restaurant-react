@@ -1,51 +1,16 @@
 import { Box, Typography } from "@mui/material"
-import { convert } from "../../utils/muiConverter"
+
 export function SectionTitle({ title }) {
-
-    return (
-        <Box sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            pt: convert(20),
-            pb: convert(28),
-        }}>
-            <Box sx={{
-                bgcolor: "background.default",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                /*borderTop: "1px solid",
-                borderBottom: "1px solid",
-                borderColor: "black",*/
-            }}>
-                <Box sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    borderBottom: "1px solid",
-                    borderColor: "black",
-                    px: convert(42),
-                    /*backgroundImage: `url(${TitleBGPencilGreen})`,
-                    backgroundRepeat: "repeat",
-                    backgroundSize: "300px",
-                    backgroundPositionX: "43%",
-                    backgroundPositionY: "10%",*/
-                    width: "fit-content",
-
-
-                }}>
-                    <Typography variant="headingTitle" sx={{
-                        fontWeight: 500,
-                        color: "text.primary",
-                    }}>
-                        {title}
-                    </Typography>
-                </Box>
-            </Box >
-
-        </Box>
-
-
-    )
+  return (
+    <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: { xs: 3, md: 4 } }}>
+      <Box sx={{ display: "flex", alignItems: "center", width: "min(620px, 88%)", gap: 2 }}>
+        <Box sx={{ flex: 1, height: "1px", bgcolor: "custom.softGold" }} />
+        <Typography variant="headingTitle" sx={{ color: "custom.deepGreen", textAlign: "center", whiteSpace: "nowrap" }}>
+          {title}
+        </Typography>
+        <Box sx={{ width: 24, height: 24, color: "custom.yellowSpecial3", fontSize: 22, lineHeight: 1 }}>❧</Box>
+        <Box sx={{ flex: 1, height: "1px", bgcolor: "custom.softGold" }} />
+      </Box>
+    </Box>
+  )
 }

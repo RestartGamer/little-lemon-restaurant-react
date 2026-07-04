@@ -1,58 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { convert } from "../../utils/muiConverter"
+import { Box, Stack } from "@mui/material"
 import { logoNew } from "../../assets"
 
-let optionsId = 0;
-
-const options = [
-    { id: optionsId++, name: "Designed by Can Korkmaz", route: "/" },
-
-
-]
-const imageAspect = 214 / 74;
-
 export function Footer() {
-    return (
-        <Box sx={{
-            bgcolor: "custom.yellowSpecial"
-        }}>
-            <Stack sx={{
-                alignItems: "center",
-                justifyContent: "flex-start",
-                py: convert(32),
-                gap: convert(19),
-            }}>
-
-                {options.map(({ id, name }) => {
-                    return (
-                        <Stack key={id} direction="row" sx={{
-                            gap: convert(10)
-                        }}>
-                            <Typography variant="bigButtonTitle" sx={{
-                                lineHeight: 1,
-                                color: "text.primary",
-                            }}>
-                                {name}
-                            </Typography>
-                        </Stack>
-                    )
-                })}
-                <Stack sx={{
-                    width: "100%",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                }}>
-                    <Box component="img" src={logoNew} sx={{
-                        width: "150px",
-                        aspectRatio: imageAspect,
-                    }} />
-                    <Box sx={{
-                        width: "60%",
-                        borderBottom: "2px solid",
-                        borderColor: "black",
-                    }} />
-                </Stack>
-            </Stack>
-        </Box>
-    );
+  return (
+    <Stack sx={{ width: "100%", alignItems: "center", justifyContent: "center", py: { xs: 3.5, md: 4.5 },
+      background: "linear-gradient(90deg,#fff4c9,#fff9e8,#fff4c9)", borderTop: "1px solid rgba(233,198,107,.45)" }}>
+      <Box component="img" src={logoNew} sx={{ width: { xs: 180, md: 220 }, objectFit: "contain" }} />
+    </Stack>
+  )
 }

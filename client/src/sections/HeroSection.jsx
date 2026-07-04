@@ -1,70 +1,15 @@
-import { useLayoutEffect, useState } from "react";
-import { Box, Stack } from "@mui/material";
-
-import { heroImage2 } from "../assets";
-import { ReserveTableBtnBlack } from "../components";
-
-const imageAlt = "Image of a dish";
+import { Box, Stack } from "@mui/material"
+import { heroImage2 } from "../assets"
+import { ReserveTableBtnBlack } from "../components"
 
 export function HeroSection() {
-  const [navbarHeight, setNavbarHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    function updateNavbarHeight() {
-      const navbar = document.querySelector(".Navbar");
-      const height = navbar?.getBoundingClientRect().height ?? 0;
-
-      setNavbarHeight(height);
-    }
-
-    updateNavbarHeight();
-
-    window.addEventListener("resize", updateNavbarHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateNavbarHeight);
-    };
-  }, []);
-
-
   return (
-    <Stack
-      sx={{
-        width: "100%",
-        justifyContent: "flex-start",
-        position: "relative",
-        bgcolor: "grey",
-        overflow: "clip",
-        maxHeight: {
-          xs: "258px",
-          md: `calc(100vh - ${navbarHeight}px)`,
-        },
-      }}
-    >
-      <Box
-        component="img"
-        src={heroImage2}
-        alt={imageAlt}
-        sx={{
-          objectFit: "cover",
-          transform: "scaleX(-1)",
-          width: "100%",
-          height: "100%",
-          objectPosition: "30% 67%",
-        }}
-      />
-
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          position: "absolute",
-          bottom: 30,
-        }}
-      >
+    <Stack sx={{ width: "100%", position: "relative", overflow: "hidden", height: { xs: 310, md: "min(50vw, 470px)" }, bgcolor: "#d9c3a1" }}>
+      <Box component="img" src={heroImage2} alt="Restaurant table ready for guests" sx={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: { xs: "50% 60%", md: "50% 58%" } }} />
+      <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,.08),transparent 55%,rgba(0,0,0,.18))" }} />
+      <Box sx={{ position: "absolute", left: "50%", bottom: { xs: 20, md: 28 }, transform: "translateX(-50%)" }}>
         <ReserveTableBtnBlack />
       </Box>
     </Stack>
-  );
+  )
 }

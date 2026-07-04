@@ -1,78 +1,23 @@
-import { Stack, Typography, ButtonBase } from "@mui/material"
-import { convert } from "../../utils/muiConverter"
+import { Stack, Typography, ButtonBase, Box } from "@mui/material"
 
-let optionsId = 0;
 const options = [
-    { id: optionsId++, name: "Chicken", filter: "chicken" },
-    { id: optionsId++, name: "Beef", filter: "beef" },
-    { id: optionsId++, name: "Fish", filter: "fish" },
-    { id: optionsId++, name: "Entrées", filter: "appetizer" },
-    { id: optionsId++, name: "Vegan", filter: "vegan" },
-    { id: optionsId++, name: "Salad", filter: "salad" },
-    { id: optionsId++, name: "Dessert", filter: "dessert" },
-    { id: optionsId++, name: "Beverages", filter: "beverage" },
+  ["★", "Today's Special"], ["◉", "Chicken"], ["◌", "Beef"], ["◍", "Fish"],
+  ["◫", "Entrées"], ["◒", "Vegan"], ["◐", "Salad"], ["▰", "Dessert"], ["▯", "Beverages"],
 ]
 
-function CategoryBtn({ children }) {
-    return (
-        <ButtonBase component="button" sx={{
-            display: "inline-flex",
-            justifyContent: "center",
-            alignItems: "center",
-            p: 0,
-
-            bgcolor: "custom.buttonSpecial",
-            px: convert(4),
-
-            boxSizing: "content-box",
-            border: "1px solid",
-            borderColor: "custom.borderNormal",
-            borderRadius: "3px",
-
-            width: {md: "100%", xs: "auto"}
-
-        }}>
-            <Typography variant="cardTitle" sx={{
-                color: "text.primary",
-            }}>
-                {children}
-            </Typography>
-        </ButtonBase>
-    )
-}
-
 export function CategorySelection() {
-    return (
-        <Stack sx={{
-            width: "100%",
-            overflow: "clip",
-            px: convert(21),
-            py: convert(21),
-        }}>
-            <Stack sx={{
-                justifyContent: "flex-start",
-                alignItems: "center",
-                overflowX: "auto",
-                scrollbarWidth: "none",
-
-                gap: convert(35),
-                borderLeft: "1px solid",
-                borderRight: "1px solid",
-                borderColor: "black",
-                py: convert(11),
-                px: { md: convert(20), xs: null },
-
-                flexDirection: { md: "column", xs: "row" }
-            }}>
-                {options.map(({ id, name }) => {
-                    return (
-                        <CategoryBtn key={id}>
-                            {name}
-                        </CategoryBtn>
-                    )
-                })}
-
-            </Stack>
-        </Stack>
-    )
+  return (
+    <Box sx={{ width: { xs: "100%", md: 210 }, flexShrink: 0, p: { xs: 2, md: 0 } }}>
+      <Stack direction={{ xs: "row", md: "column" }} sx={{ gap: 1.2, overflowX: { xs: "auto", md: "visible" }, scrollbarWidth: "none" }}>
+        {options.map(([icon, name], index) => (
+          <ButtonBase key={name} sx={{ minWidth: { xs: 145, md: "100%" }, justifyContent: "flex-start", gap: 1.2, px: 2, py: 1.35,
+            border: "1px solid rgba(233,198,107,.45)", borderRadius: 1.5, bgcolor: index === 0 ? "#fff8de" : "rgba(255,255,255,.9)",
+            color: index === 0 ? "custom.deepGreen" : "text.primary", boxShadow: index === 0 ? "inset 3px 0 0 #F4C316" : "none" }}>
+            <Typography sx={{ color: index === 0 ? "custom.yellowSpecial3" : "custom.deepGreen", fontSize: 17 }}>{icon}</Typography>
+            <Typography variant="bodyLarge" sx={{ fontWeight: index === 0 ? 700 : 500 }}>{name}</Typography>
+          </ButtonBase>
+        ))}
+      </Stack>
+    </Box>
+  )
 }

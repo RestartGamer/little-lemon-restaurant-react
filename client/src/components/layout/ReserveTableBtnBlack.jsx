@@ -1,42 +1,15 @@
 import { Typography, ButtonBase } from "@mui/material"
-import { convert } from "../../utils/muiConverter"
-import { alpha } from "@mui/material/styles"
 import { Link as RouteLink } from "react-router-dom"
 
 export function ReserveTableBtnBlack() {
-
-    return (
-        <ButtonBase
-            component={RouteLink}
-            to="/reservation"
-            sx={(theme) => ({
-                bgcolor: alpha(theme.palette.custom.buttonSpecial2, 0.92),
-                px: convert(17),
-                py: convert(12),
-                borderRadius: "7px",
-                border: "1.5px solid",
-                borderColor: "custom.borderGrey1",
-
-                textDecoration: "none",
-                color: "inherit",
-                "&:hover": {
-                    textDecoration: "none",
-                },
-                "&:visited": {
-                    color: "inherit",
-                },
-            })}
-            onClick={() => {
-                window.scrollTo(0, 0)
-            }}>
-            <Typography variant="sectionTitle" component="span" sx={{
-                lineHeight: 1,
-                color: "text.secondary",
-                fontWeight: 500,
-                letterSpacing: "2px",
-            }}>
-                Reserve a table
-            </Typography>
-        </ButtonBase>
-    )
+  return (
+    <ButtonBase component={RouteLink} to="/reservation" onClick={() => window.scrollTo(0,0)} sx={{
+      bgcolor: "custom.deepGreen", px: { xs: 3, md: 4 }, py: { xs: 1.4, md: 1.7 }, borderRadius: 2,
+      border: "2px solid rgba(255,255,255,.9)", boxShadow: "0 8px 24px rgba(0,0,0,.22)", color: "white",
+      transition: "transform .2s ease", "&:hover": { transform: "translateY(-2px)", bgcolor: "#214d40" }
+    }}>
+      <Typography sx={{ mr: 1.3, fontSize: 21 }}>▣</Typography>
+      <Typography variant="bigButtonTitle" sx={{ color: "white", letterSpacing: ".2px" }}>Reserve a table</Typography>
+    </ButtonBase>
+  )
 }
