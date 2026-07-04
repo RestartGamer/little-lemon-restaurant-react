@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   ButtonBase,
@@ -6,9 +5,11 @@ import {
   Typography,
 } from "@mui/material";
 
-export function CategorySelection({ items = [] }) {
-  const [selectedCategory, setSelectedCategory] =
-    useState("");
+export function CategorySelection({
+  items = [],
+  selectedCategory,
+  onSelectCategory,
+}) {
 
   const options = [
     ...new Map(
@@ -47,15 +48,13 @@ export function CategorySelection({ items = [] }) {
           scrollbarWidth: "none",
         }}
       >
-        {options.map(({ value, icon, name }, index) => {
-          const isSelected = selectedCategory
-            ? selectedCategory === value
-            : index === 0;
+        {options.map(({ value, icon, name }) => {
+          const isSelected = selectedCategory === value;
 
           return (
             <ButtonBase
               key={value}
-              onClick={() => setSelectedCategory(value)}
+              onClick={() => onSelectCategory(value)}
               sx={{
                 minWidth: {
                   xs: 145,

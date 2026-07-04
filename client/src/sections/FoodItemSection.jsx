@@ -1,22 +1,35 @@
-import { Stack } from "@mui/material"
-import { FoodItem } from "../components"
+import { Stack } from "@mui/material";
+import { FoodItem } from "../components";
 
-export function FoodItemSection({ items, isOpenMenu, isOpenCart }) {
+export function FoodItemSection({
+  items,
+  selectedCategory,
+  isOpenMenu,
+  isOpenCart,
+}) {
+  const visibleItems = items.filter(
+    (item) =>
+      item.type === "foodItem" &&
+      item.category.value === selectedCategory
+  );
+
   return (
-    <Stack sx={{
-      flex: 1,
-      gap: 1.4,
-      minWidth: 0,
-    }}>
-      {items.filter(item => item.type === "foodItem").map((item) => (
+    <Stack
+      sx={{
+        flex: 1,
+        gap: 1.4,
+        minWidth: 0,
+      }}
+    >
+      {visibleItems.map((item) => (
         <FoodItem
           key={item.id}
-          items={items} 
+          items={items}
           {...item}
           isOpenMenu={isOpenMenu}
           isOpenCart={isOpenCart}
         />
       ))}
     </Stack>
-  )
+  );
 }

@@ -22,6 +22,8 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
     useState(true);
   const [foodItemsError, setFoodItemsError] =
     useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState("meat");
 
   useEffect(() => {
     let isActive = true;
@@ -125,10 +127,15 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
                   md: 3,
                 }}
               >
-                <CategorySelection items={foodItems}/>
+                <CategorySelection
+                  items={foodItems}
+                  selectedCategory={selectedCategory}
+                  onSelectCategory={setSelectedCategory}
+                />
 
                 <FoodItemSection
                   items={foodItems}
+                  selectedCategory={selectedCategory}
                   isOpenMenu={isOpenMenu}
                   isOpenCart={isOpenCart}
                 />
