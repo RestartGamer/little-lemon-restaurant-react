@@ -160,12 +160,32 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
     function handleScroll() {
       const currentScrollY = window.scrollY
 
-      setIsScrollingDown(currentScrollY > previousScrollY.current)
+      const scrollDifference =
+        currentScrollY - previousScrollY.current
+
+      const distanceFromBottom =
+        document.documentElement.scrollHeight -
+        window.innerHeight -
+        currentScrollY
+
+      const scrollThreshold = 8
+
+      if (currentScrollY <= 20) {
+        setIsScrollingDown(false)
+      } else if (distanceFromBottom < 50) {
+        setIsScrollingDown(true)
+      } else if (scrollDifference > scrollThreshold) {
+        setIsScrollingDown(true)
+      } else if (scrollDifference < -scrollThreshold) {
+        setIsScrollingDown(false)
+      }
 
       previousScrollY.current = currentScrollY
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    })
 
     return () => {
       window.removeEventListener("scroll", handleScroll)

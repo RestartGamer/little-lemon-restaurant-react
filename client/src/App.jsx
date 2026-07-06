@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
@@ -71,6 +71,12 @@ function App() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const muiTheme = useMemo(() => createTheme(themeSettings), [])
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, [])
 
   return (
     <ThemeProvider theme={muiTheme}>
