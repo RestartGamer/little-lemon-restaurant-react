@@ -17,7 +17,7 @@ The redesign keeps the existing React routes, data loading, cart context, authen
 - Food detail: `ItemDetails.jsx`, `AddOrReserveSection.jsx`, `MenuBook.jsx`
 - Checkout: `CheckoutFoodList.jsx`, `HighlightReelSection.jsx`, `PaymentMethod.jsx`, `CheckoutPage.jsx`
 - Reservation: `ReservationPage.jsx`
-- Shared CTAs: `AddToCartBtn.jsx`, `ReserveTableBtnBlack.jsx`, `ReserveTableBtnWhite.jsx`
+- Shared CTAs: `AddToCartBtn.jsx`, `ReserveTableBtnGreen.jsx`, `ReserveTableBtnWhite.jsx`, `ReserveTableBtnYellow.jsx`
 
 ## Editing guide
 

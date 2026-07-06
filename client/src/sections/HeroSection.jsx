@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material"
 import { heroImage2 } from "../assets"
-import { ReserveTableBtnBlack } from "../components"
+import { ReserveTableBtnGreen } from "../components"
 
 export function HeroSection() {
   return (
@@ -8,7 +8,7 @@ export function HeroSection() {
       <Box component="img" src={heroImage2} alt="Restaurant table ready for guests" sx={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: { xs: "50% 60%", md: "50% 58%" } }} />
       <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,.08),transparent 55%,rgba(0,0,0,.18))" }} />
       <Box sx={{ position: "absolute", left: "50%", bottom: { xs: 20, md: 28 }, transform: "translateX(-50%)" }}>
-        <ReserveTableBtnBlack />
+        <ReserveTableBtnGreen />
       </Box>
     </Stack>
   )
