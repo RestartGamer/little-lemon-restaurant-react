@@ -8,7 +8,6 @@ import {
   useTheme,
 } from "@mui/material";
 
-
 import { Link as RouteLink } from "react-router-dom";
 
 import {
@@ -21,6 +20,7 @@ import {
 import {
   logoNew,
   littleLemonLogoNew,
+  profileIcon,
   hamBtnIcon,
   cartIcon,
   infoIcon,
@@ -28,23 +28,53 @@ import {
 
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
-import { convert } from "../../utils/muiConverter"
-
+import { convert } from "../../utils/muiConverter";
 
 let desktopOptionId = 0;
-const desktopOptions = [
-  { id: desktopOptionId++, name: "home", state: true, hoveredState: false, displayName: "Homepage", path: "/" },
-  { id: desktopOptionId++, name: "aboutus", state: false, hoveredState: false, displayName: "About us", path: "/" },
-  { id: desktopOptionId++, name: "menu", state: false, hoveredState: false, displayName: "Menu", path: "/" },
-  { id: desktopOptionId++, name: "gallery", state: false, hoveredState: false, displayName: "Gallery", path: "/" },
 
-]
+const desktopOptions = [
+  {
+    id: desktopOptionId++,
+    name: "home",
+    state: true,
+    hoveredState: false,
+    displayName: "Homepage",
+    path: "/",
+  },
+  {
+    id: desktopOptionId++,
+    name: "aboutus",
+    state: false,
+    hoveredState: false,
+    displayName: "About us",
+    path: "/",
+  },
+  {
+    id: desktopOptionId++,
+    name: "menu",
+    state: false,
+    hoveredState: false,
+    displayName: "Menu",
+    path: "/",
+  },
+  {
+    id: desktopOptionId++,
+    name: "gallery",
+    state: false,
+    hoveredState: false,
+    displayName: "Gallery",
+    path: "/",
+  },
+];
 
 const collapseAnimationSpeed = "0.5s";
 
-
-function CartItemCounter({ cartButtonRef, buttonActions, cartIcon, cartItems }) {
-
+function CartItemCounter({
+  cartButtonRef,
+  buttonActions,
+  cartIcon,
+  cartItems,
+}) {
   return (
     <ButtonBase
       ref={cartButtonRef}
@@ -64,7 +94,6 @@ function CartItemCounter({ cartButtonRef, buttonActions, cartIcon, cartItems }) 
           },
         }}
       />
-
 
       {cartItems.length > 0 && (
         <Box
@@ -89,51 +118,90 @@ function CartItemCounter({ cartButtonRef, buttonActions, cartIcon, cartItems }) 
         </Box>
       )}
     </ButtonBase>
-  )
+  );
 }
 
-
-export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }) {
-
+export function Navbar({
+  isOpenMenu,
+  setIsOpenMenu,
+  isOpenCart,
+  setIsOpenCart,
+}) {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [optionState, setOptionState] = useState(desktopOptions);
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
 
   const buttonActions = {
     cart: () => {
       setIsOpenCart((prev) => !prev);
       setIsOpenMenu(false);
+      setIsOpenProfile(false);
     },
 
     menu: () => {
       setIsOpenMenu((prev) => !prev);
       setIsOpenCart(false);
+      setIsOpenProfile(false);
     },
   };
 
-  const { cartItems, addToCart, removeFromCart, } = useCart();
-  const { logoutUser, isAuthenticated, } = useAuth();
+  const {
+    cartItems,
+    addToCart,
+    removeFromCart,
+  } = useCart();
+
+  const {
+    logoutUser,
+    isAuthenticated,
+  } = useAuth();
 
   const hamButtonRef = useRef(null);
   const cartButtonRef = useRef(null);
   const hamDropdownRef = useRef(null);
   const cartDropdownRef = useRef(null);
   const loginWindowRef = useRef(null);
+  const profileButtonRef = useRef(null);
+
+  // Added a separate ref for the profile menu.
+  const profileMenuRef = useRef(null);
 
   useEffect(() => {
     function offClickHandler(event) {
-      const clickedOutsideMenuButton = !hamButtonRef.current?.contains(event.target);
-      const clickedOutsideCartButton = !cartButtonRef.current?.contains(event.target);
-      const clickedOutsideMenuDropdown = !hamDropdownRef.current?.contains(event.target);
-      const clickedOutsideCartDropdown = !cartDropdownRef.current?.contains(event.target);
-      const clickedOutsideLoginWindow = !loginWindowRef.current?.contains(event.target);
+      const clickedOutsideMenuButton =
+        !hamButtonRef.current?.contains(event.target);
+
+      const clickedOutsideCartButton =
+        !cartButtonRef.current?.contains(event.target);
+
+      const clickedOutsideMenuDropdown =
+        !hamDropdownRef.current?.contains(event.target);
+
+      const clickedOutsideCartDropdown =
+        !cartDropdownRef.current?.contains(event.target);
+
+      const clickedOutsideLoginWindow =
+        !loginWindowRef.current?.contains(event.target);
+
+      const clickedOutsideProfileButton =
+        !profileButtonRef.current?.contains(event.target);
+
+      const clickedOutsideProfileMenu =
+        !profileMenuRef.current?.contains(event.target);
 
       if (
-        clickedOutsideMenuButton && clickedOutsideCartButton && clickedOutsideMenuDropdown &&
-        clickedOutsideCartDropdown && clickedOutsideLoginWindow
+        clickedOutsideMenuButton &&
+        clickedOutsideCartButton &&
+        clickedOutsideMenuDropdown &&
+        clickedOutsideCartDropdown &&
+        clickedOutsideLoginWindow &&
+        clickedOutsideProfileButton &&
+        clickedOutsideProfileMenu
       ) {
         setIsOpenMenu(false);
         setIsOpenCart(false);
+        setIsOpenProfile(false);
       }
     }
 
@@ -148,51 +216,50 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
   }, [setIsOpenMenu, setIsOpenCart]);
 
   const theme = useTheme();
-  const isAboveMD = useMediaQuery(theme.breakpoints.up("md"));
+  const isAboveMD = useMediaQuery(
+    theme.breakpoints.up("md")
+  );
 
-
-
-
-
-  const previousScrollY = useRef(0)
+  const previousScrollY = useRef(0);
 
   useEffect(() => {
     function handleScroll() {
-      const currentScrollY = window.scrollY
+      const currentScrollY = window.scrollY;
 
       const scrollDifference =
-        currentScrollY - previousScrollY.current
+        currentScrollY - previousScrollY.current;
 
       const distanceFromBottom =
         document.documentElement.scrollHeight -
         window.innerHeight -
-        currentScrollY
+        currentScrollY;
 
-      const scrollThreshold = 8
+      const scrollThreshold = 4;
 
       if (currentScrollY <= 20) {
-        setIsScrollingDown(false)
+        setIsScrollingDown(false);
       } else if (distanceFromBottom < 50) {
-        setIsScrollingDown(true)
+        setIsScrollingDown(true);
       } else if (scrollDifference > scrollThreshold) {
-        setIsScrollingDown(true)
+        setIsScrollingDown(true);
       } else if (scrollDifference < -scrollThreshold) {
-        setIsScrollingDown(false)
+        setIsScrollingDown(false);
       }
 
-      previousScrollY.current = currentScrollY
+      previousScrollY.current = currentScrollY;
     }
 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
-    })
+    });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+    };
+  }, []);
 
   return (
     <>
@@ -206,21 +273,31 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
           position: "sticky",
           top: 0,
           width: "100%",
+
           minHeight: {
             xs: 70,
-            md: isScrollingDown ? "100px" : "190px",
+            md: isScrollingDown
+              ? "100px"
+              : "190px",
           },
+
           bgcolor: "rgba(255, 253, 248, 0.88)",
+
           px: {
             xs: 2.5,
-            md: 5,
+            md: "4%",
           },
+
           zIndex: 20,
+
           borderBottom:
             "1px solid rgba(24, 62, 50, 0.14)",
+
           boxShadow:
             "0 3px 14px rgba(30, 40, 34, 0.05)",
+
           backdropFilter: "blur(10px)",
+
           transition: `min-height ${collapseAnimationSpeed} ease-in-out`,
         }}
       >
@@ -234,170 +311,258 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
             px: convert(25),
           }}
         >
+          {!isAboveMD ? (
+            <>
+              <ButtonBase
+                ref={hamButtonRef}
+                onClick={buttonActions.menu}
+                aria-label="Open menu"
+              >
+                <Box
+                  component="img"
+                  src={hamBtnIcon}
+                  sx={{
+                    width: {
+                      xs: 27,
+                      md: 30,
+                    },
+                  }}
+                />
+              </ButtonBase>
 
-          {
-            !isAboveMD
+              <Box
+                component={RouteLink}
+                to="/"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={littleLemonLogoNew}
+                  sx={{
+                    width: {
+                      xs: 155,
+                      md: 220,
+                    },
 
-              ?
+                    maxHeight: {
+                      xs: 54,
+                      md: 68,
+                    },
 
-              (
-                <>
-                  <ButtonBase
-                    ref={hamButtonRef}
-                    onClick={buttonActions.menu}
-                    aria-label="Open menu"
-                  >
-                    <Box
-                      component="img"
-                      src={hamBtnIcon}
-                      sx={{
-                        width: {
-                          xs: 27,
-                          md: 30,
-                        },
-                      }}
-                    />
-                  </ButtonBase>
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
 
-                  <Box
-                    component={RouteLink}
-                    to="/"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={littleLemonLogoNew}
-                      sx={{
-                        width: {
-                          xs: 155,
-                          md: 220,
-                        },
-                        maxHeight: {
-                          xs: 54,
-                          md: 68,
-                        },
-                        objectFit: "contain",
-                      }}
-                    />
-                  </Box>
+              <CartItemCounter
+                cartButtonRef={cartButtonRef}
+                buttonActions={buttonActions}
+                cartIcon={cartIcon}
+                cartItems={cartItems}
+              />
+            </>
+          ) : (
+            <>
+              <Box
+                component={RouteLink}
+                to="/"
+                sx={{
+                  height: isScrollingDown
+                    ? "90px"
+                    : "130px",
 
-                  <CartItemCounter cartButtonRef={cartButtonRef} buttonActions={buttonActions} cartIcon={cartIcon} cartItems={cartItems} />
-                </>
-              )
+                  overflow: "clip",
 
-              :
+                  transition: `height ${collapseAnimationSpeed} ease-in-out`,
+                }}
+              >
+                <Box
+                  component="img"
+                  src={littleLemonLogoNew}
+                  sx={{
+                    width: "377px",
+                    fontWeight: 600,
+                    aspectRatio: "377px / 102px",
 
-              (
+                    transition: `width ${collapseAnimationSpeed} ease-in-out`,
+                  }}
+                />
+              </Box>
 
-                <>
-                  <Box component={RouteLink} to={"/"} sx={{
-                    height: isScrollingDown ? "90px" : "130px",
-                    overflow: "clip",
-                    transition: `height ${collapseAnimationSpeed} ease-in-out`
-                  }}>
-                    <Box component="img" src={littleLemonLogoNew} sx={{
-                      width: "377px",
-                      fontWeight: 600,
-                      aspectRatio: "377px / 102px",
-                      transition: `width ${collapseAnimationSpeed} ease-in-out`,
-                    }} />
-
-                  </Box>
-                  <Stack direction="row" sx={{
-                    alignItems: "flex-start",
-                    justifyContent: "center",
-                    gap: convert(48),
-                  }}>
-
-
-                    {
-                      optionState.map(({ name, displayName, path, state, hoveredState }) => {
-                        return (
-                          <ButtonBase
-                            component={RouteLink}
-                            to={path}
-
-                            onClick={() => setOptionState((previousOptions) => {
-                              return previousOptions.map(option => ({
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  gap: convert(48),
+                }}
+              >
+                {optionState.map(({
+                  name,
+                  displayName,
+                  path,
+                  state,
+                  hoveredState,
+                }) => {
+                  return (
+                    <ButtonBase
+                      key={name}
+                      component={RouteLink}
+                      to={path}
+                      onClick={() =>
+                        setOptionState(
+                          (previousOptions) => {
+                            return previousOptions.map(
+                              (option) => ({
                                 ...option,
-                                state: option.name === name,
-                              }))
-                            })}
-
-                            onMouseEnter={() => setOptionState((previousOptions) => {
-                              return previousOptions.map(option => ({
+                                state:
+                                  option.name === name,
+                              })
+                            );
+                          }
+                        )
+                      }
+                      onMouseEnter={() =>
+                        setOptionState(
+                          (previousOptions) => {
+                            return previousOptions.map(
+                              (option) => ({
                                 ...option,
-                                hoveredState: option.name === name,
-                              }))
-                            })}
-
-                            onMouseLeave={() => setOptionState((previousOptions) => {
-                              return previousOptions.map(option => ({
+                                hoveredState:
+                                  option.name === name,
+                              })
+                            );
+                          }
+                        )
+                      }
+                      onMouseLeave={() =>
+                        setOptionState(
+                          (previousOptions) => {
+                            return previousOptions.map(
+                              (option) => ({
                                 ...option,
                                 hoveredState: false,
-                              }))
-                            })}
-
-                            disableRipple={true}
-
-                            sx={{
-                              position: "relative",
-                              justifyContent: "flex-start",
-                              alignItems: "center",
-                            }} >
-                            <Typography variant="bigButtonTitle" sx={{
-                              color: "custom.deepGreen",
-                              fontFamily: `"Karla", sans-serif`
-                            }}>
-                              {displayName}
-                            </Typography>
-
-                            {
-                              state || hoveredState
-                                ? <Box sx={{
-                                  position: "absolute",
-                                  top: "100%",
-                                  left: "50%",
-                                  transform: "translateX(-50%)",
-                                  width: "44px",
-                                  borderTop: "4px solid",
-                                  borderColor: "custom.yellowSpecial3",
-                                  borderRadius: "9px",
-                                  mt: convert(9),
-                                }} />
-                                : null
-                            }
-
-
-                          </ButtonBase>
-
+                              })
+                            );
+                          }
                         )
-                      })
-                    }
-                  </Stack>
-                  <ReserveTableBtnYellow />
-                  <CartItemCounter cartButtonRef={cartButtonRef} buttonActions={buttonActions} cartIcon={cartIcon} cartItems={cartItems} />
+                      }
+                      disableRipple
+                      sx={{
+                        position: "relative",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        variant="bigButtonTitle"
+                        sx={{
+                          color: "custom.deepGreen",
+                          fontFamily: `"Karla", sans-serif`,
+                        }}
+                      >
+                        {displayName}
+                      </Typography>
 
-                </>
+                      {(state || hoveredState) && (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "100%",
+                            left: "50%",
 
-              )}
+                            transform:
+                              "translateX(-50%)",
 
+                            width: "44px",
 
+                            borderTop: "4px solid",
+                            borderColor:
+                              "custom.yellowSpecial3",
 
+                            borderRadius: "9px",
+                            mt: convert(9),
+                          }}
+                        />
+                      )}
+                    </ButtonBase>
+                  );
+                })}
+              </Stack>
+
+              <ReserveTableBtnYellow />
+
+              <Box
+                sx={{
+                  borderLeft: "1px solid",
+                  borderColor: "black",
+                  height: "50px",
+                }}
+              />
+
+              <ButtonBase
+                ref={profileButtonRef}
+                onClick={() => {
+                  setIsOpenProfile(
+                    (previousState) => !previousState
+                  );
+
+                  setIsOpenMenu(false);
+                  setIsOpenCart(false);
+                }}
+                aria-label="Open profile menu"
+                sx={{
+                  display: "inline-flex",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={profileIcon}
+                  alt=""
+                  sx={{
+                    width: "50px",
+                    objectFit: "cover",
+                  }}
+                />
+                <Box sx={{
+                  position:"absolute",
+                  top: 100,
+                  overflow: "clip",
+                  width: "143px",
+                  height: "221px"
+                  
+
+                }}>
+                  <MainMenu
+                    forwardRef={profileMenuRef}
+                    orientation="right"
+                    logoutUser={logoutUser}
+                    setIsOpenMenu={setIsOpenProfile}
+                    setIsOpenCart={setIsOpenCart}
+                    isOpenMenu={isOpenProfile}
+                  />
+                </Box>
+
+              </ButtonBase>
+              <CartItemCounter cartButtonRef={cartButtonRef} buttonActions={buttonActions} cartIcon={cartIcon} cartItems={cartItems} />
+
+            </>
+          )}
         </Stack>
 
-
-        <MainMenu
-          forwardRef={hamDropdownRef}
-          orientation="left"
-          logoutUser={logoutUser}
-          setIsOpenMenu={setIsOpenMenu}
-          setIsOpenCart={setIsOpenCart}
-          isOpenMenu={isOpenMenu}
-        />
+        {!isOpenProfile && (
+          <MainMenu
+            forwardRef={hamDropdownRef}
+            orientation="left"
+            logoutUser={logoutUser}
+            setIsOpenMenu={setIsOpenMenu}
+            setIsOpenCart={setIsOpenCart}
+            isOpenMenu={isOpenMenu}
+          />
+        )}
 
         {isAuthenticated ? (
           <ShoppingCart
@@ -420,3 +585,6 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
     </>
   );
 }
+
+
+

@@ -79,11 +79,13 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
         try {
             setServerError("")
             await loginUser(data.email, data.password);
-            setIsOpenCart(false)
+            setIsOpenCart(false) 
+            startLoading();
             checkAuth()
         } catch (error) {
             setServerError(error.message)
             checkAuth();
+            
         }
 
     }

@@ -21,6 +21,7 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
     } = useAuth();
 
     return (
+        
         <Stack ref={forwardRef} sx={{
             alignItems: "flex-start",
             justifyContent: "flex-start",
@@ -46,9 +47,11 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
             }),
 
             ...(orientation === "right" && {
+                top:0,
                 right: 0,
                 alignItems: "flex-end",
-                transform: isOpenMenu ? "translateX(0)" : "translateX(100%)",
+                borderRadius: "0 0 30px 30px",
+                transform: isOpenMenu ? "translateY(0)" : "translateY(-100%)",
             }),
             opacity: isOpenMenu ? 1 : 0.5,
             pointerEvents: isOpenMenu ? "auto" : "none",
