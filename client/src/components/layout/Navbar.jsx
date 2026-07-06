@@ -96,8 +96,8 @@ function CartItemCounter({ cartButtonRef, buttonActions, cartIcon, cartItems }) 
 export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }) {
 
   const [isScrollingDown, setIsScrollingDown] = useState(false);
-
   const [optionState, setOptionState] = useState(desktopOptions);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   const buttonActions = {
     cart: () => {
@@ -188,7 +188,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
           width: "100%",
           minHeight: {
             xs: 70,
-            md: isScrollingDown ? "100px" : "210px",
+            md: isScrollingDown ? "100px" : "190px",
           },
           bgcolor: "rgba(255, 253, 248, 0.88)",
           px: {
