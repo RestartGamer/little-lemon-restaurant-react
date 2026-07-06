@@ -211,7 +211,8 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
             width: "100%",
             justifyContent: "space-between",
             alignItems: "center",
-            gap: convert(50)
+            gap: convert(50),
+            px: convert(25),
           }}
         >
 
