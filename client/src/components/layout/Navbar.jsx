@@ -34,10 +34,10 @@ import { convert } from "../../utils/muiConverter"
 
 let desktopOptionId = 0;
 const desktopOptions = [
-  { id: desktopOptionId++, name: "home", state: true, displayName: "Homepage", path: "/" },
-  { id: desktopOptionId++, name: "aboutus", state: false, displayName: "About us", path: "/" },
-  { id: desktopOptionId++, name: "menu", state: false, displayName: "Menu", path: "/" },
-  { id: desktopOptionId++, name: "gallery", state: false, displayName: "Gallery", path: "/" },
+  { id: desktopOptionId++, name: "home", state: true, hoveredState: false, displayName: "Homepage", path: "/" },
+  { id: desktopOptionId++, name: "aboutus", state: false, hoveredState: false, displayName: "About us", path: "/" },
+  { id: desktopOptionId++, name: "menu", state: false, hoveredState: false, displayName: "Menu", path: "/" },
+  { id: desktopOptionId++, name: "gallery", state: false, hoveredState: false, displayName: "Gallery", path: "/" },
 
 ]
 
@@ -191,7 +191,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
             xs: 70,
             md: isScrollingDown ? "100px" : "210px",
           },
-          bgcolor: "rgba(255, 253, 248, 0.97)",
+          bgcolor: "rgba(255, 253, 248, 0.88)",
           px: {
             xs: 2.5,
             md: 5,
@@ -295,7 +295,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
 
 
                     {
-                      optionState.map(({ name, displayName, path, state }) => {
+                      optionState.map(({ name, displayName, path, state, hoveredState }) => {
                         return (
                           <ButtonBase
                             component={RouteLink}
@@ -307,6 +307,22 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
                                 state: option.name === name,
                               }))
                             })}
+
+                            onMouseEnter={() => setOptionState((previousOptions) => {
+                              return previousOptions.map(option => ({
+                                ...option,
+                                hoveredState: option.name === name,
+                              }))
+                            })}
+
+                            onMouseLeave={() => setOptionState((previousOptions) => {
+                              return previousOptions.map(option => ({
+                                ...option,
+                                hoveredState: false,
+                              }))
+                            })}
+
+                            disableRipple={true}
 
                             sx={{
                               position: "relative",
@@ -321,7 +337,7 @@ export function Navbar({ isOpenMenu, setIsOpenMenu, isOpenCart, setIsOpenCart, }
                             </Typography>
 
                             {
-                              state
+                              state || hoveredState
                                 ? <Box sx={{
                                   position: "absolute",
                                   top: "100%",
