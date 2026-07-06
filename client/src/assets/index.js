@@ -3,7 +3,6 @@
 export { default as logo } from "./icons/logo.png"
 export { default as logoNew } from "./icons/logoNew2.png"
 export { default as littleLemonLogoNew } from "./icons/LittleLemonLogoNew.png"
-export { default as littleLemonLogoNewSmall } from "./icons/LittleLemonLogoNew_Small.png"
 
 
 //Images

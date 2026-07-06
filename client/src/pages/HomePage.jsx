@@ -52,7 +52,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
         if (isActive) {
           setFoodItemsError(
             error.message ||
-              "Could not load menu items."
+            "Could not load menu items."
           );
         }
       } finally {
@@ -122,10 +122,13 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
                   xs: "column",
                   md: "row",
                 }}
-                gap={{
-                  xs: 2,
-                  md: 3,
+                sx={{
+                  gap: {
+                    xs: 2,
+                    md: 3,
+                  }
                 }}
+
               >
                 <CategorySelection
                   items={foodItems}

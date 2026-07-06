@@ -21,7 +21,6 @@ import {
 import {
   logoNew,
   littleLemonLogoNew,
-  littleLemonLogoNewSmall,
   hamBtnIcon,
   cartIcon,
   infoIcon,

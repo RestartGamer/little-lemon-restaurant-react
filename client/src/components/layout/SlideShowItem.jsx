@@ -28,7 +28,7 @@ export function SlideShowItem({
         minHeight: 190,
         bgcolor: "rgba(255, 255, 255, 0.96)",
         border: "1px solid rgba(233, 198, 107, 0.45)",
-        borderRadius: 2.5,
+        borderRadius: 2,
         overflow: "hidden",
         boxShadow: "0 7px 20px rgba(35, 45, 40, 0.08)",
       }}

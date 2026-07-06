@@ -1,21 +1,85 @@
-import { useRef } from "react";
-import { Box, ButtonBase, Stack } from "@mui/material";
-import { SlideShowItem } from "../components";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+
+import {
+  Box,
+  ButtonBase,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material"
+
+import { SlideShowItem } from "../components"
+
+const visibleItemsByBreakpoint = {
+  xs: 1,
+  md: 2,
+  lg: 3,
+}
 
 export function SlideShowSection({ items = [] }) {
-  const scrollerRef = useRef(null);
+  const [selectedStackIndex, setSelectedStackIndex] = useState(0)
+
+  const scrollerRef = useRef(null)
+
+  const theme = useTheme()
+
+  const isAboveLG = useMediaQuery(theme.breakpoints.up("lg"))
+  const isAboveMD = useMediaQuery(theme.breakpoints.up("md"))
+
+  const visibleItems = isAboveLG
+    ? visibleItemsByBreakpoint.lg
+    : isAboveMD
+      ? visibleItemsByBreakpoint.md
+      : visibleItemsByBreakpoint.xs
+
+  const itemStacks = []
+
+  for (
+    let index = 0;
+    index < items.length;
+    index += visibleItems
+  ) {
+    itemStacks.push(
+      items.slice(index, index + visibleItems)
+    )
+  }
+
+  useEffect(() => {
+    setSelectedStackIndex(0)
+
+    scrollerRef.current?.scrollTo({
+      left: 0,
+    })
+  }, [visibleItems])
 
   function handleScroll(direction) {
-    const scroller = scrollerRef.current;
+    const scroller = scrollerRef.current
 
-    if (!scroller) return;
+    if (!scroller) return
 
-    const scrollAmount = scroller.clientWidth * 0.85;
+    const lastStackIndex = itemStacks.length - 1
 
-    scroller.scrollBy({
-      left: direction === "right" ? scrollAmount : -scrollAmount,
+    const nextStackIndex =
+      direction === "right"
+        ? Math.min(
+          selectedStackIndex + 1,
+          lastStackIndex
+        )
+        : Math.max(
+          selectedStackIndex - 1,
+          0
+        )
+
+    setSelectedStackIndex(nextStackIndex)
+
+    scroller.scrollTo({
+      left: scroller.clientWidth * nextStackIndex,
       behavior: "smooth",
-    });
+    })
   }
 
   return (
@@ -26,11 +90,13 @@ export function SlideShowSection({ items = [] }) {
           xs: "22px",
           md: "40px",
         },
+
         "--carousel-gap": "18px",
+
         "--visible-items": {
-          xs: 1,
-          md: 2,
-          lg: 3,
+          xs: visibleItemsByBreakpoint.xs,
+          md: visibleItemsByBreakpoint.md,
+          lg: visibleItemsByBreakpoint.lg,
         },
 
         "--frame-width": `calc(
@@ -53,10 +119,12 @@ export function SlideShowSection({ items = [] }) {
         onClick={() => handleScroll("left")}
         sx={{
           position: "absolute",
+
           left: {
             xs: 5,
             md: 20,
           },
+
           top: "44%",
           transform: "translateY(-50%)",
           zIndex: 5,
@@ -122,10 +190,12 @@ export function SlideShowSection({ items = [] }) {
         onClick={() => handleScroll("right")}
         sx={{
           position: "absolute",
+
           right: {
             xs: 5,
             md: 20,
           },
+
           top: "44%",
           transform: "translateY(-50%)",
           zIndex: 5,
@@ -143,30 +213,36 @@ export function SlideShowSection({ items = [] }) {
       <Stack
         className="SlideShowSection__Pagination"
         direction="row"
-        justifyContent="center"
-        gap={1}
-        mt={2}
+        sx={{
+          justifyContent: "center",
+          gap: 1,
+          mt: 2,
+        }}
       >
-        {[0, 1, 2, 3].map((index) => (
-          <Box
-            key={index}
-            className={`SlideShowSection__PaginationDot ${
-              index === 0
-                ? "SlideShowSection__PaginationDot--Active"
-                : ""
-            }`}
-            sx={{
-              width: index === 0 ? 18 : 9,
-              height: 9,
-              borderRadius: 9,
-              bgcolor:
-                index === 0
+        {itemStacks.map((itemStack, index) => {
+          const isSelected =
+            index === selectedStackIndex
+
+          return (
+            <Box
+              key={itemStack[0]?.id ?? index}
+              className={`SlideShowSection__PaginationDot ${isSelected
+                  ? "SlideShowSection__PaginationDot--Active"
+                  : ""
+                }`}
+              sx={{
+                width: isSelected ? 18 : 9,
+                height: 9,
+                borderRadius: 9,
+
+                bgcolor: isSelected
                   ? "custom.yellowSpecial3"
                   : "#d9d5cc",
-            }}
-          />
-        ))}
+              }}
+            />
+          )
+        })}
       </Stack>
     </Box>
-  );
+  )
 }
