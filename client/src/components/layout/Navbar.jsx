@@ -441,7 +441,7 @@ export function Navbar({
               aria-label="Little Lemon homepage"
               sx={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start",
 
                 height: isScrollingDown
                   ? "90px"
@@ -460,6 +460,7 @@ export function Navbar({
                   width: "377px",
                   fontWeight: 600,
                   aspectRatio: "377px / 102px",
+                  objectFit: "cover"
                 }}
               />
             </Box>
