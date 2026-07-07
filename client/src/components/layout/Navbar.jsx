@@ -285,7 +285,7 @@ export function Navbar({
 
           px: {
             xs: 2.5,
-            md: "4%",
+            md: "1%",
           },
 
           zIndex: 20,
@@ -462,6 +462,7 @@ export function Navbar({
                         sx={{
                           color: "custom.deepGreen",
                           fontFamily: `"Karla", sans-serif`,
+                          whiteSpace: "nowrap"
                         }}
                       >
                         {displayName}

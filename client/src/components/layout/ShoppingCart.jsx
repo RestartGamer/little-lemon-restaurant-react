@@ -146,7 +146,8 @@ export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef,
             position: "absolute",
             top: "100%",
             right: 0,
-            overflow: "clip"
+            overflow: "clip",
+            pointerEvents: isOpenCart ? "auto" : "none"
         }}>
             <Stack ref={forwardRef} sx={{
 

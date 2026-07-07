@@ -44,6 +44,7 @@ export function ReserveTableBtnYellow() {
         sx={{
           color: "text.primary",
           letterSpacing: ".2px",
+          whiteSpace: "nowrap"
         }}
       >
         Reserve a table
