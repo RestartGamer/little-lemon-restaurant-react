@@ -1,114 +1,123 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
-import { Navbar, InfoBanner, SelectionMenu } from "./components"
-import { HeroSection, FoodItemSection } from "./sections"
+import { Navbar, BottomInfo, Footer } from "./components"
 import { Routes, Route } from "react-router-dom"
-import { HomePage, DetailsPage, ReservationPage } from "./pages"
-import { convert } from "./utils/muiConverter"
+import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
+import { BGPattern } from "./assets"
 import './App.css'
 
 const sharedTypography = {
   fontFamily: `"Karla", sans-serif`,
+  heroTitle: { fontFamily: `"Markazi Text", serif`, fontWeight: 600, fontSize: "54px" },
+  headingTitle: { fontFamily: `"Markazi Text", serif`, fontWeight: 600, fontSize: "42px" },
+  sectionTitle: { fontFamily: `"Markazi Text", serif`, fontWeight: 600, fontSize: "30px" },
+  bigCardTitle: { fontFamily: `"Markazi Text", serif`, fontWeight: 600, fontSize: "24px" },
+  bigButtonTitle: { fontWeight: 600, fontSize: "20px" },
 
-  heroTitle: {
-    fontFamily: `"Markazi Text", sans-serif`,
-    fontWeight: 500, //Medium
-    fontSize: "60px",
-  },
-  headingTitle: {
-    fontFamily: `"Markazi Text", sans-serif`,
-    fontWeight: 400, //Regular
-    fontSize: "45px",
-  },
-  sectionTitle: {
-    fontWeight: 500, //Medium -- semiBold
-    fontSize: "28px"
-  },
-  bigButtonTitle: {
-    fontWeight: 500, //medium
-    fontSize: "22px"
-  },
-  cardTitle: {
-    fontWeight: 500, //medium
-    fontSize: "16px"
-  },
-  bodyLarge: {
-    fontWeight: 400, //Regular -- 600 for semiBold
-    fontSize: "14px"
-  },
-  bodyMedium: {
-    fontWeight: 400, //Regular -- 500 for Medium
-    fontSize: "12px"
-  },
-  bodySmall: {
-
-  },
+  cardTitle: { fontWeight: 600, fontSize: "16px" },
+  bodyLarge: { fontWeight: 400, fontSize: "16px" },
+  bodyMedium: { fontWeight: 400, fontSize: "14px" },
+  bodySmall: { fontWeight: 400, fontSize: "12px" },
 }
 
 const themeSettings = {
   typography: sharedTypography,
+  shape: { borderRadius: 12 },
   palette: {
-    background: {
-      default: "#FFFFFF",
-      paper: "#CDCDCD",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FFFFFF",
-    },
+    background: { default: "#FFFDF8", paper: "#F3F0EA" },
+    text: { primary: "#1D211F", secondary: "#FFFFFF" },
     custom: {
-      textSpecial: "#FECE14",
-      borderNormal: "#000000",
-      borderSpecial: "#FFF87D",
-      borderSpecial2: "#FECE14",
-      borderGrey: "#A2A2A2",
-      borderGrey1: "#818181",
-      heroTitleBg: "#494949",
-      buttonSpecial: "#C7C7C7",
-      buttonSpecial2: "#222222",
-      backgroundSpecial: "#FECE14",
-      bigButtonBg: "#157C28",
-      bigButtonBorder: "#2C2C2C",
-      backgroundSecondary: "#E8E8E8",
+      textSpecial: "#F4C316",
+      borderNormal: "#223D33",
+      yellowSpecial: "#FFF5D8",
+      yellowSpecial2: "#FFF9EA",
+      yellowSpecial3: "#F4C316",
+      greenSpecial: "#B9D19D",
+      deepGreen: "#173C2C",
+      borderSpecial2: "#F4C316",
+      borderGrey: "#D8D2C7",
+      borderGrey1: "#A9A298",
+      heroTitleBg: "#173C2C",
+      heroTitleTextBorder: "352C00",
+      buttonSpecial: "#F9F5EC",
+      buttonSpecial2: "#173C2C",
+      backgroundSpecial: "#F4C316",
+      bigButtonBg: "#173C2C",
+      bigButtonBorder: "#123129",
+      backgroundSecondary: "#F8F4EC",
+      bottomInfoBg: "#F0EDEA",
+      cream: "#FFF9EA",
+      softGold: "#E9C66B",
     },
-  }
-
+  },
+  components: {
+    MuiTextField: {
+      defaultProps: { variant: "outlined" },
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: '#FFFFFF',
+            borderRadius: 9,
+          },
+        },
+      },
+    },
+  },
 }
-
 
 function App() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
+  const muiTheme = useMemo(() => createTheme(themeSettings), [])
 
-  const muiTheme = useMemo(() =>
-    createTheme(themeSettings), []
-  )
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, [])
+
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       <LoadingProvider>
         <AuthProvider>
-
           <CartProvider>
-            <Stack sx={{
+            <Stack className="PageFull" sx={{
               position: "relative",
-              pb: convert(30),
+              minHeight: "100vh",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              isolation: "isolate",
+              bgcolor: "background.default",
+              "&::before": {
+                content: `""`,
+                position: "fixed",
+                inset: 0,
+                backgroundImage: `url(${BGPattern})`,
+                backgroundRepeat: "repeat",
+                backgroundSize: { xs: "620px auto", md: "980px auto" },
+                opacity: { xs: 0.16, md: 0.12 },
+                pointerEvents: "none",
+                zIndex: -1,
+              }
             }}>
-
               <Navbar isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
-              <Routes>
-                <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
-                <Route path="/details" element={<DetailsPage />} />
-                <Route path="/reservation" element={<ReservationPage />} />
-              </Routes>
-
+              <Stack className="PageContent" sx={{ width: "100%", alignItems: "center" }}>
+                <Routes>
+                  <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
+                  <Route path="/details" element={<DetailsPage />} />
+                  <Route path="/reservation" element={<ReservationPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                </Routes>
+              </Stack>
             </Stack>
+            <BottomInfo />
+            <Footer />
           </CartProvider>
-
         </AuthProvider>
       </LoadingProvider>
     </ThemeProvider>

@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react"
 import { Box, Stack, Typography, ButtonBase } from "@mui/material"
-import { CustomButton } from "../../components"
+import { CustomButton, CheckoutBtn } from "../../components"
 import { convert } from "../../utils/muiConverter"
 import { trashIcon } from "../../assets"
 
 
-function CartFoodItem({ id, src, title, quantity, price, addToCart, removeFromCart, cartItem }) {
+function CartFoodItem({ src, title, quantity, price, addToCart, removeFromCart, cartItem }) {
     return (
         <Stack direction="row" sx={{
             justifyContent: "flex-end",
@@ -141,90 +140,97 @@ function TotalPrice({ cartItems }) {
     )
 }
 
-export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef }) {
+export function ShoppingCart({ cartItems, addToCart, removeFromCart, forwardRef, setIsOpenMenu, setIsOpenCart, isOpenCart }) {
     return (
-        <Stack ref={forwardRef} sx={{
+        <Box sx={{
             position: "absolute",
             top: "100%",
             right: 0,
-            bgcolor: "custom.backgroundSecondary",
-            width: "fit-content",
-            maxWidth: "100%",
-            height: "fit-content",
-            borderStyle: "solid",
-            borderWidth: "0.5px 1px 1px 1px",
-            borderColor: "black",
-            borderRadius: "0px 0px 0px 26px",
-            px: convert(30),
-            py: convert(29),
-            alignItems: "flex-end"
+            overflow: "clip"
         }}>
-            <Stack sx={{  //item mask
-                overflow: "hidden",
+            <Stack ref={forwardRef} sx={{
+
+                bgcolor: "custom.backgroundSecondary",
                 width: "fit-content",
+                maxWidth: "100%",
                 height: "fit-content",
-                maxHeight: "300px",
-                mb: convert(30),
-                borderBottom: cartItems && cartItems.length > 0 ? "0.5px solid" : "0px solid",
+                borderStyle: "solid",
+                borderWidth: "0.5px 1px 1px 1px",
                 borderColor: "black",
+                borderRadius: "0px 0px 0px 26px",
+                px: convert(30),
+                py: convert(29),
+                alignItems: "flex-end",
+
+                transform: isOpenCart ? "translateY(0)" : "translateY(-100%)",
+
+                opacity: isOpenCart ? 1 : 0.5,
+                pointerEvents: isOpenCart ? "auto" : "none",
+                transition: "transform 300ms ease-out, opacity 300ms ease-out",
+
+
+
             }}>
-                <Stack sx={{
-                    overflow: "auto",
+                <Stack sx={{  //item mask
+                    overflow: "hidden",
                     width: "fit-content",
                     height: "fit-content",
-                    gap: convert(20),
-                }}> {/*full item container*/}
-
-
-                    {
-                        cartItems && cartItems.length > 0
-                            ? (
-                                cartItems.map((cartItem) => {
-                                    const { id, src, title, price, quantity } = cartItem
-                                    return (
-                                        <CartFoodItem
-                                            key={id}
-                                            cartItem={cartItem}
-                                            addToCart={addToCart}
-                                            removeFromCart={removeFromCart}
-                                            id={id}
-                                            src={src}
-                                            title={title}
-                                            price={price}
-                                            quantity={quantity}
-                                        />
-                                    )
-                                })
-                            )
-                            : (
-                                <>Shopping cart is empty</>
-                            )
-                    }
-                </Stack>
-            </Stack>
-
-            <Stack sx={{
-                width: "100%",
-                gap: convert(20),
-                alignSelf: "center",
-            }}>
-                <TotalPrice cartItems={cartItems} />
-
-                <CustomButton textVariant="bodyLarge" buttonSx={{
-                    alignSelf: "center",
-                    bgcolor: "custom.backgroundSpecial",
-                    border: "1px solid",
+                    maxHeight: "300px",
+                    mb: convert(30),
+                    borderBottom: cartItems && cartItems.length > 0 ? "0.5px solid" : "0px solid",
                     borderColor: "black",
-                    px: convert(14),
-                    py: convert(5),
-                }}
-                    textSx={{
-                        fontWeight: 500,
-                    }}>
-                    Go to checkout
-                </CustomButton>
+                }}>
+                    <Stack sx={{
+                        overflow: "auto",
+                        width: "fit-content",
+                        height: "fit-content",
+                        gap: convert(20),
+                    }}> {/*full item container*/}
+
+
+                        {
+                            cartItems && cartItems.length > 0
+                                ? (
+                                    cartItems.map((cartItem) => {
+                                        const { id, src, title, price, quantity } = cartItem
+                                        return (
+                                            <CartFoodItem
+                                                key={id}
+                                                cartItem={cartItem}
+                                                addToCart={addToCart}
+                                                removeFromCart={removeFromCart}
+                                                src={src}
+                                                title={title}
+                                                price={price}
+                                                quantity={quantity}
+                                            />
+                                        )
+                                    })
+                                )
+                                : (
+                                    <>Shopping cart is empty</>
+                                )
+                        }
+                    </Stack>
+                </Stack>
+
+                <Stack sx={{
+                    width: "100%",
+                    gap: convert(20),
+                    alignSelf: "center",
+                }}>
+                    <TotalPrice cartItems={cartItems} />
+                    {
+                        cartItems.length > 0
+                            ? <CheckoutBtn cartItems={cartItems} setIsOpenMenu={setIsOpenMenu} setIsOpenCart={setIsOpenCart} />
+                            : null
+                    }
+
+                </Stack>
+
             </Stack>
 
-        </Stack>
+        </Box>
+
     )
 }

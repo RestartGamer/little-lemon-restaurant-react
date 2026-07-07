@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useRef } from "react";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -50,7 +51,7 @@ export function LoadingProvider({ children }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        zIndex: 99999,
+                        zIndex: 3,
                     }}
                 >
                     <CircularProgress />

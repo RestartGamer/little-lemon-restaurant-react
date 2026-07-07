@@ -11,14 +11,9 @@ const mainMenuOptions = [
     { id: optionId++, name: "Logout", action: "logout" },
 ]
 
-export function MainMenu({ orientation, forwardRef, email, password, logoutUser, setIsOpenMenu, setIsOpenCart }) {
+export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, setIsOpenCart, isOpenMenu }) {
 
-    const {
-        isPageLoading,
-        loadingMessage,
-        startLoading,
-        stopLoading,
-    } = useLoading();
+    const { startLoading } = useLoading();
 
     const {
         checkAuth,
@@ -26,6 +21,7 @@ export function MainMenu({ orientation, forwardRef, email, password, logoutUser,
     } = useAuth();
 
     return (
+        
         <Stack ref={forwardRef} sx={{
             alignItems: "flex-start",
             justifyContent: "flex-start",
@@ -42,11 +38,37 @@ export function MainMenu({ orientation, forwardRef, email, password, logoutUser,
             borderRight: "2px solid",
             borderBottom: "2px solid",
             borderColor: "custom.borderNormal",
+            borderRadius: "0 0 30px 0",
+
+            ...(orientation === "left" && {
+                left: 0,
+                alignItems: "flex-start",
+                transform: isOpenMenu ? "translateX(0)" : "translateX(-100%)",
+            }),
+
+            ...(orientation === "right" && {
+                top:0,
+                right: 0,
+                alignItems: "flex-end",
+                borderRadius: "0 0 30px 30px",
+                transform: isOpenMenu ? "translateY(0)" : "translateY(-100%)",
+            }),
+            opacity: isOpenMenu ? 1 : 0.5,
+            pointerEvents: isOpenMenu ? "auto" : "none",
+            transition: "transform 300ms ease-out, opacity 300ms ease-out",
+
         }}>
             {mainMenuOptions.map(({ id, name, route, action = null }) => {
                 return action === null ? (
 
-                    <ButtonBase key={id} component={RouteLink} to={route}
+                    <ButtonBase
+                        key={id}
+                        component={RouteLink}
+                        to={route}
+                        onClick={() => {
+                            setIsOpenMenu(false);
+                            setIsOpenCart(false);
+                        }}
                         sx={{
                             bgcolor: "background.paper",
                             px: convert(7),
@@ -60,13 +82,16 @@ export function MainMenu({ orientation, forwardRef, email, password, logoutUser,
 
                 )
                     : action === "logout" && isAuthenticated ? (
-                        <ButtonBase key={id} onClick={() => {
-                            logoutUser();
-                            setIsOpenMenu(false);
-                            setIsOpenCart(false);
-                            startLoading();
-                            checkAuth();
-                        }}
+                        <ButtonBase key={id}
+                            component={RouteLink}
+                            to="/"
+                            onClick={() => {
+                                logoutUser();
+                                setIsOpenMenu(false);
+                                setIsOpenCart(false);
+                                startLoading();
+                                checkAuth();
+                            }}
                             sx={{
                                 bgcolor: "red",
                                 px: convert(7),

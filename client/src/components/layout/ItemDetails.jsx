@@ -1,144 +1,140 @@
-import { Box, Typography, Stack } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { convert } from "../../utils/muiConverter"
 
-function ItemDescription({ description }) {
-
-    return (
-        <Typography component="p" variant="cardTitle" sx={{
-            fontWeight: 400,
-            color: "text.primary",
-            textAlign: "start",
-        }}>
-            {description}
-        </Typography>
-    )
-}
-
-function Divider({ width = "80%", sx={} }) {
-
-    return (
-        <Box sx={{
-            width: width,
-            height: "fit-content",
-            display: "inline-flex",
-            ...sx,
-        }}>
-            <Box
-                component="hr"
-                sx={{
-                    width: "100%",
-                    maxWidth: "1080px",
-                    maxHeight:"2px",
-                    border: "none",
-                    borderBottom: "1px solid",
-                    borderColor: "custom.borderNormal",
-                    
-                }} />
+function Highlights({ highlights = [] }) {
+  return (
+    <Stack
+      direction={{
+        xs: "column",
+        sm: "row",
+      }}
+      sx={{
+        width: "100%",
+        justifyContent: "center",
+        gap: 1.5,
+        mt: 2.5,
+      }}
+    >
+      {highlights.map((highlight) => (
+        <Box
+          key={highlight}
+          sx={{
+            px: 2.2,
+            py: 1.1,
+            borderRadius: 999,
+            bgcolor: "#F0F2DA",
+            border: "1px solid rgba(120,137,75,.16)",
+          }}
+        >
+          <Typography
+            variant="bodyMedium"
+            sx={{
+              color: "#34422f",
+              fontWeight: 600,
+            }}
+          >
+            {highlight}
+          </Typography>
         </Box>
-    )
+      ))}
+    </Stack>
+  )
 }
 
-function PriceBox({ price }) {
+export function ItemDetails({ src, title, descriptionLong, price, highlights, }) {
+  return (
+    <Stack
+      sx={{
+        width: "calc(100% - 32px)",
+        maxWidth: 980,
 
-    return (
-        <Box sx={{
-            display: "inline-flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-        }}>
-            <Typography component="span" variant="cardTitle" sx={{
-                color: "text.primary",
-                fontWeight: 600,
-            }}>
-                {price}
-            </Typography>
-        </Box>
-    )
-}
+        mt: {
+          xs: 2,
+          md: 4,
+        },
 
-function HighlightBox({ highlights }) {
+        p: {
+          xs: 2,
+          md: 3,
+        },
 
-    return (
-        <Stack 
+        borderRadius: 3,
+        bgcolor: "rgba(255,255,255,.96)",
+        boxShadow: "0 10px 30px rgba(28,45,37,.09)",
+        border: "1px solid rgba(233,198,107,.28)",
+      }}
+    >
+      <Stack
+        direction={{
+          xs: "column",
+          md: "row",
+        }}
         sx={{
-            width: "100%",
-            maxWidth: "300px",
-            justifyContent: "start",
-            alignItems: "start",
-            bgcolor: "custom.heroTitleBg",
-            border: "2px solid",
-            borderColor: "custom.borderSpecial2",
-            px: convert(9),
-            py: convert(3),
-        }}>
-            {highlights.map(highlight => {
-                return (
-                    <Typography component="span" variant="bodyMedium" sx={{
-                        color: "text.secondary",
-                        textAlign: "start",
-                    }}>
-                        {highlight}
-                    </Typography>
-                )
-            })
+          gap: {
+            xs: 2.5,
+            md: 4
+          }
+        }}
 
-            }
+      >
+        <Box
+          component="img"
+          src={src}
+          alt={title}
+          sx={{
+            width: {
+              xs: "100%",
+              md: "48%",
+            },
+
+            aspectRatio: "1 / 1",
+            objectFit: "cover",
+            borderRadius: 2.5,
+
+          }}
+        />
+
+        <Stack
+          sx={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}
+        >
+          <Typography
+            variant="headingTitle"
+            sx={{
+              color: "text.primary",
+              lineHeight: 1,
+            }}
+          >
+            {title}
+          </Typography>
+
+          <Typography
+            sx={{
+              fontFamily: `"Markazi Text", serif`,
+              fontSize: 34,
+              mt: 1,
+            }}
+          >
+            ${Number(price || 0).toFixed(2)}
+          </Typography>
+
+          <Typography
+            variant="bodyLarge"
+            sx={{
+              mt: 1.5,
+              lineHeight: 1.45,
+              color: "#404743",
+            }}
+          >
+            {descriptionLong}
+          </Typography>
         </Stack>
+      </Stack>
 
-    )
-}
-
-
-export function ItemDetails({ src, title, description, price, highlights }) {
-
-    return (
-        <Stack sx={{
-            justifyContent: "start",
-            alignItems: "center",
-            pt: convert(20),
-            pb: convert(10),
-            gap: convert(20)
-        }}>
-
-
-            <Stack direction="row" sx={{
-                width: "100%",
-                height: "max-content",
-                minHeight: "180px",
-                justifyContent: "space-between",
-                alignItems: "center",
-                px: convert(18),
-                
-            }}>
-
-                <Box component="img" src={src} alt={`An image of ${title}`} sx={{
-                    minWidth: "186px",
-                    width: "34%",
-                    aspectRatio: "1 / 1",
-                    objectFit: "cover",
-                }} />
-
-                <Stack sx={{
-                    minWidth: "199px",
-                    maxWidth: "40%",
-                    height: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "end",
-                }}>
-
-
-                    <ItemDescription description={description} />
-                    <Divider width="80%" sx={{
-                        py: convert(8)
-                    }}/>
-                    <PriceBox price={price} />
-                    <HighlightBox highlights={highlights} />
-
-
-                </Stack>
-
-            </Stack>
-            <Divider width="80%" />
-        </Stack>
-    )
+      <Highlights highlights={highlights} />
+    </Stack>
+  )
 }
