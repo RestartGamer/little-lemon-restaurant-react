@@ -38,7 +38,7 @@ export function FoodItem({
   return (
     <Stack
       component={RouteLink}
-      to="/details"
+      to={`/details/${id}`}
       state={{
         items,
         id,

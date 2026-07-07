@@ -19,6 +19,7 @@ export function FoodItemSection({
         flex: 1,
         gap: 1.4,
         minWidth: 0,
+        minHeight: "500px"
       }}
     >
       {visibleItems.map((item) => (

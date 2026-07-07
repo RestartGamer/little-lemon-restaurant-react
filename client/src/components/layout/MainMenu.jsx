@@ -6,12 +6,20 @@ import { useLoading, useAuth } from "../../context"
 let optionId = 0;
 const mainMenuOptions = [
     { id: optionId++, name: "Homepage", route: "/" },
-    { id: optionId++, name: "About us", route: "/" },
+    { id: optionId++, name: "About us", route: "/#about" },
     { id: optionId++, name: "Reserve a table", route: "/reservation" },
     { id: optionId++, name: "Logout", action: "logout" },
 ]
 
-export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, setIsOpenCart, isOpenMenu }) {
+export function MainMenu({
+    orientation,
+    forwardRef,
+    logoutUser,
+    setIsOpenMenu,
+    setIsOpenCart,
+    isOpenMenu,
+    isMasked = false,
+}) {
 
     const { startLoading } = useLoading();
 
@@ -21,14 +29,25 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
     } = useAuth();
 
     return (
-        
+
         <Stack ref={forwardRef} sx={{
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            position: "absolute",
-            top: "100%",
+
+            position: isMasked
+                ? "relative"
+                : "absolute",
+
+            top: isMasked
+                ? 0
+                : "100%",
+
+            width: "fit-content",
+            height: "fit-content",
+
             ...(orientation === "left" && { left: 0, alignItems: "flex-start" }),
             ...(orientation === "right" && { right: 0, alignItems: "flex-end" }),
+
             px: convert(30),
             py: convert(30),
             bgcolor: "background.paper",
@@ -47,12 +66,15 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
             }),
 
             ...(orientation === "right" && {
-                top:0,
+                top: 0,
                 right: 0,
                 alignItems: "flex-end",
                 borderRadius: "0 0 30px 30px",
-                transform: isOpenMenu ? "translateY(0)" : "translateY(-100%)",
+                transform: isOpenMenu
+                    ? "translateY(0)"
+                    : "translateY(-100%)",
             }),
+
             opacity: isOpenMenu ? 1 : 0.5,
             pointerEvents: isOpenMenu ? "auto" : "none",
             transition: "transform 300ms ease-out, opacity 300ms ease-out",
@@ -75,7 +97,8 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
                             py: convert(5),
                             border: "1px solid",
                             borderColor: "custom.borderNormal",
-                            borderRadius: "6px"
+                            borderRadius: "6px",
+                            whiteSpace: "nowrap"
                         }}>
                         {name}
                     </ButtonBase>
@@ -98,7 +121,8 @@ export function MainMenu({ orientation, forwardRef, logoutUser, setIsOpenMenu, s
                                 py: convert(5),
                                 border: "1px solid",
                                 borderColor: "custom.borderNormal",
-                                borderRadius: "6px"
+                                borderRadius: "6px",
+                                whiteSpace: "nowrap"
                             }}>
                             {name}
                         </ButtonBase>

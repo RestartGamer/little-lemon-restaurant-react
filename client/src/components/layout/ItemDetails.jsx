@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { convert } from "../../utils/muiConverter"
 
 function Highlights({ highlights = [] }) {
   return (

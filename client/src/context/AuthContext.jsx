@@ -1,113 +1,137 @@
-/* eslint-disable react-refresh/only-export-components, react-hooks/set-state-in-effect */
-import { createContext, useContext, useEffect, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useLoading } from ".";
 import { API_BASE_URL, getAuthHeaders } from "../config/api";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const { stopLoading } = useLoading();
+  const [user, setUser] = useState(null);
+  const { stopLoading } = useLoading();
 
-    const isAuthenticated = user !== null;
+  const isAuthenticated = user !== null;
 
-    async function login(email, password) {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
+  const login = useCallback(async (email, password) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Login failed");
-        }
-
-        const data = await response.json();
-
-        setUser(data.user);
-        localStorage.setItem("token", data.token);
-
-        return data.user;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Login failed");
     }
 
-    function logout() {
-        setUser(null);
-        localStorage.removeItem("token");
+    const data = await response.json();
+
+    setUser(data.user);
+    localStorage.setItem("token", data.token);
+
+    return data.user;
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+    localStorage.removeItem("token");
+  }, []);
+
+  const register = useCallback(async (
+    name,
+    email,
+    password
+  ) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Register failed");
     }
 
-    async function register(email, password) {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
+    const data = await response.json();
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Register failed");
-        }
+    setUser(data.user);
+    localStorage.setItem("token", data.token);
 
-        const data = await response.json();
+    return data.user;
+  }, []);
 
-        setUser(data.user);
-        localStorage.setItem("token", data.token);
+  const checkAuth = useCallback(async () => {
+    const token = localStorage.getItem("token");
 
-        return data.user;
+    if (!token) {
+      stopLoading();
+      return;
     }
 
-    async function checkAuth() {
-        const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: getAuthHeaders(),
+      });
 
-        if (!token) {
-            stopLoading();
-            return;
-        }
+      if (!response.ok) {
+        logout();
+        return;
+      }
 
-        try {
-            const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
-                headers: getAuthHeaders(),
-            });
-
-            if (!response.ok) {
-                logout();
-                return;
-            }
-
-            const data = await response.json();
-            setUser(data.user);
-        } catch {
-            logout();
-        } finally {
-            stopLoading();
-        }
+      const data = await response.json();
+      setUser(data.user);
+    } catch {
+      logout();
+    } finally {
+      stopLoading();
     }
+  }, [logout, stopLoading]);
 
-    useEffect(() => {
-        checkAuth();
-    }, []);
+  useEffect(() => {
+    const authCheckTimeout = window.setTimeout(() => {
+      checkAuth();
+    }, 0);
 
-    const value = {
-        user,
-        setUser,
-        isAuthenticated,
-        loginUser: login,
-        logoutUser: logout,
-        checkAuth,
-        registerUser: register,
+    return () => {
+      window.clearTimeout(authCheckTimeout);
     };
+  }, [checkAuth]);
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const value = useMemo(() => ({
+    user,
+    setUser,
+    isAuthenticated,
+    loginUser: login,
+    logoutUser: logout,
+    checkAuth,
+    registerUser: register,
+  }), [
+    user,
+    isAuthenticated,
+    login,
+    logout,
+    checkAuth,
+    register,
+  ]);
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }

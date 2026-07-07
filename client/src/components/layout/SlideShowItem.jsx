@@ -36,7 +36,7 @@ export function SlideShowItem({
       <ButtonBase
         className="SlideShowItem__ImageLink"
         component={RouteLink}
-        to="/details"
+        to={`/details/${id}`}
         state={{
           items,
           id,
