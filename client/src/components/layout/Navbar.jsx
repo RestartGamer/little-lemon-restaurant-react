@@ -504,6 +504,7 @@ export function Navbar({
               />
 
               <ButtonBase
+              className="ProfileBtn"
                 ref={profileButtonRef}
                 onClick={() => {
                   setIsOpenProfile(
@@ -529,7 +530,7 @@ export function Navbar({
                 />
                 <Box sx={{
                   position:"absolute",
-                  top: 100,
+                  top: "100%",
                   overflow: "clip",
                   width: "143px",
                   height: "221px"
