@@ -1,32 +1,39 @@
 # Little Lemon redesign notes
 
-The redesign keeps the existing React routes, data loading, cart context, authentication context, order submission, reservation form validation, and component exports intact. The work is concentrated in the MUI theme and the existing visual components.
+The redesign keeps the original restaurant flow while applying a consistent premium visual system across the existing React components.
 
-## Shared visual system
+## Visual system
 
-- `client/src/App.jsx` defines the cream, deep-green, lemon-yellow, soft-gold, and sage palette.
-- `Markazi Text` remains the display serif; `Karla` remains the interface/body font.
-- The page-wide lemon pattern is a low-opacity fixed pseudo-element on `.PageFull`.
-- Cards use white/cream surfaces, thin gold borders, restrained shadows, and rounded corners.
+- Cream, deep-green, lemon-yellow, soft-gold, and sage palette
+- `Markazi Text` for display typography and `Karla` for interface text
+- Low-opacity repeating lemon pattern behind the page
+- White and cream surfaces with restrained shadows and thin gold borders
+- Responsive desktop and mobile navigation
 
-## Main components changed
+## Main areas
 
-- Navigation: `Navbar.jsx`, `BackBtn.jsx`, `InfoBanner.jsx`
-- Shared page structure: `ContentSection.jsx`, `SectionTitle.jsx`, `BottomInfo.jsx`, `Footer.jsx`
-- Home: `HeroSection.jsx`, `SlideShowSection.jsx`, `SlideShowItem.jsx`, `CategorySelection.jsx`, `FoodItemSection.jsx`, `FoodItem.jsx`
-- Food detail: `ItemDetails.jsx`, `AddOrReserveSection.jsx`, `MenuBook.jsx`
-- Checkout: `CheckoutFoodList.jsx`, `HighlightReelSection.jsx`, `PaymentMethod.jsx`, `CheckoutPage.jsx`
-- Reservation: `ReservationPage.jsx`
-- Shared CTAs: `AddToCartBtn.jsx`, `ReserveTableBtnGreen.jsx`, `ReserveTableBtnWhite.jsx`, `ReserveTableBtnYellow.jsx`
+- Navigation and account/cart menus
+- Hero and information banner
+- Recommendation carousel
+- Category selection and food list
+- Product details and related menu
+- Reservation form
+- Checkout and payment section
+- Footer and supporting calls to action
 
 ## Editing guide
 
-- Change brand colors in `themeSettings.palette.custom` inside `client/src/App.jsx`.
-- Change page pattern scale/opacity in the `.PageFull &::before` block in `App.jsx`.
-- Change desktop content width in `ContentSection.jsx`.
-- Change card spacing/radius/shadows in the individual components; the values are deliberately local so each visual block is easy to study.
-- Existing image imports and API image URLs were retained.
+- Brand colors and typography: `client/src/App.jsx`
+- Page background pattern: `.PageFull` styles in `client/src/App.jsx`
+- Shared content width: `client/src/sections/ContentSection.jsx`
+- Individual card spacing, borders, and shadows: local component `sx` objects
 
 ## Verification
 
-`npm run build` completes successfully in `client/`.
+From the repository root, run:
+
+```bash
+npm run check
+```
+
+This executes ESLint, the API integration tests, and the production frontend build.

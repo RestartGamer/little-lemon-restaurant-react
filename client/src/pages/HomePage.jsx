@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
 
 import {
@@ -17,6 +18,7 @@ import {
 import { API_BASE_URL } from "../config/api";
 
 export function HomePage({ isOpenMenu, isOpenCart }) {
+  const { hash } = useLocation();
   const [foodItems, setFoodItems] = useState([]);
   const [isLoadingFoodItems, setIsLoadingFoodItems] =
     useState(true);
@@ -24,6 +26,26 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
     useState("");
   const [selectedCategory, setSelectedCategory] =
     useState("meat");
+
+  useEffect(() => {
+    const targetId = hash.replace("#", "");
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      if (!targetId) {
+        window.scrollTo({ top: 0 });
+        return;
+      }
+
+      document.getElementById(targetId)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [hash, isLoadingFoodItems]);
 
   useEffect(() => {
     let isActive = true;
@@ -74,7 +96,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
       <HeroSection />
 
       <ContentSection>
-        <SectionTitle title="Order Takeout" />
+        <SectionTitle id="menu" title="Order Takeout" />
 
         <InfoBanner />
 

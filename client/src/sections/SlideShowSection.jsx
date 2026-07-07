@@ -21,10 +21,12 @@ const visibleItemsByBreakpoint = {
 }
 
 export function SlideShowSection({ items = [] }) {
-  const [selectedStackIndex, setSelectedStackIndex] = useState(0)
+  const [selection, setSelection] = useState({
+    visibleItems: visibleItemsByBreakpoint.xs,
+    index: 0,
+  })
 
   const scrollerRef = useRef(null)
-
   const theme = useTheme()
 
   const isAboveLG = useMediaQuery(theme.breakpoints.up("lg"))
@@ -48,20 +50,36 @@ export function SlideShowSection({ items = [] }) {
     )
   }
 
-  useEffect(() => {
-    setSelectedStackIndex(0)
+  const selectedStackIndex =
+    selection.visibleItems === visibleItems
+      ? Math.min(
+        selection.index,
+        Math.max(itemStacks.length - 1, 0)
+      )
+      : 0
 
+  useEffect(() => {
     scrollerRef.current?.scrollTo({
       left: 0,
     })
   }, [visibleItems])
+
+  function updateSelectedStack(index) {
+    setSelection({
+      visibleItems,
+      index,
+    })
+  }
 
   function handleScroll(direction) {
     const scroller = scrollerRef.current
 
     if (!scroller) return
 
-    const lastStackIndex = itemStacks.length - 1
+    const lastStackIndex = Math.max(
+      itemStacks.length - 1,
+      0
+    )
 
     const nextStackIndex =
       direction === "right"
@@ -74,7 +92,7 @@ export function SlideShowSection({ items = [] }) {
           0
         )
 
-    setSelectedStackIndex(nextStackIndex)
+    updateSelectedStack(nextStackIndex)
 
     scroller.scrollTo({
       left: scroller.clientWidth * nextStackIndex,
@@ -82,8 +100,24 @@ export function SlideShowSection({ items = [] }) {
     })
   }
 
+  function handleScrollerScroll(event) {
+    const scroller = event.currentTarget
+
+    if (!scroller.clientWidth) return
+
+    const nextStackIndex = Math.min(
+      Math.round(scroller.scrollLeft / scroller.clientWidth),
+      Math.max(itemStacks.length - 1, 0)
+    )
+
+    if (nextStackIndex !== selectedStackIndex) {
+      updateSelectedStack(nextStackIndex)
+    }
+  }
+
   return (
     <Box
+      id="gallery"
       className="SlideShowSection__Container SlideShowSection__Clipper"
       sx={{
         "--carousel-padding": {
@@ -112,11 +146,13 @@ export function SlideShowSection({ items = [] }) {
         px: "var(--carousel-padding)",
         pb: 3,
         boxSizing: "border-box",
+        scrollMarginTop: "110px",
       }}
     >
       <ButtonBase
         className="SlideShowSection__NavigationButton SlideShowSection__NavigationButton--Left"
         onClick={() => handleScroll("left")}
+        aria-label="Show previous recommended items"
         sx={{
           position: "absolute",
 
@@ -142,6 +178,7 @@ export function SlideShowSection({ items = [] }) {
       <Box
         ref={scrollerRef}
         className="SlideShowSection__Content SlideShowSection__Scroller"
+        onScroll={handleScrollerScroll}
         sx={{
           width: "100%",
           overflowX: "auto",
@@ -188,6 +225,7 @@ export function SlideShowSection({ items = [] }) {
       <ButtonBase
         className="SlideShowSection__NavigationButton SlideShowSection__NavigationButton--Right"
         onClick={() => handleScroll("right")}
+        aria-label="Show next recommended items"
         sx={{
           position: "absolute",
 
@@ -227,9 +265,9 @@ export function SlideShowSection({ items = [] }) {
             <Box
               key={itemStack[0]?.id ?? index}
               className={`SlideShowSection__PaginationDot ${isSelected
-                  ? "SlideShowSection__PaginationDot--Active"
-                  : ""
-                }`}
+                ? "SlideShowSection__PaginationDot--Active"
+                : ""
+              }`}
               sx={{
                 width: isSelected ? 18 : 9,
                 height: 9,

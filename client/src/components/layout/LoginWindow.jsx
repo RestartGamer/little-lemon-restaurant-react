@@ -64,9 +64,9 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
         resolver: zodResolver(AuthSchema),
         mode: "onChange",
         defaultValues: {
-            name: "dummy",
-            email: "dummy@dummy.com",
-            password: "dummypass",
+            name: "",
+            email: "",
+            password: "",
         },
     });
 
@@ -94,7 +94,7 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
         try {
             setServerError("")
             startLoading();
-            await registerUser(data.email, data.password);
+            await registerUser(data.name, data.email, data.password);
             setIsOpenCart(false)
             checkAuth();
         } catch (error) {
@@ -112,7 +112,7 @@ export function LoginWindow({ loginWindowRef, setIsOpenCart, isOpenCart }) {
                 position: "fixed",
                 top: "20%",
                 left: "50%",
-                width: "374px",
+                width: "min(374px, calc(100vw - 32px))",
                 gap: convert(30),
                 px: convert(45),
                 pt: convert(48),

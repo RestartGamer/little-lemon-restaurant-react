@@ -1,5 +1,5 @@
-Add local screenshots here after running the app:
+# Interface previews
 
-- home.png
-- cart.png
-- checkout.png
+- `navbar-desktop.png` shows the desktop navigation and the beginning of the restaurant hero area.
+
+Additional full-page desktop and mobile captures can be added after deployment.

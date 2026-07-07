@@ -1,12 +1,35 @@
-import { useState, useMemo, useEffect } from 'react'
+import { lazy, Suspense, useState, useMemo, useEffect } from 'react'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { CartProvider, AuthProvider, LoadingProvider } from "./context";
 import { CssBaseline, Stack } from "@mui/material"
 import { Navbar, BottomInfo, Footer } from "./components"
 import { Routes, Route } from "react-router-dom"
-import { HomePage, DetailsPage, ReservationPage, CheckoutPage } from "./pages"
 import { BGPattern } from "./assets"
 import './App.css'
+
+const HomePage = lazy(() =>
+  import("./pages/HomePage").then((module) => ({
+    default: module.HomePage,
+  }))
+)
+
+const DetailsPage = lazy(() =>
+  import("./pages/DetailsPage").then((module) => ({
+    default: module.DetailsPage,
+  }))
+)
+
+const ReservationPage = lazy(() =>
+  import("./pages/ReservationPage").then((module) => ({
+    default: module.ReservationPage,
+  }))
+)
+
+const CheckoutPage = lazy(() =>
+  import("./pages/CheckoutPage").then((module) => ({
+    default: module.CheckoutPage,
+  }))
+)
 
 const sharedTypography = {
   fontFamily: `"Karla", sans-serif`,
@@ -107,12 +130,15 @@ function App() {
                 isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
               <Stack className="PageContent" sx={{ width: "100%", alignItems: "center" }}>
-                <Routes>
-                  <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
-                  <Route path="/details" element={<DetailsPage />} />
-                  <Route path="/reservation" element={<ReservationPage />} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
-                </Routes>
+                <Suspense fallback={null}>
+                  <Routes>
+                    <Route path="/" element={<HomePage isOpenMenu={isOpenMenu} isOpenCart={isOpenCart} />} />
+                    <Route path="/details/:itemId" element={<DetailsPage />} />
+                    <Route path="/details" element={<DetailsPage />} />
+                    <Route path="/reservation" element={<ReservationPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                  </Routes>
+                </Suspense>
               </Stack>
             </Stack>
             <BottomInfo />

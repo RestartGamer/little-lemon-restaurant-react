@@ -1,26 +1,30 @@
-# Little Lemon Restaurant React
+# Little Lemon Restaurant
 
-A responsive Little Lemon restaurant ordering app built with React, Vite, Material UI, React Router, React Hook Form, Zod, and an Express mock API.
+A responsive restaurant ordering experience built with React, Material UI, React Router, React Hook Form, Zod, and an Express REST API.
 
-## Features
+![Little Lemon desktop navigation](docs/screenshots/navbar-desktop.png)
 
-- Responsive restaurant landing page
-- Menu fetched from the Express API
-- Product details page
-- Shopping cart with quantity controls
-- Login/register mock authentication
-- Checkout page with empty, loading, success, and error states
-- Authenticated mock order submission to the backend
-- Reservation form with React Hook Form and Zod validation
-- Express API for auth, food items, and orders
+## Highlights
 
-## Tech Stack
+- Responsive desktop and mobile restaurant interface
+- Menu data loaded from an Express API
+- Category filtering and a responsive recommendation carousel
+- Direct, refresh-safe product detail routes
+- Shopping cart with quantity controls and calculated totals
+- Mock login and registration flow with protected API routes
+- Checkout and authenticated order submission
+- Reservation form validation with React Hook Form and Zod
+- Loading, empty, success, and error states
+- Route-level code splitting
+- Automated API tests
+
+## Tech stack
 
 ### Frontend
 
 - React 19
 - Vite
-- Material UI
+- Material UI and Emotion
 - React Router
 - React Hook Form
 - Zod
@@ -30,43 +34,52 @@ A responsive Little Lemon restaurant ordering app built with React, Vite, Materi
 - Node.js
 - Express
 - CORS
+- Node's built-in test runner
 - In-memory mock data
 
-## Project Structure
+## Project structure
 
-```txt
-client/   React + Vite frontend
-server/   Express mock backend
-shared/   Original shared validation schema copy
+```text
+client/              React and Vite frontend
+server/              Express API, static menu images, and API tests
+docs/screenshots/    Interface previews
 ```
 
-The active frontend validation schema is now copied into `client/src/config/schema.js` so the Vite build can resolve `zod` correctly from the client package.
+## Run locally
 
-## Screenshots
+Node.js 18 or newer is recommended.
 
-Screenshots should be added after running the project locally:
+Install both applications from the repository root:
 
-```txt
-docs/screenshots/home.png
-docs/screenshots/cart.png
-docs/screenshots/checkout.png
+```bash
+npm run install:all
 ```
 
-I could not generate browser screenshots inside this environment because local browser access to `localhost` was blocked, but the section is prepared for your README.
+Start the backend:
 
-## Environment Variables
+```bash
+npm run dev:server
+```
 
-### Client
+Start the frontend in a second terminal:
 
-Create `client/.env` from `client/.env.example`:
+```bash
+npm run dev:client
+```
+
+The frontend runs at `http://localhost:5173` and the API runs at `http://localhost:5000`.
+
+## Environment variables
+
+The project includes local fallback values, but deployment environments should use the provided example files.
+
+### `client/.env`
 
 ```env
 VITE_API_BASE_URL=http://localhost:5000
 ```
 
-### Server
-
-Create `server/.env` from `server/.env.example` if your host supports environment variables:
+### `server/.env`
 
 ```env
 PORT=5000
@@ -74,115 +87,62 @@ CLIENT_URL=http://localhost:5173
 IMAGE_BASE_URL=http://localhost:5000/images
 ```
 
-The project also has safe local fallbacks, so it runs locally even without `.env` files.
+## Quality checks
 
-## Run Locally
-
-Open two terminals.
-
-### 1. Start the backend
+Run linting, API tests, and the production frontend build together:
 
 ```bash
-cd server
-npm install
-npm run dev
+npm run check
 ```
 
-The API runs on:
-
-```txt
-http://localhost:5000
-```
-
-### 2. Start the frontend
+Or run them separately:
 
 ```bash
-cd client
-npm install
-npm run dev
-```
-
-The frontend runs on:
-
-```txt
-http://localhost:5173
-```
-
-## Build Frontend
-
-```bash
-cd client
+npm run lint
+npm run test
 npm run build
 ```
 
-## API Endpoints
+The API test suite covers:
 
-### Auth
+- API health response
+- Menu collection and item lookup
+- User registration and authenticated profile retrieval
+- Rejection of unauthenticated orders
+- Authenticated order creation and retrieval
 
-```txt
+## API endpoints
+
+### Authentication
+
+```text
 POST /api/auth/register
 POST /api/auth/login
 GET  /api/auth/me
 ```
 
-### Food Items
+### Food items
 
-```txt
+```text
 GET /api/food-items
 GET /api/food-items/:id
 ```
 
 ### Orders
 
-```txt
+```text
 POST /api/orders
 GET  /api/orders/my-orders
 ```
 
-Order routes require a mock bearer token from login/register.
+Order routes require the bearer token returned by login or registration.
 
-## Deployment Notes
+## Deployment
 
-I cannot deploy to your hosting accounts from this zip alone, but the project is prepared for deployment.
+Deploy `client/` to a static frontend host and set `VITE_API_BASE_URL` to the deployed API URL.
 
-### Frontend
+Deploy `server/` to a Node.js host and set `CLIENT_URL` and `IMAGE_BASE_URL` to the public frontend and backend URLs.
 
-Deploy `client/` to Netlify, Vercel, or another static host.
+## Mock-backend scope
 
-Set this environment variable in the frontend host:
-
-```env
-VITE_API_BASE_URL=https://your-backend-url.example.com
-```
-
-Then build with:
-
-```bash
-npm run build
-```
-
-### Backend
-
-Deploy `server/` to Render, Railway, Fly.io, or another Node host.
-
-Set these backend environment variables:
-
-```env
-PORT=5000
-CLIENT_URL=https://your-frontend-url.example.com
-IMAGE_BASE_URL=https://your-backend-url.example.com/images
-```
-
-Then start with:
-
-```bash
-npm run start
-```
-
-## Notes
-
-- Food items are now loaded through the API instead of direct frontend imports from the server folder.
-- API URLs are centralized in `client/src/config/api.js`.
-- Checkout now submits orders to `POST /api/orders`.
-- Console debugging logs and unused imports were cleaned up.
-- The frontend build passes. ESLint passes with two existing hook dependency warnings.
+The Express backend is intentionally designed as a portfolio demonstration. Users and orders are stored in memory and reset when the server restarts. Authentication tokens are mock tokens rather than production security credentials. A production version would add a database, password hashing, persistent sessions or signed tokens, and stricter request validation.
