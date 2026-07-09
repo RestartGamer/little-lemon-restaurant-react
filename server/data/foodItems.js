@@ -104,8 +104,8 @@ export const foodItems = [
     type: "foodItem",
 
     category: {
-      value: "meat",
-      name: "Meats",
+      value: "vegan",
+      name: "Vegan",
       icon: "◆",
     },
 
@@ -128,8 +128,8 @@ export const foodItems = [
     type: "foodItem",
 
     category: {
-      value: "meat",
-      name: "Meats",
+      value: "vegan",
+      name: "Vegan",
       icon: "◆",
     },
 
@@ -151,8 +151,8 @@ export const foodItems = [
     type: "foodItem",
 
     category: {
-      value: "meat",
-      name: "Meats",
+      value: "vegan",
+      name: "Vegan",
       icon: "◆",
     },
 
