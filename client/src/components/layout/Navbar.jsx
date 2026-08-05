@@ -53,14 +53,6 @@ const desktopOptions = [
     displayName: "Menu",
     path: "/#menu",
   },
-  {
-    id: 3,
-    name: "gallery",
-    state: false,
-    hoveredState: false,
-    displayName: "Gallery",
-    path: "/#gallery",
-  },
 ];
 
 const collapseAnimationSpeed = "0.35s";
