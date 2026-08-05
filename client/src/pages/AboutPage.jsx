@@ -85,11 +85,13 @@ export function AboutPage() {
                             color: "black",
                             mt: convert(10)
                         }}>
-                            Little Lemon is a family-owned Mediterranean restaurant inspired by traditional
-                            recipes and the joy of sharing good food. We combine fresh ingredients, timeless
-                            flavours and a modern approach to create a warm dining experience for every guest.
-                            Whether you are joining us for a quick lunch or a relaxed evening meal, our goal
-                            is to make every visit feel special.
+                            Little Lemon is a fictional Mediterranean restaurant created as part of a responsive
+                            web-development project. The website presents the restaurant’s menu, brand identity
+                            and services through a clear, modern interface. 
+                            <br/><br/>
+                            The project focuses on reusable React
+                            components, responsive layouts, accessible navigation and an intuitive user experience
+                            across desktop and mobile devices.
                         </Typography>
                         <Stack direction="row" sx={{
                             justifyContent: "space-between",
