@@ -43,7 +43,7 @@ const desktopOptions = [
     state: false,
     hoveredState: false,
     displayName: "About us",
-    path: "/#about",
+    path: "/about",
   },
   {
     id: 2,

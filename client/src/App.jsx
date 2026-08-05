@@ -31,6 +31,12 @@ const CheckoutPage = lazy(() =>
   }))
 )
 
+const AboutPage = lazy(() =>
+  import("./pages/AboutPage").then((module) => ({
+    default: module.AboutPage,
+  }))
+)
+
 const sharedTypography = {
   fontFamily: `"Karla", sans-serif`,
   heroTitle: { fontFamily: `"Markazi Text", serif`, fontWeight: 600, fontSize: "54px" },
@@ -137,6 +143,7 @@ function App() {
                     <Route path="/details" element={<DetailsPage />} />
                     <Route path="/reservation" element={<ReservationPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="/about" element={<AboutPage />} />
                   </Routes>
                 </Suspense>
               </Stack>

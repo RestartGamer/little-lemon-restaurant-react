@@ -3,3 +3,4 @@ export { DetailsPage } from "./DetailsPage"
 export { ReservationPage } from "./ReservationPage"
 
 export { CheckoutPage } from "./CheckoutPage"
+export { AboutPage } from "./AboutPage"
