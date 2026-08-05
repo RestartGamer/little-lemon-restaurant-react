@@ -5,6 +5,9 @@ export { default as profileIcon } from "./icons/profileIcon.svg"
 export { default as HeartCardIcon } from "./icons/HeartCardIcon.png"
 export { default as HouseCardIcon } from "./icons/HouseCardIcon.png"
 export { default as LemonCardIcon } from "./icons/LemonCardIcon.png"
+export { default as lemonIcon2 } from "./icons/lemonIcon2.png"
+
+
 
 // Images
 export { default as heroImage2 } from "./images/heroImage2.jpg"
@@ -19,3 +22,6 @@ export { default as BGPattern } from "./background-images/LittleLemon_BGPattern_
 export { default as hamBtnIcon } from "./utils/hamBtnIcon.png"
 export { default as cartIcon } from "./utils/cartIcon.png"
 export { default as trashIcon } from "./utils/trashIcon.png"
+export { default as arrowRight } from "./utils/arrowRight.png"
+
+

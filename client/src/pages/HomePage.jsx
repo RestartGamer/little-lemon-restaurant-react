@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
+import { useLocation, Link as RouteLink } from "react-router-dom";
+import { Box, Stack, Typography, ButtonBase } from "@mui/material";
 
 import {
   InfoBanner,
@@ -16,6 +16,54 @@ import {
 } from "../sections";
 
 import { API_BASE_URL } from "../config/api";
+
+import { convert } from "../utils/muiConverter"
+
+import { lemonIcon2, arrowRight } from "../assets"
+
+
+function PromoBanner() {
+
+  return (
+    <Stack direction="row" sx={{
+      width: "100%",
+      py: convert(17),
+      bgcolor: "custom.deeperGreen",
+      columnGap: convert(20),
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
+      <Box component="img" alt="image of lemons" src={lemonIcon2} sx={{ width: "20px" }} />
+      <Typography variant="bodyMedium" sx={{
+        color: "text.secondary",
+      }}>
+        Fresh Ingredients. Timeless recipes. Made with love.
+      </Typography>
+      <Typography variant="bodyMedium" sx={{
+        color: "text.secondary",
+      }}>
+        |
+      </Typography>
+      <ButtonBase 
+      component={RouteLink}
+      to="/reservation"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        columnGap: convert(10),
+      }}>
+        <Typography variant="bodyMedium" sx={{
+          color: "custom.textSpecial",
+        }}>
+          <strong>Book your table today</strong>
+        </Typography>
+        <Box component="img" alt="image of lemons" src={arrowRight} sx={{ width: "20px", height: "15px" }} />
+      </ButtonBase>
+
+    </Stack>
+  )
+}
 
 export function HomePage({ isOpenMenu, isOpenCart }) {
   const { hash } = useLocation();
@@ -93,6 +141,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
 
   return (
     <>
+      <PromoBanner />
       <HeroSection />
 
       <ContentSection>
@@ -102,7 +151,7 @@ export function HomePage({ isOpenMenu, isOpenCart }) {
 
         {isLoadingFoodItems ? (
           <Typography variant="bodyLarge">
-            Loading menu...
+            Loading the menu… This may take a few seconds.
           </Typography>
         ) : foodItemsError ? (
           <Typography

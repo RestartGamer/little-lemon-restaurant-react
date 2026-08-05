@@ -65,6 +65,7 @@ const themeSettings = {
       yellowSpecial3: "#F4C316",
       greenSpecial: "#B9D19D",
       deepGreen: "#173C2C",
+      deeperGreen: "#2B361F",
       borderSpecial2: "#F4C316",
       borderGrey: "#D8D2C7",
       borderGrey1: "#A9A298",
