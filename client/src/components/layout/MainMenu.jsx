@@ -6,7 +6,7 @@ import { useLoading, useAuth } from "../../context"
 let optionId = 0;
 const mainMenuOptions = [
     { id: optionId++, name: "Homepage", route: "/" },
-    { id: optionId++, name: "About us", route: "/#about" },
+    { id: optionId++, name: "About us", route: "/about" },
     { id: optionId++, name: "Reserve a table", route: "/reservation" },
     { id: optionId++, name: "Logout", action: "logout" },
 ]
